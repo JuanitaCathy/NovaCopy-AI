@@ -2,6 +2,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import { HoverBorderGradient } from "./hover-border-gradient";
 
 const transition = {
   type: "spring",
@@ -16,10 +17,12 @@ export const MenuItem = ({
   setActive,
   active,
   item,
+  href
 }: {
   setActive: (item: string) => void;
   active: string | null;
   item: string;
+  href: string;
 }) => {
   return (
     <div onMouseEnter={() => setActive(item)} className="relative">
@@ -27,7 +30,9 @@ export const MenuItem = ({
         transition={{ duration: 0.3 }}
         className="cursor-pointer text-base font-semibold text-[#d1d5db] hover:opacity-[0.8]"
       >
-        {item}
+        <Link href={href} scroll={true}>
+          {item}
+        </Link>
       </motion.p>
     </div>
   );
