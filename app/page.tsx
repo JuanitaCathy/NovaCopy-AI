@@ -1,14 +1,17 @@
-
+import dynamic from "next/dynamic";
 import NavbarDemo from "@/components/Header";
-import Image from "next/image";
+import { ShootingStars } from "@/components/ui/shooting-stars";
+import { StarsBackground } from "@/components/ui/stars-background";
+
+const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 w-full max-w-5xl items-center justify-between font-mono text-sm lg:flex">
-        <NavbarDemo />
-        
-      </div>
+    <main className="relative h-screen w-full overflow-hidden">
+      <ShootingStars />
+      <NavbarDemo />
+      <StarsBackground />
+      <Scene />
     </main>
   );
 }
