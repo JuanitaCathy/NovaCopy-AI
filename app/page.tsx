@@ -1,11 +1,8 @@
-import dynamic from "next/dynamic";
 import NavbarDemo from "@/components/Header";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import ShiningButton from "@/components/ui/ShiningButton";
-
-const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
 
 export default function Home() {
   const words = [
@@ -17,13 +14,12 @@ export default function Home() {
   ];
 
   return (
-    <main className="relative min-h-screen overflow-hidden">
+    <main className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center">
       {/* Background Effects */}
       <StarsBackground />
       <ShootingStars />
-      <Scene />
 
-      <div className="z-10 w-full max-w-5xl text-center absolute inset-0 flex flex-col items-center justify-center p-24">
+      <div className="z-10 w-full max-w-5xl text-center p-24">
         <NavbarDemo />
         <h1 className="text-5xl font-bold mt-10">
           Tired of Spending Hours Writing Content?
