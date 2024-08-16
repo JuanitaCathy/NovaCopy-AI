@@ -11,11 +11,11 @@ import { HoverEffect } from "@/components/ui/card-hover-effect";
 
 export default function Home() {
   const words = [
-    { text: "High-Quality Content ", className: "text-pink font-cursive" },
-    { text: "Words That Work ", className: "text-pink font-cursive" },
-    { text: "Time-Saving Copy ", className: "text-pink font-cursive" },
-    { text: "Magic ", className: "text-pink font-cursive" },
-    { text: "Your Future ", className: "text-pink font-cursive" },
+    { text: "High-Quality Content ", className: "text-pink" },
+    { text: "Words That Work ", className: "text-pink" },
+    { text: "Time-Saving Copy ", className: "text-pink" },
+    { text: "Magic ", className: "text-pink" },
+    { text: "Your Future ", className: "text-pink" },
   ];
 
   // Features Data
