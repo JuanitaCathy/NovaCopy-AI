@@ -79,7 +79,7 @@ export default function Home() {
       <StarsBackground />
       <ShootingStars />
 
-      <div className="z-10 w-full max-w-5xl text-center p-4 md:p-6 mt-12 md:mt-24"> {/* Increased margin-top */}
+      <div className="z-10 w-full max-w-5xl text-center p-4 md:p-6 mt-12 md:mt-24"> 
         <NavbarDemo />
         <div className="flex justify-center mb-6">
           <Image src={logo} alt="NovaCopy Logo" width={200} height={170} />
@@ -93,7 +93,6 @@ export default function Home() {
         <h1 className="text-3xl md:text-5xl mb-6 font-bold text-transparent bg-clip-text bg-[linear-gradient(to_bottom,_rgba(255,255,255,0.8),_rgba(237,73,153,0.8))]">
           Tired of Spending Hours Writing Content?
         </h1>
-
 
 
         <div className="flex flex-col md:flex-row items-center justify-center mb-8">
@@ -129,7 +128,7 @@ export default function Home() {
       </section>
 
       {/* Spacing between sections */}
-      <div className="my-8 md:my-16"></div>
+      <div className="my-8 md:my-3"></div>
 
       {/* Sticky Animation Section */}
       <section className="relative w-full max-w-5xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start">
@@ -170,7 +169,7 @@ export default function Home() {
 
 
       {/* Spacing between sections */}
-      <div className="my-8 md:my-10"></div>
+      <div className="my-8 md:my-3"></div>
 
       {/* Features Section */}
       <section className="w-full max-w-5xl py-8 md:py-16 px-4">

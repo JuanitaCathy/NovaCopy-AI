@@ -3,6 +3,7 @@ import { Inter,  Calistoga } from "next/font/google";
 import "./globals.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { ConvexClientProvider } from "./ConvexClientProvider ";
+import icon from "public/NovaCopy_8.svg"
 import { twMerge } from "tailwind-merge";
 
 
@@ -21,8 +22,11 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={twMerge('inter.classname, calistoga.classname, font-sans')}>
-        <ConvexClientProvider>{children}</ConvexClientProvider>
+      <head>
+        <link rel="icon" href="/NovaCopy_8.svg" type="image/svg+xml" />
+      </head>
+        <body className={twMerge('inter.classname, calistoga.classname, font-sans')}>
+          <ConvexClientProvider>{children}</ConvexClientProvider>
         </body>
     </html>
   );

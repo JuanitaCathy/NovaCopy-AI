@@ -1,11 +1,10 @@
-"use client"
-
-import Accordion from '@mui/material/Accordion';
-import AccordionDetails from '@mui/material/AccordionDetails';
-import AccordionSummary from '@mui/material/AccordionSummary';
-import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import Typography from '@mui/material/Typography';
-import Grid from '@mui/material/Grid';
+import React, { useState } from "react";
+import Accordion from "@mui/material/Accordion";
+import AccordionDetails from "@mui/material/AccordionDetails";
+import AccordionSummary from "@mui/material/AccordionSummary";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Typography from "@mui/material/Typography";
+import Grid from "@mui/material/Grid";
 
 const faqItems = [
   { id: 1, question: "What is NovaCopy AI?", answer: "NovaCopy AI is an advanced artificial intelligence platform designed to streamline the content creation process for businesses of all sizes. By leveraging cutting-edge technology, our tool generates high-quality, tailored copy in a matter of seconds." },
@@ -21,6 +20,14 @@ const faqItems = [
 ];
 
 const FAQSection = () => {
+  // State to keep track of the expanded FAQ item
+  const [expanded, setExpanded] = useState<string | false>(false);
+
+  const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
+    // If the panel is expanded, close it; otherwise, open the new panel and close the previous one
+    setExpanded(isExpanded ? (expanded === panel ? false : panel) : false);
+  };
+
   return (
     <div className="p-6">
       <Grid container spacing={4}>
@@ -28,7 +35,11 @@ const FAQSection = () => {
           {faqItems.slice(0, 5).map((item) => (
             <Accordion
               key={item.id}
-              className="bg-transparent border border-white rounded-2xl mb-4 max-w-[500px] mx-auto"
+              expanded={expanded === `panel${item.id}`}
+              onChange={handleChange(`panel${item.id}`)}
+              className={`bg-transparent border rounded-xl mb-4 ${
+                expanded === `panel${item.id}` ? "border-pink-500 shadow-lg" : "border-white"
+              }`} // Apply pink glow border if expanded
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
@@ -47,12 +58,15 @@ const FAQSection = () => {
           ))}
         </Grid>
 
-        {/* Right Column */}
         <Grid item xs={12} md={6} className="pl-2">
           {faqItems.slice(5).map((item) => (
             <Accordion
               key={item.id}
-              className="bg-transparent border border-white rounded-2xl mb-4 max-w-[500px] mx-auto"
+              expanded={expanded === `panel${item.id}`}
+              onChange={handleChange(`panel${item.id}`)}
+              className={`bg-transparent border rounded-xl mb-4 ${
+                expanded === `panel${item.id}` ? "border-pink-500 shadow-lg" : "border-white"
+              }`} // Apply pink glow border if expanded
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon sx={{ color: 'white' }} />}
