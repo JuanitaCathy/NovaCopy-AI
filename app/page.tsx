@@ -5,7 +5,6 @@ import gsap from "gsap";
 import NavbarDemo from "@/components/Header";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
-import Spaceship from "@/components/ui/Spaceship";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import ShiningButton from "@/components/ui/ShiningButton";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
@@ -97,7 +96,6 @@ export default function Home() {
           <ShiningButton />
         </div>
       </div>
-      <Spaceship />
 
       {/* Spacing between sections */}
       <div className="my-8 md:my-16"></div>
