@@ -2,7 +2,6 @@
 import React from "react";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { HoverBorderGradient } from "./hover-border-gradient";
 
 const transition = {
   type: "spring",
@@ -18,19 +17,28 @@ export const MenuItem = ({
   active,
   item,
   href,
+  onClick,
 }: {
   setActive: (item: string) => void;
   active: string | null;
   item: string;
   href: string;
+  onClick?: () => void;
 }) => {
+  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    if (href === "#" && onClick) {
+      e.preventDefault(); // Prevent default link behavior
+      onClick(); // Call the provided onClick handler
+    }
+  };
+
   return (
     <div onMouseEnter={() => setActive(item)} className="relative">
       <motion.p
         transition={{ duration: 0.3 }}
         className="cursor-pointer text-base font-semibold text-[#d1d5db] hover:opacity-[0.8]"
       >
-        <Link href={href} scroll={true}>
+        <Link href={href} scroll={false} onClick={handleClick}>
           {item}
         </Link>
       </motion.p>
