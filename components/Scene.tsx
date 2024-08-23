@@ -29,18 +29,11 @@ export default function Scene() {
   }, []);
 
   useEffect(() => {
-    // You can add logic here to update `animationProgress` based on other factors
-    // For now, we'll simply set it to `scrollOffset` as an example
     setAnimationProgress(scrollOffset);
   }, [scrollOffset]);
 
   return (
-    <Canvas
-      gl={{ antialias: true }}
-      dpr={[1, 1.5]}
-      className="relative w-full h-full overflow-hidden"
-      camera={{ position: [0, 1, 5], fov: 50 }}
-    >
+    <Canvas gl={{ antialias: true }} dpr={[1, 1.5]} className="absolute top-0 left-20 w-screen h-screen ">
       <directionalLight position={[-5, 5, 5]} intensity={1} />
       <ambientLight intensity={0.3} />
       <Suspense fallback={<Loader />}>
@@ -49,5 +42,6 @@ export default function Scene() {
         </ScrollControls>
       </Suspense>
     </Canvas>
+    // </div>
   );
 }

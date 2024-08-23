@@ -45,6 +45,7 @@ export const HoverEffect = ({
                   opacity: 0,
                   transition: { duration: 0.15, delay: 0.2 },
                 }}
+                style={{ zIndex: 1 }}  // Ensure this is layered correctly
               />
             )}
           </AnimatePresence>
@@ -52,7 +53,7 @@ export const HoverEffect = ({
             className={cn(
               "group-hover:bg-pink-500 group-hover:bg-opacity-30",
               "transition-colors duration-300 ease-in-out",
-              "relative z-10" // Ensure Card is above the background effect
+              "relative z-5" // This is above the motion span
             )}
           >
             <CardTitle>{item.title}</CardTitle>
@@ -74,7 +75,7 @@ export const Card = ({
   return (
     <div
       className={cn(
-        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] relative z-20",
+        "rounded-2xl h-full w-full p-4 overflow-hidden bg-black border border-transparent dark:border-white/[0.2] relative z-20", // Adjusted z-index
         className
       )}
     >
