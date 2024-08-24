@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import NavbarDemo from "@/components/Header";
 import { ShootingStars } from "@/components/ui/shooting-stars";
@@ -11,8 +10,7 @@ import ShiningButton from "@/components/ui/ShiningButton";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import ScrollVelocityText from "@/components/ui/ScrollVelocityText";
 import dynamic from "next/dynamic";
-import "./globals.css"; 
-import logo from "@/public/NovaCopy_8.webp"; 
+import "./globals.css";
 import Footer from "../components/Footer";
 import FAQSection from "@/components/FAQ";
 import MuiAccordion from "@/components/FAQ";
@@ -82,7 +80,7 @@ export default function Home() {
       <div className="z-10 w-full max-w-5xl text-center p-4 md:p-6 mt-12 md:mt-24"> {/* Increased margin-top */}
         <NavbarDemo />
         <div className="flex justify-center mb-6">
-          <Image src={logo} alt="NovaCopy Logo" width={200} height={170} />
+
         </div>
         {/* <h1 className="text-3xl md:text-5xl font-bold mb-6">
           Tired of Spending Hours Writing Content?
@@ -112,7 +110,7 @@ export default function Home() {
           <p>Well, we got you! At NovaCopy, we provide high-quality, customized copy that fits your brand, saving you time and effort.</p>
         </div>
         <div className="flex flex-col md:flex-row justify-center gap-4 mb-4">
-          <button className="inline-flex items-center gap-2 border border-white/16 px-6 h-15.5 rounded-xl"> 
+          <button className="inline-flex items-center gap-2 border border-white/16 px-6 h-15.5 rounded-xl">
             <span className="font-semibold">Explore Services!</span>
           </button>
           <ShiningButton />
