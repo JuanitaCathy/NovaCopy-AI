@@ -5,7 +5,7 @@ import gsap from "gsap";
 import NavbarDemo from "@/components/Header";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
-// import { TypewriterEffect } from "@/components/ui/typewriter-effect";
+import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import ShiningButton from "@/components/ui/ShiningButton";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 // import ScrollVelocityText from "@/components/ui/ScrollVelocityText";
@@ -19,11 +19,11 @@ const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
 
 export default function Home() {
   const words = [
-    { text: "High-Quality Content 💡 ", className: "text-pink" },
-    { text: "Words That Work 🎯 ", className: "text-pink" },
-    { text: "Time-Saving Copy ⏳ ", className: "text-pink" },
-    { text: "Magic 🪄", className: "text-pink" },
-    { text: "Your Future 🔮", className: "text-pink" },
+    { text: "High-Quality Content 💡 ", className: "gradient-text" },
+    { text: "Words That Work 🎯 ", className: "gradient-text" },
+    { text: "Time-Saving Copy ⏳ ", className: "gradient-text" },
+    { text: "Magic 🪄", className: "gradient-text" },
+    { text: "Your Future 🔮", className: "gradient-text" },
   ];
 
   // Features Data
@@ -87,13 +87,18 @@ export default function Home() {
           Tired of Spending Hours Writing Content?
         </h1>
         <div className="flex flex-col md:flex-row items-center justify-center mb-8">
-          <span className="text-4xl md:text-4xl font-semibold">
-            Write High-Quality Content 💡{" "}
-          </span>
+        <span className="text-4xl md:text-4xl font-semibold">Write </span>
           <div className="mt-4 md:mt-0 md:ml-6">
+            <TypewriterEffect
+              words={words}
+              className="text-4xl md:text-4xl"
+              cursorClassName="ml-2"
+              wordClassName="font-cursive gradient-text"
+              typingSpeed={150}
+            />
           </div>
         </div>
-        <div className="text-lg md:text-xl my-6">
+        <div className="text-lg md:text-xl mb-6">
           <p>
             Well, we got you! At NovaCopy, we provide high-quality, customized
             copy that fits your brand, saving you time and effort.
@@ -109,10 +114,10 @@ export default function Home() {
       </div>
 
       {/* Spacing between sections */}
-      <div className="my-8 md:my-16"></div>
+      {/* <div className="my-8 md:my-16"></div> */}
 
       {/* Spacing between sections */}
-      <div className="my-8 md:my-16"></div>
+      {/* <div className="my-8 md:my-16"></div> */}
 
       {/* Sticky Animation Section */}
       <section className="relative w-full max-w-5xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start">

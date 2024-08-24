@@ -38,6 +38,12 @@ body {
   transition: background 0.3s ease, transform 0.3s ease;
 }
 
+.gradient-text {
+  background: linear-gradient(to right, #00b4d8, #9b5de5, #f25f5c);
+  -webkit-background-clip: text;
+  color: transparent; /* Make the text color transparent */
+}
+
 .confetti {
   position: absolute;
   width: 10px;
