@@ -20,7 +20,8 @@ export async function POST(request: Request) {
     from: email,
     to: process.env.CORPORATE_EMAIL,
     subject: subject,
-    text: `Message from: ${name}\n\n${message}`
+    text: `Message from: ${name}\n\n${message}`,
+    replyTo: email,
   };
 
   try {

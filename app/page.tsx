@@ -13,6 +13,7 @@ import dynamic from "next/dynamic";
 import "./globals.css";
 import Footer from "../components/Footer";
 import FAQSection from "@/components/FAQ";
+import { Badge } from "@/components/ui/Launch";
 import MuiAccordion from "@/components/FAQ";
 
 const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
@@ -94,6 +95,7 @@ export default function Home() {
         {/* <h1 className="text-3xl md:text-5xl font-bold mb-6 text-transparent bg-clip-text bg-[radial-gradient(circle,_rgba(255,255,255,0.8),_rgba(255,105,180,0.5))]">
           Tired of Spending Hours Writing Content?
         </h1> */}
+        < Badge text={"We are launching soon ✨"} />
         <h1 className="text-3xl md:text-5xl mb-6 font-bold text-transparent bg-clip-text bg-[linear-gradient(to_bottom,_rgba(255,255,255,0.8),_rgba(237,73,153,0.8))]">
           Tired of Spending Hours Writing Content?
         </h1>

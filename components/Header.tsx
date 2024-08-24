@@ -55,7 +55,7 @@ function Navbar({
           active={active}
           item="Services"
           href="#"
-          onClick={onFeaturesClick} // Make sure this onClick is properly passed
+          onClick={onFeaturesClick} 
         />
         <div className="h-full flex items-center justify-center text-gray-400">
           •
