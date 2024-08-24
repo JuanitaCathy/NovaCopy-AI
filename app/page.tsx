@@ -77,9 +77,11 @@ export default function Home() {
       <StarsBackground />
       <ShootingStars />
 
-
       <div className="relative h-screen flex flex-col">
-        <NavbarDemo />
+        <NavbarDemo
+        onFeaturesClick={function (): void {
+          throw new Error("Function not implemented.");
+        }} />
         <div className="flex-1 flex flex-col items-center justify-center text-center p-4 md:p-6">
     <h1 className="text-3xl md:text-5xl mb-6 font-bold">
           Tired of Spending Hours Writing Content?
@@ -105,7 +107,6 @@ export default function Home() {
           </div>
         </div>
       </div>
-
 
       {/* Spacing between sections */}
       <div className="my-8 md:my-16"></div>
@@ -163,7 +164,7 @@ export default function Home() {
 
       <section>
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-          Commonly asked <span className="text-pink">FAQs!</span>
+          <span className="text-pink">FAQs!</span>
         </h2>
         <FAQSection />
       </section>

@@ -51,7 +51,11 @@ export default function Waitlist() {
       <StarsBackground />
       <ShootingStars />
       <div className="z-10 w-full max-w-5xl text-center p-4 md:p-24 mt-24 md:mt-32">
-        <NavbarDemo />
+        <NavbarDemo
+          onFeaturesClick={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
         <h1 className="text-4xl md:text-5xl font-bold mb-12 mt-12">Waitlist</h1>
 
         {!submitted ? (
