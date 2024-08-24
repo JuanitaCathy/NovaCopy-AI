@@ -1,67 +1,32 @@
-import { useCallback, useEffect, useRef } from 'react';
-import ReactCanvasConfetti from 'react-canvas-confetti';
+import { useEffect } from 'react';
+import confetti from 'canvas-confetti';
 
-export default function Confetti({ isVisible }) {
-  const refAnimationInstance = useRef(null);
-
-  const getInstance = useCallback(instance => {
-    refAnimationInstance.current = instance;
-  }, []);
-
-  const makeShot = useCallback((particleRatio, opts) => {
-    if (refAnimationInstance.current) {
-      refAnimationInstance.current({
-        ...opts,
-        origin: { y: 0.7 },
-        particleCount: Math.floor(200 * particleRatio)
-      });
-    }
-  }, []);
-
-  const fire = useCallback(() => {
-    makeShot(0.25, {
-      spread: 26,
-      startVelocity: 55
-    });
-
-    makeShot(0.2, {
-      spread: 60
-    });
-
-    makeShot(0.35, {
-      spread: 100,
-      decay: 0.91,
-      scalar: 0.8
-    });
-
-    makeShot(0.1, {
-      spread: 120,
-      startVelocity: 25,
-      decay: 0.92,
-      scalar: 1.2
-    });
-
-    makeShot(0.1, {
-      spread: 120,
-      startVelocity: 45
-    });
-  }, [makeShot]);
+export default function Confetti({ isConfettiActive }: { isConfettiActive: boolean }) {
 
   useEffect(() => {
-    if (isVisible) fire();
-  }, [isVisible, fire]);
+    if (isConfettiActive) {
+      // Launch confetti from the left
+      confetti({
+        particleCount: 80,
+        startVelocity: 30,
+        shapes: ["square", "square", "circle", "star"],
+        angle: 60,
+        spread: 120,
+        origin: { x: 0 },
+      });
 
-  return (
-    <ReactCanvasConfetti
-      refConfetti={getInstance}
-      style={{
-        position: 'fixed',
-        pointerEvents: 'none',
-        width: '100%',
-        height: '100%',
-        top: 0,
-        left: 0
-      }}
-    />
-  );
+      // Launch confetti from the right
+      confetti({
+        particleCount: 80,
+        startVelocity: 30,
+        shapes: ["square", "square", "circle", "star"],
+        angle: 120,
+        spread: 120,
+        origin: { x: 1 },
+      });
+    }
+
+  }, [isConfettiActive]);
+
+  return null; // Component doesn't render anything visually
 }

@@ -16,7 +16,7 @@ export default function Waitlist() {
   const [error, setError] = useState<string | null>(null);
 
   // confetti visibility
-  const [isVisible, setIsVisible] = useState(false);
+  const [isConfettiActive, setIsConfettiActive] = useState(false);
 
   const saveFormData = useMutation(api.formData.saveFormData);
 
@@ -37,7 +37,7 @@ export default function Waitlist() {
       setEmail("");
       setFirstName("");
       setLastName("");
-      setIsVisible(true);
+      setIsConfettiActive(true);
       setError(null); // Clear error if submission is successful
     } catch (error) {
       console.error("Error saving form data:", error);
@@ -119,7 +119,7 @@ export default function Waitlist() {
           </form>
         ) : (
           <>
-          {isVisible && <Confetti isVisible={isVisible} />}
+          {isConfettiActive && <Confetti isConfettiActive={isConfettiActive} />}
             <div className="text-2xl">Thank you for joining the waitlist!</div>
             <div className="text-2xl">We will keep you posted!</div>
           </>
