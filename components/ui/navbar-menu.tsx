@@ -4,7 +4,6 @@ import Box from '@mui/material/Box';
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import logo from "@/public/NovaCopy_white_transparent.png";
 import { HoverBorderGradient } from "./hover-border-gradient";
 
 const transition = {
@@ -28,8 +27,6 @@ export const MenuItem = ({
   href: string;
 }) => {
   return (
-
-
     <div onMouseEnter={() => setActive(item)} className="relative">
       <motion.p
         transition={{ duration: 0.3 }}
@@ -51,8 +48,8 @@ export const Menu = ({
   children: React.ReactNode;
 }) => {
   return (
-    <Box display="flex" gap={4}>
-    <Image src={logo} alt="NovaCopy Logo" width={60} height={60} />
+    <Box display="flex" justifyContent="center" gap={4}>
+    <Image src="/NovaCopy_white_transparent.png" alt="NovaCopy Logo" width={60} height={60} />
     <nav
       onMouseLeave={() => setActive(null)}
       className="relative rounded-full border border-[#2c2f41] bg-[#1a1b2e]/50 backdrop-blur-lg shadow-input flex justify-center items-center space-x-8 px-16 py-5"
