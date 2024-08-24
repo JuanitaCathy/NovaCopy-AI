@@ -13,6 +13,7 @@ import dynamic from "next/dynamic";
 import "./globals.css";
 import Footer from "../components/Footer2";
 import FAQSection from "@/components/FAQ";
+import { Badge } from "@/components/ui/Launch";
 import MuiAccordion from "@/components/FAQ";
 
 const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
@@ -83,6 +84,7 @@ export default function Home() {
           throw new Error("Function not implemented.");
         }} />
         <div className="flex-1 flex flex-col items-center justify-center text-center p-4 md:p-6">
+        < Badge text={"We are launching soon ✨"} />
     <h1 className="text-3xl md:text-5xl mb-6 font-bold">
           Tired of Spending Hours Writing Content?
         </h1>
@@ -158,7 +160,7 @@ export default function Home() {
       </section>
 
       {/* Spacing between sections */}
-      <div className="my-8 md:my-10"></div>
+      <div className="my-8 md:my-3"></div>
 
       {/* Features Section */}
       <section className="w-full max-w-5xl py-8 md:py-16 px-4">

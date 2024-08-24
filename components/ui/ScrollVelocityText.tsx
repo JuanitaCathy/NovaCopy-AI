@@ -6,14 +6,11 @@ export default function ScrollVelocityText() {
 
   useEffect(() => {
     const container = containerRef.current;
-    const speed = 100; // Adjust the speed of the scroll here
+    const speed = 100; 
 
     if (container) {
-      const content = container.querySelector(
-        ".scroll-content"
-      ) as HTMLDivElement;
+      const content = container.querySelector(".scroll-content") as HTMLDivElement;
 
-      // Duplicate the content to create a seamless loop
       const duplicateContent = content?.cloneNode(true) as HTMLDivElement;
       if (duplicateContent) {
         container.appendChild(duplicateContent);
@@ -47,12 +44,12 @@ export default function ScrollVelocityText() {
           display: "inline-block",
           fontSize: "2rem",
           color: "#fff",
-          fontWeight: "bold",
+          fontWeight: "semibold",
         }}
       >
         {Array(10)
           .fill(
-            "Skyrocket 🚀 your business with high-converting content & time-saving copy ⌚"
+            "Skyrocket your business with high-converting content & time-saving copy ✨⌚"
           )
           .join(" — ")}
       </div>
