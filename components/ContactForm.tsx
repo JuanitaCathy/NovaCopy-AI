@@ -70,7 +70,7 @@ export default function ContactUS() {
       setSubmitStatus(data.message);
       if (response.ok) {
         setFormData({ name: '', email: '', subject: '', message: '' });
-        setShowAlert(true); // Show alert box on successful submission
+        setShowAlert(true); 
       }
     } catch (error) {
       setSubmitStatus('Failed to send message.');
@@ -80,7 +80,7 @@ export default function ContactUS() {
   useEffect(() => {
     if (showAlert) {
       const timer = setTimeout(() => {
-        setShowAlert(false); // Hide alert box after 3 seconds
+        setShowAlert(false);
       }, 3000);
       return () => clearTimeout(timer);
     }

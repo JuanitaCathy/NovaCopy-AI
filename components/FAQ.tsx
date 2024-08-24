@@ -6,6 +6,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
+import { useState } from "react";
 
 const faqItems = [
   {

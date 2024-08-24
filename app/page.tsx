@@ -187,7 +187,7 @@ export default function Home() {
 
       <section>
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-          <span className="text-pink">FAQs!</span>
+          Frequently asked <span className="text-pink">Questions!</span>
         </h2>
         <FAQSection />
       </section>
