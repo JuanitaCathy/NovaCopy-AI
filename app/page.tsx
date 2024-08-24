@@ -84,6 +84,7 @@ export default function Home() {
           throw new Error("Function not implemented.");
         }} />
         <div className="flex-1 flex flex-col items-center justify-center text-center p-4 md:p-6">
+        < Badge text={"We are launching soon ✨"} />
     <h1 className="text-3xl md:text-5xl mb-6 font-bold">
           Tired of Spending Hours Writing Content?
         </h1>
