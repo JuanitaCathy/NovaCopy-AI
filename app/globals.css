@@ -26,14 +26,34 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  transform-origin: center bottom;
+  animation: fall 4s linear infinite;
+}
+
+.confetti.square {
+  clip-path: polygon(0% 0%, 0% 100%, 100% 100%, 100% 0%);
+}
+.confetti.triangle {
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+}
+
+@keyframes fall {
+  to {
+    transform: translateY(100vh) rotate(720deg);
+  }
+}
+
 .full-screen-container {
   position: relative;
   width: 100vw;
   height: 100vh;
-  overflow: hidden; 
+  overflow: hidden;
   margin: 0;
 }
-
 
 @layer utilities {
   .text-balance {
@@ -52,16 +72,16 @@ body {
   .animate-accordion-up {
     animation: accordion-up 0.2s ease-out;
   }
-  
+
   .animate-accordion-down {
     animation: accordion-down 0.2s ease-out;
   }
-  
+
   @keyframes accordion-up {
     from { max-height: 100px; }
     to { max-height: 0; }
   }
-  
+
   @keyframes accordion-down {
     from { max-height: 0; }
     to { max-height: 100px; }
