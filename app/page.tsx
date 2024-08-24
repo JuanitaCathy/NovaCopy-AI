@@ -77,8 +77,14 @@ export default function Home() {
       <StarsBackground />
       <ShootingStars />
 
-      <div className="z-10 w-full max-w-5xl text-center p-4 md:p-6 mt-12 md:mt-24"> {/* Increased margin-top */}
-        <NavbarDemo />
+      <div className="z-10 w-full max-w-5xl text-center p-4 md:p-6 mt-12 md:mt-24">
+        {" "}
+        {/* Increased margin-top */}
+        <NavbarDemo
+          onFeaturesClick={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
         <div className="flex justify-center mb-6">
 
         </div>
@@ -91,9 +97,6 @@ export default function Home() {
         <h1 className="text-3xl md:text-5xl mb-6 font-bold text-transparent bg-clip-text bg-[linear-gradient(to_bottom,_rgba(255,255,255,0.8),_rgba(237,73,153,0.8))]">
           Tired of Spending Hours Writing Content?
         </h1>
-
-
-
         <div className="flex flex-col md:flex-row items-center justify-center mb-8">
           <span className="text-4xl md:text-4xl font-semibold">Write </span>
           <div className="mt-4 md:mt-0 md:ml-6">
@@ -107,7 +110,10 @@ export default function Home() {
           </div>
         </div>
         <div className="text-lg md:text-xl mb-6">
-          <p>Well, we got you! At NovaCopy, we provide high-quality, customized copy that fits your brand, saving you time and effort.</p>
+          <p>
+            Well, we got you! At NovaCopy, we provide high-quality, customized
+            copy that fits your brand, saving you time and effort.
+          </p>
         </div>
         <div className="flex flex-col md:flex-row justify-center gap-4 mb-4">
           <button className="inline-flex items-center gap-2 border border-white/16 px-6 h-15.5 rounded-xl">
@@ -116,7 +122,6 @@ export default function Home() {
           <ShiningButton />
         </div>
       </div>
-
 
       {/* Spacing between sections */}
       <div className="my-8 md:my-16"></div>
@@ -133,7 +138,8 @@ export default function Home() {
       <section className="relative w-full max-w-5xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start">
         <div className="md:w-1/2 text-left">
           <h2 className="text-2xl md:text-3xl font-bold mb-8">
-            Your <span className="text-pink">Content</span>, Your Way, Faster <span className="text-pink">! </span>
+            Your <span className="text-pink">Content</span>, Your Way, Faster{" "}
+            <span className="text-pink">! </span>
           </h2>
           <p className="text-base md:text-lg mb-4">
             We’ve all been there—staring at a blank screen, waiting for that
@@ -166,7 +172,6 @@ export default function Home() {
         </div>
       </section>
 
-
       {/* Spacing between sections */}
       <div className="my-8 md:my-10"></div>
 
@@ -182,11 +187,10 @@ export default function Home() {
 
       <section>
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-          Commonly asked <span className="text-pink">FAQs!</span>
+          <span className="text-pink">FAQs!</span>
         </h2>
         <FAQSection />
       </section>
-
 
       <div className="my-8 md:my-16"></div>
 
