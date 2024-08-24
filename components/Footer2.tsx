@@ -1,6 +1,7 @@
 // app/components/Footer.tsx
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 export default function Footer() {
   const handleClick = (
@@ -13,11 +14,14 @@ export default function Footer() {
   return (
     <footer
       id="footer"
-      style={{ backgroundColor: "#003366" }}
-      className="text-white py-5 mt-auto w-full opacity-65"
+      style={{ backgroundColor: "#1a1b20" }}
+      className="footer w-full footer-center bg-base-200 text-base-content rounded p-10"
     >
+      <div className="flex justify-center">
+      <Image src="/NovaCopy_white_transparent.png" alt="NovaCopy Logo" width={90} height={90} />
+      </div>
       <div className="container mx-auto">
-        <ul className="flex justify-center space-x-4 mb-4">
+        <ul className="flex justify-center space-x-4 my-4">
           <li>
             <Link href="https://www.linkedin.com" legacyBehavior>
               <a

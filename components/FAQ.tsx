@@ -78,8 +78,12 @@ const FAQSection = () => {
           {faqItems.slice(0, 5).map((item) => (
             <Accordion
               key={item.id}
-              className="bg-transparent border border-white rounded-2xl mb-4 max-w-[500px] mx-auto"
+              className="bg-transparent border border-transparent dark:border-white/[0.4] rounded-2xl mb-4 max-w-[500px] mx-auto"
             >
+              {/* <Accordion
+              key={item.id}
+              className="bg-transparent border border-white rounded-2xl mb-4 max-w-[500px] mx-auto"
+            > */}
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />}
                 aria-controls={`panel${item.id}-content`}
@@ -102,7 +106,8 @@ const FAQSection = () => {
           {faqItems.slice(5).map((item) => (
             <Accordion
               key={item.id}
-              className="bg-transparent border border-white rounded-2xl mb-4 max-w-[500px] mx-auto"
+              // className="bg-transparent border border-transparent dark:border-white/[0.2] rounded-2xl mb-4 max-w-[500px] mx-auto"
+              className="bg-transparent border border-transparent dark:border-white/[0.4] rounded-2xl mb-4 max-w-[500px] mx-auto"
             >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />}
