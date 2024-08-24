@@ -1,9 +1,10 @@
 "use client";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import SubmitButton from "@/components/ui/SubmitButton";
 import NavbarDemo from "@/components/Header";
+import Confetti from "@/components/ui/Confetti";
 import { useMutation } from "convex/react";
 import { api } from "../../convex/_generated/api";
 
@@ -13,6 +14,9 @@ export default function Waitlist() {
   const [email, setEmail] = useState("");
   const [submitted, setSubmitted] = useState(false);
   const [error, setError] = useState<string | null>(null);
+
+  // confetti visibility
+  const [isConfettiActive, setIsConfettiActive] = useState(false);
 
   const saveFormData = useMutation(api.formData.saveFormData);
 
@@ -33,6 +37,7 @@ export default function Waitlist() {
       setEmail("");
       setFirstName("");
       setLastName("");
+      setIsConfettiActive(true);
       setError(null); // Clear error if submission is successful
     } catch (error) {
       console.error("Error saving form data:", error);
@@ -46,7 +51,11 @@ export default function Waitlist() {
       <StarsBackground />
       <ShootingStars />
       <div className="z-10 w-full max-w-5xl text-center p-4 md:p-24 mt-24 md:mt-32">
-        <NavbarDemo />
+        <NavbarDemo
+          onFeaturesClick={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
         <h1 className="text-4xl md:text-5xl font-bold mb-12 mt-12">Waitlist</h1>
 
         {!submitted ? (
@@ -114,6 +123,7 @@ export default function Waitlist() {
           </form>
         ) : (
           <>
+          {isConfettiActive && <Confetti isConfettiActive={isConfettiActive} />}
             <div className="text-2xl">Thank you for joining the waitlist!</div>
             <div className="text-2xl">We will keep you posted!</div>
           </>
