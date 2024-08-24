@@ -26,6 +26,18 @@ body {
     rgb(var(--background-start-rgb));
 }
 
+.gradient-button {
+  background: linear-gradient(to right, #00b4d8, #9b5de5, #f25f5c); /* gradient of lightblue, purple, and pink */
+  color: white; /* text-color */
+  border: none;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.3s ease;
+}
+
 .confetti {
   position: absolute;
   width: 10px;
