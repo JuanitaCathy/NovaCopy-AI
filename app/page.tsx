@@ -123,8 +123,8 @@ export default function Home() {
       <section className="relative w-full max-w-5xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start">
         <div className="md:w-1/2 text-left">
           <h2 className="text-2xl md:text-3xl font-bold mb-8">
-            Your <span className="text-pink">Content</span>, Your Way, Faster{" "}
-            <span className="text-pink">! </span>
+            Your <span className="gradient-text">Content</span>, Your Way, Faster{" "}
+            <span className="gradient-text">! </span>
           </h2>
           <p className="text-base md:text-lg mb-4">
             We’ve all been there—staring at a blank screen, waiting for that
@@ -152,6 +152,9 @@ export default function Home() {
             <ShiningButton />
           </div>
         </div>
+        <div className="md:w-1/2 full-screen-container">
+          <Scene />
+        </div>
       </section>
 
       {/* Spacing between sections */}
@@ -160,7 +163,7 @@ export default function Home() {
       {/* Features Section */}
       <section className="w-full max-w-5xl py-8 md:py-16 px-4">
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-          Our <span className="text-pink">Features</span>
+          Our <span className="gradient-text">Features</span>
         </h2>
         <HoverEffect items={features} />
       </section>
@@ -169,7 +172,7 @@ export default function Home() {
 
       <section>
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-          <span className="text-pink">FAQs!</span>
+          <span className="gradient-text">FAQs!</span>
         </h2>
         <FAQSection />
       </section>

@@ -34,7 +34,7 @@ export const HoverEffect = ({
           <AnimatePresence>
             {hoveredIndex === idx && (
               <motion.span
-                className="absolute inset-0 h-full w-full bg-pink-500 bg-opacity-30 block rounded-3xl"
+                className="absolute inset-0 h-full w-full bg-pink-300 bg-opacity-30 block rounded-3xl"
                 layoutId="hoverBackground"
                 initial={{ opacity: 0 }}
                 animate={{
@@ -51,7 +51,7 @@ export const HoverEffect = ({
           </AnimatePresence>
           <Card
             className={cn(
-              "group-hover:bg-pink-500 group-hover:bg-opacity-30",
+              "group-hover:bg-pink-600 group-hover:bg-opacity-30",
               "transition-colors duration-300 ease-in-out",
               "relative z-5" // This is above the motion span
             )}
