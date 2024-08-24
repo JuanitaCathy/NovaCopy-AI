@@ -3,10 +3,9 @@ import { Inter,  Calistoga } from "next/font/google";
 import "./globals.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { ConvexClientProvider } from "./ConvexClientProvider ";
-import { twMerge } from "tailwind-merge";
+// import { twMerge } from "tailwind-merge";
 
-
-const inter = Inter({ subsets: ["latin"], variable: '--font-sans' });
+const inter = Inter({ subsets: ["latin"] });
 const calistoga = Calistoga({ subsets: ["latin"], variable: '--font-serif', weight: ["400"] });
 
 export const metadata: Metadata = {
@@ -21,7 +20,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={twMerge('inter.classname, calistoga.classname, font-sans')}>
+    <body className={`${inter.className}`}>
         <ConvexClientProvider>{children}</ConvexClientProvider>
         </body>
     </html>

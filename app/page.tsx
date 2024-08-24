@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import Image from "next/image";
 import gsap from "gsap";
 import NavbarDemo from "@/components/Header";
 import { ShootingStars } from "@/components/ui/shooting-stars";
@@ -12,7 +11,6 @@ import { HoverEffect } from "@/components/ui/card-hover-effect";
 import ScrollVelocityText from "@/components/ui/ScrollVelocityText";
 import dynamic from "next/dynamic";
 import "./globals.css";
-import logo from "@/public/NovaCopy_8.webp";
 import Footer from "../components/Footer";
 import FAQSection from "@/components/FAQ";
 import MuiAccordion from "@/components/FAQ";
@@ -88,7 +86,7 @@ export default function Home() {
           }}
         />
         <div className="flex justify-center mb-6">
-          <Image src={logo} alt="NovaCopy Logo" width={200} height={170} />
+
         </div>
         {/* <h1 className="text-3xl md:text-5xl font-bold mb-6">
           Tired of Spending Hours Writing Content?
