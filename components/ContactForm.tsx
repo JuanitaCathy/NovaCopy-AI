@@ -1,5 +1,6 @@
-import React, { useState, ChangeEvent, FocusEvent } from 'react';
-import { MovingBorderButton } from '../components/Submit'; // Adjust import path as necessary
+import React, { useState, ChangeEvent, FocusEvent, useEffect } from 'react';
+import { MovingBorderButton } from '../components/Submit'; 
+import { motion, AnimatePresence } from 'framer-motion';
 
 interface FormData {
   name: string;
@@ -25,6 +26,7 @@ export default function ContactUS() {
   const [errors, setErrors] = useState<Errors>({});
   const [submitStatus, setSubmitStatus] = useState<string>('');
   const [focusedField, setFocusedField] = useState<string>('');
+  const [showAlert, setShowAlert] = useState<boolean>(false);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -68,11 +70,21 @@ export default function ContactUS() {
       setSubmitStatus(data.message);
       if (response.ok) {
         setFormData({ name: '', email: '', subject: '', message: '' });
+        setShowAlert(true); // Show alert box on successful submission
       }
     } catch (error) {
       setSubmitStatus('Failed to send message.');
     }
   };
+
+  useEffect(() => {
+    if (showAlert) {
+      const timer = setTimeout(() => {
+        setShowAlert(false); // Hide alert box after 3 seconds
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showAlert]);
 
   return (
     <div className="max-w-4xl mx-auto">
@@ -151,7 +163,20 @@ export default function ContactUS() {
       <div className="mt-5">
         <MovingBorderButton onClick={handleSubmit} />
       </div>
-      {submitStatus && <p className="mt-4 text-center text-white">{submitStatus}</p>}
+
+      <AnimatePresence>
+        {showAlert && (
+          <motion.div
+            initial={{ x: '100%' }}
+            animate={{ x: 0 }}
+            exit={{ x: '100%' }}
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+            className="fixed bottom-8 right-4 bg-slate-800 text-white px-6 py-4 rounded-lg shadow-lg z-50"
+          >
+            Message sent successfully!
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
