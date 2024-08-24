@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import Image from "next/image";
 import gsap from "gsap";
 import NavbarDemo from "@/components/Header";
 import { ShootingStars } from "@/components/ui/shooting-stars";
@@ -10,8 +11,11 @@ import ShiningButton from "@/components/ui/ShiningButton";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import ScrollVelocityText from "@/components/ui/ScrollVelocityText";
 import dynamic from "next/dynamic";
-import "./globals.css"; // Adjust the path as needed
+import "./globals.css"; 
+import logo from "@/public/NovaCopy_8.webp"; 
 import Footer from "../components/Footer";
+import FAQSection from "@/components/FAQ";
+import MuiAccordion from "@/components/FAQ";
 
 const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
 
@@ -70,32 +74,51 @@ export default function Home() {
   ];
 
   return (
-    <main className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center">
+    <main className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center py-4">
       {/* Background Effects */}
       <StarsBackground />
       <ShootingStars />
 
-      <div className="z-10 w-full max-w-5xl text-center p-4 md:p-24 mt-24 md:mt-32">
+      <div className="z-10 w-full max-w-5xl text-center p-4 md:p-6 mt-12 md:mt-24"> {/* Increased margin-top */}
         <NavbarDemo />
-        <h1 className="text-4xl md:text-5xl font-bold mb-12 mt-12">
+        <div className="flex justify-center mb-6">
+          <Image src={logo} alt="NovaCopy Logo" width={200} height={170} />
+        </div>
+        {/* <h1 className="text-3xl md:text-5xl font-bold mb-6">
+          Tired of Spending Hours Writing Content?
+        </h1> */}
+        {/* <h1 className="text-3xl md:text-5xl font-bold mb-6 text-transparent bg-clip-text bg-[radial-gradient(circle,_rgba(255,255,255,0.8),_rgba(255,105,180,0.5))]">
+          Tired of Spending Hours Writing Content?
+        </h1> */}
+        <h1 className="text-3xl md:text-5xl mb-6 font-bold text-transparent bg-clip-text bg-[linear-gradient(to_bottom,_rgba(255,255,255,0.8),_rgba(237,73,153,0.8))]">
           Tired of Spending Hours Writing Content?
         </h1>
-        <div className="flex flex-col md:flex-row items-center justify-center mt-8">
-          <span className="text-4xl md:text-5xl font-semibold">Write </span>
+
+
+
+        <div className="flex flex-col md:flex-row items-center justify-center mb-8">
+          <span className="text-4xl md:text-4xl font-semibold">Write </span>
           <div className="mt-4 md:mt-0 md:ml-6">
             <TypewriterEffect
               words={words}
-              className="text-4xl md:text-5xl"
+              className="text-4xl md:text-4xl"
               cursorClassName="ml-2"
               wordClassName="text-pink font-cursive"
               typingSpeed={150}
             />
           </div>
         </div>
-        <div className="mt-12 md:mt-24">
+        <div className="text-lg md:text-xl mb-6">
+          <p>Well, we got you! At NovaCopy, we provide high-quality, customized copy that fits your brand, saving you time and effort.</p>
+        </div>
+        <div className="flex flex-col md:flex-row justify-center gap-4 mb-4">
+          <button className="inline-flex items-center gap-2 border border-white/16 px-6 h-15.5 rounded-xl"> 
+            <span className="font-semibold">Explore Services!</span>
+          </button>
           <ShiningButton />
         </div>
       </div>
+
 
       {/* Spacing between sections */}
       <div className="my-8 md:my-16"></div>
@@ -112,7 +135,7 @@ export default function Home() {
       <section className="relative w-full max-w-5xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start">
         <div className="md:w-1/2 text-left">
           <h2 className="text-2xl md:text-3xl font-bold mb-8">
-            Your Content, Your Way, Faster
+            Your <span className="text-pink">Content</span>, Your Way, Faster <span className="text-pink">! </span>
           </h2>
           <p className="text-base md:text-lg mb-4">
             We’ve all been there—staring at a blank screen, waiting for that
@@ -140,21 +163,34 @@ export default function Home() {
             <ShiningButton />
           </div>
         </div>
-        <div className="md:w-1/2 flex justify-center items-center mt-12 md:mt-0 sticky top-0 h-screen">
+        <div className="md:w-1/2 full-screen-container">
           <Scene />
         </div>
       </section>
 
+
       {/* Spacing between sections */}
-      <div className="my-8 md:my-16"></div>
+      <div className="my-8 md:my-10"></div>
 
       {/* Features Section */}
       <section className="w-full max-w-5xl py-8 md:py-16 px-4">
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-          Our Features
+          Our <span className="text-pink">Features</span>
         </h2>
         <HoverEffect items={features} />
       </section>
+
+      <div className="my-8 md:my-3"></div>
+
+      <section>
+        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
+          Commonly asked <span className="text-pink">FAQs!</span>
+        </h2>
+        <FAQSection />
+      </section>
+
+
+      <div className="my-8 md:my-16"></div>
 
       <Footer />
     </main>

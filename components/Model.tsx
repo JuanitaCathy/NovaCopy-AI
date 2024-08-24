@@ -30,7 +30,7 @@ export default function Model({
   });
 
   return (
-    <group ref={group} scale={[1.0, 1.5, 0.15]} position={[0.5, -1.8, 0]}>
+    <group ref={group} scale={[1.4, 2.2, 0.17]} position={[0.4, -1.5, 0]}>
       <primitive object={scene} />
     </group>
   );
