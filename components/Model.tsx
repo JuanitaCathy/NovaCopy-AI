@@ -1,5 +1,5 @@
 import { useAnimations, useGLTF } from "@react-three/drei";
-import { useFrame, useThree } from "@react-three/fiber";
+import { useFrame } from "@react-three/fiber";
 import { useEffect, useRef } from "react";
 import { Group } from "three";
 
@@ -22,7 +22,6 @@ export default function Model({
 
   useFrame(() => {
     if (actions["Experiment"]) {
-      // Update the animation time based on animationProgress
       const animationClip = actions["Experiment"].getClip();
       actions["Experiment"].time =
         (animationClip.duration * animationProgress) % animationClip.duration;

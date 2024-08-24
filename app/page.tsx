@@ -1,20 +1,16 @@
 "use client";
 
-import { useEffect } from "react";
-import gsap from "gsap";
 import NavbarDemo from "@/components/Header";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import ShiningButton from "@/components/ui/ShiningButton";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
-// import ScrollVelocityText from "@/components/ui/ScrollVelocityText";
 import dynamic from "next/dynamic";
 import "./globals.css";
 import Footer from "../components/Footer2";
 import FAQSection from "@/components/FAQ";
 import { Badge } from "@/components/ui/Launch";
-import MuiAccordion from "@/components/FAQ";
 import { InfiniteMovingCardsDemo } from "@/components/HypeScroll";
 
 const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
@@ -86,9 +82,12 @@ export default function Home() {
         }} />
         <div className="flex-1 flex flex-col items-center justify-center text-center p-4 md:p-6">
         < Badge text={"We are launching soon ✨"} />
-    <h1 className="text-3xl md:text-5xl mb-6 font-bold">
-          Tired of Spending Hours Writing Content?
+        <h1 className="text-3xl md:text-5xl mb-6 font-bold">
+          <span className="bg-gradient-to-t from-gray-400 to-white bg-clip-text text-transparent">
+            Need Instant Content Solutions?
+          </span>
         </h1>
+
         <div className="flex flex-col md:flex-row items-center justify-center mb-8">
         <span className="text-4xl md:text-4xl font-semibold">Write </span>
           <div className="mt-4 md:mt-0 md:ml-6">
@@ -101,10 +100,12 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="text-lg md:text-xl mb-6">
+        <div className="text-lg text-gray-100 md:text-xl mb-6">
           <p>
-            Well, we got you! At NovaCopy, we provide high-quality, customized
-            copy that fits your brand, saving you time and effort.
+            Well, we got you! Generate copy with proven strategies
+          </p>
+          <p>
+           that will make your business sky rocket
           </p>
         </div>
         <div className="flex flex-col md:flex-row justify-center gap-4 my-4">

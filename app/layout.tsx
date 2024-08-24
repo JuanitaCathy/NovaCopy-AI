@@ -3,7 +3,6 @@ import { Inter,  Calistoga } from "next/font/google";
 import "./globals.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { ConvexClientProvider } from "./ConvexClientProvider ";
-// import { twMerge } from "tailwind-merge";
 
 const inter = Inter({ subsets: ["latin"] });
 const calistoga = Calistoga({ subsets: ["latin"], variable: '--font-serif', weight: ["400"] });
