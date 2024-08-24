@@ -15,6 +15,7 @@ import Footer from "../components/Footer2";
 import FAQSection from "@/components/FAQ";
 import { Badge } from "@/components/ui/Launch";
 import MuiAccordion from "@/components/FAQ";
+import { InfiniteMovingCardsDemo } from "@/components/HypeScroll";
 
 const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
 
@@ -124,7 +125,7 @@ export default function Home() {
       {/* Sticky Animation Section */}
       <section className="relative w-full max-w-5xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start">
         <div className="md:w-1/2 text-left">
-          <h2 className="text-2xl md:text-3xl font-bold mb-8">
+          <h2 className="text-2xl md:text-4xl font-bold mb-8">
             Your <span className="gradient-text">Content</span>, Your Way, Faster{" "}
             <span className="gradient-text">! </span>
           </h2>
@@ -164,7 +165,7 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="w-full max-w-5xl py-8 md:py-16 px-4">
-        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
+        <h2 className="text-2xl md:text-4xl font-bold mb-8 text-center">
           Our <span className="gradient-text">Features</span>
         </h2>
         <HoverEffect items={features} />
@@ -173,8 +174,17 @@ export default function Home() {
       <div className="my-8 md:my-3"></div>
 
       <section>
+        <h2 className="text-2xl md:text-4xl font-bold mb-8 text-center">
+          Join the <span className="gradient-text">hype!</span>
+        </h2>
+        <InfiniteMovingCardsDemo />
+      </section>
+
+      <div className="my-8 md:my-3"></div>
+
+      <section>
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-          <span className="gradient-text">FAQs!</span>
+          Frequently asked <span className="gradient-text">Questions!</span>
         </h2>
         <FAQSection />
       </section>
