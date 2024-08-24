@@ -13,6 +13,7 @@ import dynamic from "next/dynamic";
 import "./globals.css";
 import Footer from "../components/Footer2";
 import FAQSection from "@/components/FAQ";
+import { Badge } from "@/components/ui/Launch";
 import MuiAccordion from "@/components/FAQ";
 
 const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
