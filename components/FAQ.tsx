@@ -89,10 +89,16 @@ const FAQSection = () => {
               key={item.id}
               expanded={expanded === `panel${item.id}`}
               onChange={handleChange(`panel${item.id}`)}
-              className={`bg-transparent border rounded-xl mb-4 ${
-                expanded === `panel${item.id}` ? "border-pink-500 shadow-lg" : "border-white"
+              className={`bg-transparent border border-white/[0.4] rounded-xl mb-4 max-w-[500px] mx-auto ${
+                expanded === `panel${item.id}` ? "border-pink-400 shadow-lg" : "border-white"
+                // expanded === `panel${item.id}` ? "border-pink-500 shadow-lg" : "dark:border-white/[0.4]"
               }`} // Apply pink glow border if expanded
+
             >
+              {/* <Accordion
+              key={item.id}
+              className="bg-transparent border border-white rounded-2xl mb-4 max-w-[500px] mx-auto"
+            > */}
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />}
                 aria-controls={`panel${item.id}-content`}
@@ -113,13 +119,14 @@ const FAQSection = () => {
         <Grid item xs={12} md={6} className="pl-2">
           {faqItems.slice(5).map((item) => (
             <Accordion
-              key={item.id}
-              expanded={expanded === `panel${item.id}`}
-              onChange={handleChange(`panel${item.id}`)}
-              className={`bg-transparent border rounded-xl mb-4 ${
-                expanded === `panel${item.id}` ? "border-pink-500 shadow-lg" : "border-white"
-              }`} // Apply pink glow border if expanded
-            >
+            key={item.id}
+            expanded={expanded === `panel${item.id}`}
+            onChange={handleChange(`panel${item.id}`)}
+            className={`bg-transparent border border-white/[0.4] rounded-xl mb-4 max-w-[500px] mx-auto ${
+                expanded === `panel${item.id}` ? "border-pink-400 shadow-lg" : "border-white"
+            }`} // Apply pink glow border if expanded
+
+          >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />}
                 aria-controls={`panel${item.id}-content`}

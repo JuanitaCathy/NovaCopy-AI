@@ -33,7 +33,7 @@ const SubmitButton: React.FC = () => {
     <button
       type="submit"
       ref={buttonRef}
-      className="px-6 py-3 bg-pink-500 text-white font-semibold rounded-lg shadow-md hover:bg-pink-600 transition duration-300"
+      className="px-6 py-3 gradient-button text-white font-semibold rounded-lg shadow-md transition duration-300"
     >
       Submit
     </button>
