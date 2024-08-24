@@ -8,21 +8,21 @@ export default function Team() {
     {
       name: "Miho Funayama",
       image: "/images/miho.jpeg",
-      title: "Fullstack Engineer & AI Enthusiast",
+      title: "Fullstack Engineer | AI Enthusiast",
       description:
         "Miho brings a unique perspective from her experience in shipping and semiconductors. She is passionate about leveraging the latest technologies and is eager to apply her skills.",
     },
     {
       name: "Cindy Mae Ngoho",
       image: "/images/cindy.jpeg",
-      title: "Web Developer | Computer Science Graduate",
+      title: "Web Developer | CS Graduate",
       description:
         "Cindy Mae is a web developer with a background in computer science, currently focused on building a portfolio and expanding her expertise in full-stack development. She is dedicated to mastering the technologies needed to create seamless and efficient user experiences.",
     },
     {
       name: "Juanita Cathy J",
       image: "/images/juanita.jpeg",
-      title: "Full Stack Engineer and AI Developer",
+      title: "Full Stack Engineer | AI Developer",
       description:
         "Juanita is an undergraduate in CS with expertise in full stack development and AI. Having worked with two startups, she is passionate about building software products that make an impact.",
     },
@@ -39,13 +39,13 @@ export default function Team() {
     <main className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center">
       <StarsBackground />
       <ShootingStars />
-      <div className="z-10 w-full max-w-5xl text-center p-3 md:p-24 mt-12 md:mt-24">
+      <div className="z-10 w-full max-w-5xl text-center p-3 md:p-12 mt-12">
         <NavbarDemo
           onFeaturesClick={function (): void {
             throw new Error("Function not implemented.");
           }}
         />
-        <h1 className="text-4xl md:text-5xl font-bold mb-12 mt-12 md:mt-16">
+        <h1 className="text-4xl md:text-5xl font-bold mb-12 mt-16">
           Our Team
         </h1>
         <div className="flex flex-wrap justify-center gap-8">
