@@ -11,7 +11,7 @@ import { HoverEffect } from "@/components/ui/card-hover-effect";
 // import ScrollVelocityText from "@/components/ui/ScrollVelocityText";
 import dynamic from "next/dynamic";
 import "./globals.css";
-import Footer from "../components/Footer2";
+import Footer from "../components/Footer";
 import FAQSection from "@/components/FAQ";
 import { Badge } from "@/components/ui/Launch";
 import MuiAccordion from "@/components/FAQ";
@@ -73,7 +73,7 @@ export default function Home() {
   ];
 
   return (
-    <main className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center py-4">
+    <main className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center">
       {/* Background Effects */}
       <StarsBackground />
       <ShootingStars />
