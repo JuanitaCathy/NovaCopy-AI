@@ -1,20 +1,17 @@
 "use client";
 
-import { useEffect } from "react";
-import gsap from "gsap";
 import NavbarDemo from "@/components/Header";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
 import ShiningButton from "@/components/ui/ShiningButton";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
-// import ScrollVelocityText from "@/components/ui/ScrollVelocityText";
 import dynamic from "next/dynamic";
 import "./globals.css";
 import Footer from "../components/Footer";
 import FAQSection from "@/components/FAQ";
 import { Badge } from "@/components/ui/Launch";
-import MuiAccordion from "@/components/FAQ";
+import { InfiniteMovingCardsDemo } from "@/components/HypeScroll";
 
 const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
 
@@ -85,9 +82,12 @@ export default function Home() {
         }} />
         <div className="flex-1 flex flex-col items-center justify-center text-center p-4 md:p-6">
         < Badge text={"We are launching soon ✨"} />
-    <h1 className="text-3xl md:text-5xl mb-6 font-bold">
-          Tired of Spending Hours Writing Content?
+        <h1 className="text-3xl md:text-5xl mb-6 font-bold">
+          <span className="bg-gradient-to-t from-gray-400 to-white bg-clip-text text-transparent">
+            Need Instant Content Solutions?
+          </span>
         </h1>
+
         <div className="flex flex-col md:flex-row items-center justify-center mb-8">
         <span className="text-4xl md:text-4xl font-semibold">Write </span>
           <div className="mt-4 md:mt-0 md:ml-6">
@@ -100,10 +100,12 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="text-lg md:text-xl mb-6">
+        <div className="text-lg text-gray-100 md:text-xl mb-6">
           <p>
-            Well, we got you! At NovaCopy, we provide high-quality, customized
-            copy that fits your brand, saving you time and effort.
+            Well, we got you! Generate copy with proven strategies
+          </p>
+          <p>
+           that will make your business sky rocket
           </p>
         </div>
         <div className="flex flex-col md:flex-row justify-center gap-4 my-4">
@@ -115,16 +117,10 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Spacing between sections */}
-      {/* <div className="my-8 md:my-16"></div> */}
-
-      {/* Spacing between sections */}
-      {/* <div className="my-8 md:my-16"></div> */}
-
       {/* Sticky Animation Section */}
       <section className="relative w-full max-w-5xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start">
         <div className="md:w-1/2 text-left">
-          <h2 className="text-2xl md:text-3xl font-bold mb-8">
+          <h2 className="text-2xl md:text-4xl font-bold mb-8">
             Your <span className="gradient-text">Content</span>, Your Way, Faster{" "}
             <span className="gradient-text">! </span>
           </h2>
@@ -164,7 +160,7 @@ export default function Home() {
 
       {/* Features Section */}
       <section className="w-full max-w-5xl py-8 md:py-16 px-4">
-        <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
+        <h2 className="text-2xl md:text-4xl font-bold mb-8 text-center">
           Our <span className="gradient-text">Features</span>
         </h2>
         <HoverEffect items={features} />
@@ -173,8 +169,17 @@ export default function Home() {
       <div className="my-8 md:my-3"></div>
 
       <section>
+        <h2 className="text-2xl md:text-4xl font-bold mb-8 text-center">
+          Join the <span className="gradient-text">hype!</span>
+        </h2>
+        <InfiniteMovingCardsDemo />
+      </section>
+
+      <div className="my-8 md:my-3"></div>
+
+      <section>
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-          <span className="gradient-text">FAQs!</span>
+          Frequently asked <span className="gradient-text">Questions!</span>
         </h2>
         <FAQSection />
       </section>

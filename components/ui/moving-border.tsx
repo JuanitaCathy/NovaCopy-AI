@@ -18,7 +18,7 @@ interface ButtonProps {
   borderClassName?: string;
   duration?: number;
   className?: string;
-  onClick?: () => void; // Add onClick prop
+  onClick?: () => void; 
   [key: string]: any;
 }
 

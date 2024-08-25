@@ -21,7 +21,7 @@ export default function Scene() {
     };
 
     window.addEventListener("scroll", handleScroll);
-    handleScroll(); // Initialize scroll offset
+    handleScroll();
 
     return () => {
       window.removeEventListener("scroll", handleScroll);
