@@ -7,7 +7,7 @@ export function InfiniteMovingCardsDemo() {
   return (
     <div className="h-[25rem] rounded-md flex flex-col antialiased bg-white dark:bg-transparent dark:bg-grid-white/[0.05] items-center justify-center relative overflow-hidden">
       <InfiniteMovingCards
-        items={testimonials}
+        items={hypeTexts}
         direction="right"
         speed="slow"
       />
@@ -15,34 +15,39 @@ export function InfiniteMovingCardsDemo() {
   );
 }
 
-const testimonials = [
+const hypeTexts = [
   {
-    quote:
-      "It was the best of times, it was the worst of times, it was the age of wisdom, it was the age of foolishness, it was the epoch of belief, it was the epoch of incredulity, it was the season of Light, it was the season of Darkness, it was the spring of hope, it was the winter of despair.",
-    name: "Charles Dickens",
-    title: "A Tale of Two Cities",
+    quote: "Can't wait for the launch! This platform is going to change the way I create content! I've been searching for a tool like this forever, and NovaCopy is exactly what I need to take my work to the next level!",
+    name: "Farheen",
+    title: "Excited User",
+    profilePic: "farheen.jpg",
   },
+
   {
-    quote:
-      "To be, or not to be, that is the question: Whether 'tis nobler in the mind to suffer The slings and arrows of outrageous fortune, Or to take Arms against a Sea of troubles, And by opposing end them: to die, to sleep.",
-    name: "William Shakespeare",
-    title: "Hamlet",
+    quote: "Super excited to see what NovaCopy will bring to the table! It's going to be a game changer. I’ve tried so many tools, but nothing compares to what NovaCopy promises to deliver!",
+    name: "Juanita",
+    title: "Technical Blogger",
+    profilePic: "juanita.jpeg",
   },
+
   {
-    quote: "All that we see or seem is but a dream within a dream.",
-    name: "Edgar Allan Poe",
-    title: "A Dream Within a Dream",
+    quote: "NovaCopy seems really interesting! It's exactly what I’ve been looking for to streamline my work. The features sound amazing, and I’m excited to dive in and see how it can improve my workflow.",
+    name: "Cindy",
+    title: "Content Creator",
+    profilePic: "cindy.jpeg",
   },
+
   {
-    quote:
-      "It is a truth universally acknowledged, that a single man in possession of a good fortune, must be in want of a wife.",
-    name: "Jane Austen",
-    title: "Pride and Prejudice",
+    quote: "Finally, something to make content creation fun and easy! NovaCopy is what every writer needs. I’m thrilled to be part of this journey and can’t wait to explore all the possibilities!",
+    name: "Otter",
+    title: "Blogger - Otter Diaries",
+    profilePic: "otter.png",
   },
+
   {
-    quote:
-      "Call me Ishmael. Some years ago—never mind how long precisely—having little or no money in my purse, and nothing particular to interest me on shore, I thought I would sail about a little and see the watery part of the world.",
-    name: "Herman Melville",
-    title: "Moby-Dick",
+    quote: "Looking forward to trying out NovaCopy. The hype is real, and I can't wait to see it in action! With all the buzz around it, I know this is going to be a must-have tool for content creators everywhere.",
+    name: "Miho",
+    title: "Content Creator",
+    profilePic: "miho.jpeg",
   },
 ];
