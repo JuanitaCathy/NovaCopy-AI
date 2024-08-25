@@ -92,7 +92,7 @@ const FAQSection = () => {
               className={`bg-transparent border border-white/[0.4] rounded-xl mb-4 max-w-[500px] mx-auto ${
                 expanded === `panel${item.id}` ? "border-[#00b4d8] shadow-lg" : "border-white"
                 // expanded === `panel${item.id}` ? "border-pink-500 shadow-lg" : "dark:border-white/[0.4]"
-              }`} // Apply pink glow border if expanded
+              }`} 
 
             >
               {/* <Accordion

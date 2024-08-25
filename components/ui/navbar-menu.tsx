@@ -30,7 +30,7 @@ export const MenuItem = ({
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (href === "#" && onClick) {
       e.preventDefault(); // Prevent default link behavior
-      onClick(); // Call the provided onClick handler
+      onClick(); 
     }
   };
 
@@ -57,7 +57,6 @@ export const Menu = ({
 }) => {
   return (
     <Box display="flex" justifyContent="center" gap={4}>
-    <Image src="/NovaCopy_white_transparent.png" alt="NovaCopy Logo" width={60} height={60} />
     <nav
       onMouseLeave={() => setActive(null)}
       className="relative rounded-full border border-[#2c2f41] bg-[#1a1b2e]/50 backdrop-blur-lg shadow-input flex justify-center items-center space-x-8 px-16 py-5"

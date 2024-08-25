@@ -117,12 +117,6 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Spacing between sections */}
-      {/* <div className="my-8 md:my-16"></div> */}
-
-      {/* Spacing between sections */}
-      {/* <div className="my-8 md:my-16"></div> */}
-
       {/* Sticky Animation Section */}
       <section className="relative w-full max-w-5xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start">
         <div className="md:w-1/2 text-left">
