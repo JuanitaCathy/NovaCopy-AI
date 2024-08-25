@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Inter,  Calistoga } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react"
 import Script from 'next/script';
 import "./globals.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
@@ -20,7 +21,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <head>
+      {/* <head>
         <Script
           async
           src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
@@ -33,9 +34,12 @@ export default function RootLayout({
             gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
           `}
         </Script>
-      </head>
+      </head> */}
       <body className={`${inter.className}`}>
-        <ConvexClientProvider>{children}</ConvexClientProvider>
+        <ConvexClientProvider>
+          {children}
+        </ConvexClientProvider>
+        <Analytics />
       </body>
     </html>
   );
