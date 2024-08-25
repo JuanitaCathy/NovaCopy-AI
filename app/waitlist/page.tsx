@@ -51,11 +51,7 @@ export default function Waitlist() {
       <StarsBackground />
       <ShootingStars />
       <div className="z-10 w-full max-w-5xl text-center p-4 md:p-24 mt-24 md:mt-32">
-        <NavbarDemo
-          onFeaturesClick={function (): void {
-            throw new Error("Function not implemented.");
-          }}
-        />
+        <NavbarDemo />
         <h1 className="text-4xl md:text-5xl font-bold mb-12 mt-12">Waitlist</h1>
 
         {!submitted ? (
@@ -86,7 +82,12 @@ export default function Waitlist() {
                   name="floating_first_name"
                   id="floating_first_name"
                   value={firstName}
-                  onChange={(e) => setFirstName(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))}
+                  onChange={(e) =>
+                    setFirstName(
+                      e.target.value.charAt(0).toUpperCase() +
+                        e.target.value.slice(1)
+                    )
+                  }
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   required
@@ -104,7 +105,12 @@ export default function Waitlist() {
                   name="floating_last_name"
                   id="floating_last_name"
                   value={lastName}
-                  onChange={(e) => setLastName(e.target.value.charAt(0).toUpperCase() + e.target.value.slice(1))}
+                  onChange={(e) =>
+                    setLastName(
+                      e.target.value.charAt(0).toUpperCase() +
+                        e.target.value.slice(1)
+                    )
+                  }
                   className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                   placeholder=" "
                   required
@@ -123,7 +129,9 @@ export default function Waitlist() {
           </form>
         ) : (
           <>
-          {isConfettiActive && <Confetti isConfettiActive={isConfettiActive} />}
+            {isConfettiActive && (
+              <Confetti isConfettiActive={isConfettiActive} />
+            )}
             <div className="text-2xl">Thank you for joining the waitlist!</div>
             <div className="text-2xl">We will keep you posted!</div>
           </>

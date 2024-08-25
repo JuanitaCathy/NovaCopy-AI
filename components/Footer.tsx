@@ -2,43 +2,46 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 
-export default function Footer() {
-  const handleClick = (
-    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>
-  ) => {
-    event.preventDefault();
-    alert("Coming soon");
-  };
+interface FooterProps {
+  className?: string;
+}
 
+export default function Footer({ className }: FooterProps) {
   return (
     <footer
       id="footer"
       style={{ backgroundColor: "#1a1b20" }}
-      className="footer w-full footer-center bg-base-200 text-base-content rounded p-10"
+      className={`footer w-full footer-center bg-base-200 text-base-content rounded p-6 md:p-10 ${className}`}
     >
-      <div className="flex justify-center">
-      <Image src="/NovaCopy_white_transparent.png" alt="NovaCopy Logo" width={90} height={90} />
+      <div className="flex justify-center mb-4">
+        <Image
+          src="/NovaCopy_white_transparent.png"
+          alt="NovaCopy Logo"
+          width={70}
+          height={70}
+        />
       </div>
       <div className="container mx-auto">
-        <ul className="flex justify-center space-x-4 my-4">
+        <ul className="flex flex-wrap justify-center space-x-4 my-4">
           <li>
-            <Link href="https://www.linkedin.com" legacyBehavior>
+            <Link
+              href="https://www.linkedin.com/company/novacopy-ai/"
+              legacyBehavior
+            >
               <a
-                onClick={handleClick}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:text-pink-300 transition"
                 title="LinkedIn"
               >
-                <i className="fab fa-linkedin fa-2x"></i>
+                <i className="fab fa-linkedin fa-2x"></i>{" "}
                 <span className="sr-only">LinkedIn</span>
               </a>
             </Link>
           </li>
           <li>
-            <Link href="https://www.instagram.com" legacyBehavior>
+            <Link href="https://www.instagram.com/novacopyai/" legacyBehavior>
               <a
-                onClick={handleClick}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:text-pink-300 transition"
@@ -52,7 +55,6 @@ export default function Footer() {
           <li>
             <Link href="https://www.facebook.com" legacyBehavior>
               <a
-                onClick={handleClick}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-white hover:text-pink-300 transition"
@@ -64,7 +66,7 @@ export default function Footer() {
             </Link>
           </li>
           <li>
-            <Link href="mailto:spongheen@gmail.com" legacyBehavior>
+            <Link href="mailto:novacopyai14@gmail.com" legacyBehavior>
               <a
                 className="text-white hover:text-pink-300 transition"
                 title="Email"
