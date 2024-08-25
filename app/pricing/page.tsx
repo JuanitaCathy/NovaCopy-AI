@@ -2,6 +2,7 @@
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import NavbarDemo from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function Pricing() {
   return (
@@ -17,6 +18,7 @@ export default function Pricing() {
         />
         <h1 className="text-4xl md:text-5xl font-bold mb-12 mt-12">Pricing</h1>
       </div>
+      <Footer />
     </main>
   );
 }
