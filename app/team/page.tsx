@@ -2,6 +2,7 @@
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import NavbarDemo from "@/components/Header";
+import Footer from "@/components/Footer";
 
 export default function Team() {
   const teamMembers = [
@@ -69,6 +70,8 @@ export default function Team() {
           ))}
         </div>
       </div>
+      <div className="my-12"></div>
+      <Footer />
     </main>
   );
 }
