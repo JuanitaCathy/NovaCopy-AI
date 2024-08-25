@@ -76,43 +76,38 @@ export default function Home() {
       <ShootingStars />
 
       <div className="relative h-screen flex flex-col">
-        <NavbarDemo
-        onFeaturesClick={function (): void {
-          throw new Error("Function not implemented.");
-        }} />
+        <NavbarDemo />
         <div className="flex-1 flex flex-col items-center justify-center text-center p-4 md:p-6">
-        < Badge text={"We are launching soon ✨"} />
-        <h1 className="text-3xl md:text-5xl mb-6 font-bold">
-          <span className="bg-gradient-to-t from-gray-400 to-white bg-clip-text text-transparent">
-            Need Instant Content Solutions?
-          </span>
-        </h1>
+          <Badge text={"We are launching soon ✨"} />
+          <h1 className="text-2xl md:text-5xl mb-6 font-bold">
+            <span className="bg-gradient-to-t from-gray-400 to-white bg-clip-text text-transparent">
+              Need Instant Content Solutions?
+            </span>
+          </h1>
 
-        <div className="flex flex-col md:flex-row items-center justify-center mb-8">
-        <span className="text-4xl md:text-4xl font-semibold">Write </span>
-          <div className="mt-4 md:mt-0 md:ml-6">
-            <TypewriterEffect
-              words={words}
-              className="text-4xl md:text-4xl"
-              cursorClassName="ml-2"
-              wordClassName="font-cursive gradient-text"
-              typingSpeed={150}
-            />
+          <div className="flex flex-col md:flex-row items-center justify-center mb-8">
+            <span className="text-3xl md:text-4xl font-semibold">Write </span>
+            <div className="mt-4 md:mt-0 md:ml-6">
+              <TypewriterEffect
+                words={words}
+                className="text-3xl md:text-4xl"
+                cursorClassName="ml-2"
+                wordClassName="font-cursive gradient-text"
+                typingSpeed={150}
+              />
+            </div>
           </div>
-        </div>
-        <div className="text-lg text-gray-100 md:text-xl mb-6">
-          <p>
-            Well, we got you! Generate copy with proven strategies
-          </p>
-          <p>
-           that will make your business sky rocket
-          </p>
-        </div>
-        <div className="flex flex-col md:flex-row justify-center gap-4 my-4">
-          <button className="inline-flex items-center gap-2 border border-white/16 px-6 h-15.5 rounded-xl">
-            <span className="font-semibold">Explore Services!</span>
-          </button>
-          <ShiningButton />
+          <div className="text-base md:text-xl mb-6 text-gray-100">
+            {/* Adjust font size for smaller screens */}
+            <p>Well, we got you! Generate copy with proven strategies</p>
+            <p>that will make your business sky rocket</p>
+          </div>
+          <div className="flex flex-col md:flex-row justify-center gap-4 my-4">
+            {/* Increase padding for buttons on smaller screens */}
+            <button className="inline-flex items-center gap-2 border border-white/16 px-8 py-4 h-15.5 rounded-xl">
+              <span className="font-semibold">Explore Services!</span>
+            </button>
+            <ShiningButton />
           </div>
         </div>
       </div>
@@ -121,8 +116,8 @@ export default function Home() {
       <section className="relative w-full max-w-5xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start">
         <div className="md:w-1/2 text-left">
           <h2 className="text-2xl md:text-4xl font-bold mb-8">
-            Your <span className="gradient-text">Content</span>, Your Way, Faster{" "}
-            <span className="gradient-text">! </span>
+            Your <span className="gradient-text">Content</span>, Your Way,
+            Faster <span className="gradient-text">! </span>
           </h2>
           <p className="text-base md:text-lg mb-4">
             We’ve all been there—staring at a blank screen, waiting for that
@@ -146,7 +141,8 @@ export default function Home() {
             Ready to make content creation a whole lot easier? Come join our
             waitlist and be one of the first to see how we’re changing the game.
           </p>
-          <div className="mt-2 md:mt-14">
+          <div className="mt-4 md:mt-14">
+            {/* Added spacing for smaller screens */}
             <ShiningButton />
           </div>
         </div>
@@ -154,9 +150,6 @@ export default function Home() {
           <Scene />
         </div>
       </section>
-
-      {/* Spacing between sections */}
-      <div className="my-8 md:my-3"></div>
 
       {/* Features Section */}
       <section className="w-full max-w-5xl py-8 md:py-16 px-4">
@@ -166,7 +159,7 @@ export default function Home() {
         <HoverEffect items={features} />
       </section>
 
-      <div className="my-8 md:my-3"></div>
+      <div className="my-8 md:my-16"></div>
 
       <section>
         <h2 className="text-2xl md:text-4xl font-bold mb-8 text-center">
@@ -175,7 +168,7 @@ export default function Home() {
         <InfiniteMovingCardsDemo />
       </section>
 
-      <div className="my-8 md:my-3"></div>
+      <div className="my-8 md:my-16"></div>
 
       <section>
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">

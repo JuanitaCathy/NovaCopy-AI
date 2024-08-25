@@ -4,7 +4,7 @@ import { StarsBackground } from "@/components/ui/stars-background";
 import NavbarDemo from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export default function Pricing() {
+export default function Services() {
   return (
     <main className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center">
       {/* Background Effects */}
