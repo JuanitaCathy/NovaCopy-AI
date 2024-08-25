@@ -11,7 +11,9 @@ export default function Contact() {
       <StarsBackground />
       <ShootingStars />
       <div className="z-10 w-full max-w-5xl text-center p-4 md:p-12 md:mb-6 mt-12 md:mt-32">
-        <NavbarDemo />
+        <NavbarDemo onFeaturesClick={function (): void {
+          throw new Error("Function not implemented.");
+        } } />
         <ContactUS />
       </div>
       <Footer />

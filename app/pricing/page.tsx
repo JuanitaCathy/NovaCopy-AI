@@ -11,10 +11,12 @@ export default function Pricing() {
       <StarsBackground />
       <ShootingStars />
       <div className="z-10 w-full max-w-5xl text-center p-4 md:p-24 mt-24 md:mt-32">
-        <NavbarDemo />
-        <h1 className="text-4xl md:text-5xl font-bold mb-12 mt-12">
-          Coming Soon...
-        </h1>
+        <NavbarDemo
+          onFeaturesClick={function (): void {
+            throw new Error("Function not implemented.");
+          }}
+        />
+        <h1 className="text-4xl md:text-5xl font-bold mb-12 mt-12">Pricing</h1>
       </div>
       <Footer />
     </main>

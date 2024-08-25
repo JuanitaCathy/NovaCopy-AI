@@ -23,7 +23,7 @@ export default function Home() {
   //   { text: "Magic", emoji: "🪄" },
   //   { text: "Your Future", emoji: "🔮" },
   // ];
-
+  
 
   // Features Data
   const features = [
@@ -128,8 +128,8 @@ export default function Home() {
       <section className="relative w-full max-w-5xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start">
         <div className="md:w-1/2 text-left">
           <h2 className="text-2xl md:text-4xl font-bold mb-8">
-            Your <span className="gradient-text">Content</span>, Your Way,
-            Faster <span className="gradient-text">! </span>
+            Your <span className="gradient-text">Content</span>, Your Way, Faster{" "}
+            <span className="gradient-text">! </span>
           </h2>
           <p className="text-base md:text-lg mb-4">
             We’ve all been there—staring at a blank screen, waiting for that
@@ -153,8 +153,7 @@ export default function Home() {
             Ready to make content creation a whole lot easier? Come join our
             waitlist and be one of the first to see how we’re changing the game.
           </p>
-          <div className="mt-4 md:mt-14">
-            {/* Added spacing for smaller screens */}
+          <div className="mt-2 md:mt-14">
             <ShiningButton />
           </div>
         </div>
@@ -162,6 +161,9 @@ export default function Home() {
           <Scene />
         </div>
       </section>
+
+      {/* Spacing between sections */}
+      <div className="my-8 md:my-3"></div>
 
       {/* Features Section */}
       <section className="w-full max-w-5xl py-8 md:py-16 px-4">
@@ -171,7 +173,7 @@ export default function Home() {
         <HoverEffect items={features} />
       </section>
 
-      <div className="my-8 md:my-16"></div>
+      <div className="my-8 md:my-3"></div>
 
       <section>
         <h2 className="text-2xl md:text-4xl font-bold mb-8 text-center">
@@ -180,7 +182,7 @@ export default function Home() {
         <InfiniteMovingCardsDemo />
       </section>
 
-      <div className="my-8 md:my-16"></div>
+      <div className="my-8 md:my-3"></div>
 
       <section>
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
