@@ -18,7 +18,7 @@ const InteractiveCard: React.FC<InteractiveCardProps> = ({
         <p className="text-base mb-8">
           We&apos;ve all been there—staring at a blank screen, waiting for that
           perfect idea to strike, or scrambling to fill up a content calendar
-          with something fresh and engaging. It&apos;s tough, right? You're not alone
+          with something fresh and engaging. It&apos;s tough, right? You&apos;re not alone
           in this struggle.
           <br />
           <br />

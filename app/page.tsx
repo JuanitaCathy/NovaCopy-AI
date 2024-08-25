@@ -131,18 +131,18 @@ export default function Home() {
           <p className="text-base md:text-lg mb-4">
             We&apos;ve all been there—staring at a blank screen, waiting for that
             perfect idea to strike, or scrambling to fill up a content calendar
-            with something fresh and engaging. It's tough, right? You're not
+            with something fresh and engaging. It&apos;s tough, right? You&apos;re not
             alone in this struggle.
           </p>
           <p className="text-base md:text-lg mb-4">
-            At NovaCopy AI, we get it. We've felt that same pressure to deliver
+            At NovaCopy AI, we get it. We&apos;ve felt that same pressure to deliver
             top-notch content, often under tight deadlines. That&apos;s exactly why
             we created Nova AI. Not just another tool, but a creative partner
             that understands your needs.
           </p>
           <p className="text-base md:text-lg mb-4">
             Nova AI is here to help you take back control of your content. It&apos;s
-            not about replacing you—it's about working with you. Together,
+            not about replacing you—it&apos;s about working with you. Together,
             you&apos;ll breeze through those drafts, meet deadlines with ease, and
             give your brand the voice it deserves.
           </p>
