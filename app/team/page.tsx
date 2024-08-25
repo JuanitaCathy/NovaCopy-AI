@@ -1,6 +1,7 @@
 "use client";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
+import Image from "next/image";
 import NavbarDemo from "@/components/Header";
 import Footer from "@/components/Footer";
 
@@ -8,7 +9,7 @@ export default function Team() {
   const teamMembers = [
     {
       name: "Miho Funayama",
-      image: "/images/miho.jpeg",
+      image: "/images/miho.jpeg", 
       title: "Fullstack Engineer | AI Enthusiast",
       description:
         "Miho brings a unique perspective from her experience in shipping and semiconductors. She is passionate about leveraging the latest technologies and is eager to apply her skills.",

@@ -129,26 +129,26 @@ export default function Home() {
             Faster <span className="gradient-text">! </span>
           </h2>
           <p className="text-base md:text-lg mb-4">
-            We’ve all been there—staring at a blank screen, waiting for that
+            We&apos;ve all been there—staring at a blank screen, waiting for that
             perfect idea to strike, or scrambling to fill up a content calendar
             with something fresh and engaging. It's tough, right? You're not
             alone in this struggle.
           </p>
           <p className="text-base md:text-lg mb-4">
             At NovaCopy AI, we get it. We've felt that same pressure to deliver
-            top-notch content, often under tight deadlines. That’s exactly why
+            top-notch content, often under tight deadlines. That&apos;s exactly why
             we created Nova AI. Not just another tool, but a creative partner
             that understands your needs.
           </p>
           <p className="text-base md:text-lg mb-4">
-            Nova AI is here to help you take back control of your content. It’s
+            Nova AI is here to help you take back control of your content. It&apos;s
             not about replacing you—it's about working with you. Together,
-            you’ll breeze through those drafts, meet deadlines with ease, and
+            you&apos;ll breeze through those drafts, meet deadlines with ease, and
             give your brand the voice it deserves.
           </p>
           <p className="text-base md:text-lg mb-4">
             Ready to make content creation a whole lot easier? Come join our
-            waitlist and be one of the first to see how we’re changing the game.
+            waitlist and be one of the first to see how we&apos;re changing the game.
           </p>
           <div className="mt-4 md:mt-14">
             {/* Added spacing for smaller screens */}
