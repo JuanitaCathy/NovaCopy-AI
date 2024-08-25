@@ -16,13 +16,14 @@ import { InfiniteMovingCardsDemo } from "@/components/HypeScroll";
 const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
 
 export default function Home() {
-  const words = [
-    { text: "High-Quality Content 💡 ", className: "gradient-text" },
-    { text: "Words That Work 🎯 ", className: "gradient-text" },
-    { text: "Time-Saving Copy ⏳ ", className: "gradient-text" },
-    { text: "Magic 🪄", className: "gradient-text" },
-    { text: "Your Future 🔮", className: "gradient-text" },
-  ];
+  // const words = [
+  //   { text: "High-Quality Content", emoji: "💡" },
+  //   { text: "Words That Work", emoji: "🎯" },
+  //   { text: "Time-Saving Copy", emoji: "⏳" },
+  //   { text: "Magic", emoji: "🪄" },
+  //   { text: "Your Future", emoji: "🔮" },
+  // ];
+  
 
   // Features Data
   const features = [
@@ -71,53 +72,59 @@ export default function Home() {
 
   return (
     <main className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center">
-      {/* Background Effects */}
       <StarsBackground />
       <ShootingStars />
 
-      <div className="relative h-screen flex flex-col">
+      <div className="relative h-screen pt-20 flex flex-col">
         <NavbarDemo
         onFeaturesClick={function (): void {
           throw new Error("Function not implemented.");
         }} />
         <div className="flex-1 flex flex-col items-center justify-center text-center p-4 md:p-6">
         < Badge text={"We are launching soon ✨"} />
-        <h1 className="text-3xl md:text-5xl mb-6 font-bold">
+        <h1 className="text-4xl md:text-6xl mb-7 font-bold">
           <span className="bg-gradient-to-t from-gray-400 to-white bg-clip-text text-transparent">
-            Need Instant Content Solutions?
+          Tired of Slow Content Creation?
           </span>
         </h1>
 
-        <div className="flex flex-col md:flex-row items-center justify-center mb-8">
-        <span className="text-4xl md:text-4xl font-semibold">Write </span>
+        <div className="flex flex-col md:flex-row items-center justify-center md: mt-2 mb-8">
+        <span className="text-3xl md:text-4xl font-semibold bg-gradient-to-t from-gray-400 to-white bg-clip-text text-transparent">Write</span>
           <div className="mt-4 md:mt-0 md:ml-6">
-            <TypewriterEffect
-              words={words}
-              className="text-4xl md:text-4xl"
-              cursorClassName="ml-2"
-              wordClassName="font-cursive gradient-text"
-              typingSpeed={150}
-            />
+          <TypewriterEffect
+            words={[
+              { text: "High-Quality Content", emoji: "💡" },
+              { text: "Words That Work", emoji: "🎯" },
+              { text: "Time-Saving Copy", emoji: "⏳" },
+              { text: "Magic", emoji: "🪄" },
+              { text: "Your Future", emoji: "🔮" },
+            ]}
+            className="text-4xl md:text-4xl"
+            cursorClassName="ml-2"
+            textClassName="gradient-text"
+          />
           </div>
         </div>
-        <div className="text-lg text-gray-100 md:text-xl mb-6">
-          <p>
-            Well, we got you! Generate copy with proven strategies
+        <div className="text-sm md:text-lg mb-6 px-4 sm:px-6 lg:px-9 text-gray-300">
+          <p className="mb-2 break-words">
+            We’ve got you! With our AI technology, generate
           </p>
-          <p>
-           that will make your business sky rocket
+          <p className="break-words">
+            tailor-made copy that will make your business skyrocket.
           </p>
         </div>
-        <div className="flex flex-col md:flex-row justify-center gap-4 my-4">
-          <button className="inline-flex items-center gap-2 border border-white/16 px-6 h-15.5 rounded-xl">
-            <span className="font-semibold">Explore Services!</span>
-          </button>
+
+
+        <div className="flex flex-col md:flex-row justify-center gap-4 mt-4">
+        <button className="inline-flex items-center gap-2 border border-white/16 px-6 py-2 md:px-8 md:py-3 h-auto rounded-xl text-sm md:text-base font-semibold">
+          <span className="font-semibold">Explore Services!</span>
+        </button>
+
           <ShiningButton />
           </div>
         </div>
       </div>
 
-      {/* Sticky Animation Section */}
       <section className="relative w-full max-w-5xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start">
         <div className="md:w-1/2 text-left">
           <h2 className="text-2xl md:text-4xl font-bold mb-8">

@@ -72,12 +72,10 @@ const faqItems = [
 ];
 
 const FAQSection = () => {
-  // State to keep track of the expanded FAQ item
   const [expanded, setExpanded] = useState<string | false>(false);
 
   const handleChange = (panel: string) => (event: React.SyntheticEvent, isExpanded: boolean) => {
-    // If the panel is expanded, close it; otherwise, open the new panel and close the previous one
-    setExpanded(isExpanded ? (expanded === panel ? false : panel) : false);
+    setExpanded(isExpanded ? panel : false);
   };
 
   return (
@@ -89,16 +87,10 @@ const FAQSection = () => {
               key={item.id}
               expanded={expanded === `panel${item.id}`}
               onChange={handleChange(`panel${item.id}`)}
-              className={`bg-transparent border border-white/[0.4] rounded-xl mb-4 max-w-[500px] mx-auto ${
-                expanded === `panel${item.id}` ? "border-[#00b4d8] shadow-lg" : "border-white"
-                // expanded === `panel${item.id}` ? "border-pink-500 shadow-lg" : "dark:border-white/[0.4]"
-              }`} 
-
+              className={`bg-transparent border rounded-xl mb-4 max-w-[500px] mx-auto transition-all duration-300 ${
+                expanded === `panel${item.id}` ? "border-[#00b4d8] shadow-lg" : "border-white/40"
+              }`}
             >
-              {/* <Accordion
-              key={item.id}
-              className="bg-transparent border border-white rounded-2xl mb-4 max-w-[500px] mx-auto"
-            > */}
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />}
                 aria-controls={`panel${item.id}-content`}
@@ -119,14 +111,13 @@ const FAQSection = () => {
         <Grid item xs={12} md={6} className="pl-2">
           {faqItems.slice(5).map((item) => (
             <Accordion
-            key={item.id}
-            expanded={expanded === `panel${item.id}`}
-            onChange={handleChange(`panel${item.id}`)}
-            className={`bg-transparent border border-white/[0.4] rounded-xl mb-4 max-w-[500px] mx-auto ${
-                expanded === `panel${item.id}` ? "border-[#00b4d8] shadow-lg" : "border-white"
-            }`} // Apply pink glow border if expanded
-
-          >
+              key={item.id}
+              expanded={expanded === `panel${item.id}`}
+              onChange={handleChange(`panel${item.id}`)}
+              className={`bg-transparent border rounded-xl mb-4 max-w-[500px] mx-auto transition-all duration-300 ${
+                expanded === `panel${item.id}` ? "border-[#00b4d8] shadow-lg" : "border-white/40"
+              }`}
+            >
               <AccordionSummary
                 expandIcon={<ExpandMoreIcon sx={{ color: "white" }} />}
                 aria-controls={`panel${item.id}-content`}
