@@ -76,10 +76,7 @@ export default function Home() {
       <ShootingStars />
 
       <div className="relative h-screen pt-20 flex flex-col">
-        <NavbarDemo
-        onFeaturesClick={function (): void {
-          throw new Error("Function not implemented.");
-        }} />
+        <NavbarDemo />
         <div className="flex-1 flex flex-col items-center justify-center text-center p-4 md:p-6">
         < Badge text={"We are launching soon ✨"} />
         <h1 className="text-4xl md:text-6xl mb-7 font-bold">
