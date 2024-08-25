@@ -10,7 +10,7 @@ export default function Footer({ className }: FooterProps) {
   return (
     <footer
       id="footer"
-      style={{ backgroundColor: "#1a1b20", zIndex: 1000 }}
+      style={{ backgroundColor: "#1a1b20", zIndex: 1000 }} // fix is here
       className={`footer w-full footer-center bg-base-200 text-base-content rounded p-6 md:p-10 ${className}`}
     >
       <div className="flex justify-center mb-4">
