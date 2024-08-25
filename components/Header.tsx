@@ -93,38 +93,40 @@ function Navbar({ className }: { className?: string }) {
 
       {/* Pop-up Menu for Mobile */}
       {isOpen && (
-        <div className="fixed inset-0 top-16 bg-gray-800 bg-opacity-70 text-white p-4 md:hidden flex flex-col items-center space-y-4">
+        <div className="fixed inset-0 top-16 bg-gray-800 bg-opacity-70 text-white p-4 md:hidden flex flex-col items-center space-y-4 overflow-y-auto w-full">
           <Menu setActive={setActive}>
-            <MenuItem
-              setActive={setActive}
-              active={active}
-              item="About"
-              href="/"
-            />
-            <MenuItem
-              setActive={setActive}
-              active={active}
-              item="Pricing"
-              href="/pricing"
-            />
-            <MenuItem
-              setActive={setActive}
-              active={active}
-              item="Contact"
-              href="/contact"
-            />
-            <MenuItem
-              setActive={setActive}
-              active={active}
-              item="Services"
-              href="/services"
-            />
-            <MenuItem
-              setActive={setActive}
-              active={active}
-              item="Team"
-              href="/team"
-            />
+            <div className="flex flex-col items-center space-y-4">
+              <MenuItem
+                setActive={setActive}
+                active={active}
+                item="About"
+                href="/"
+              />
+              <MenuItem
+                setActive={setActive}
+                active={active}
+                item="Pricing"
+                href="/pricing"
+              />
+              <MenuItem
+                setActive={setActive}
+                active={active}
+                item="Contact"
+                href="/contact"
+              />
+              <MenuItem
+                setActive={setActive}
+                active={active}
+                item="Services"
+                href="/services"
+              />
+              <MenuItem
+                setActive={setActive}
+                active={active}
+                item="Team"
+                href="/team"
+              />
+            </div>
           </Menu>
         </div>
       )}

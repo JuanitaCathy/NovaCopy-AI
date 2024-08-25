@@ -9,7 +9,7 @@ export default function Team() {
   const teamMembers = [
     {
       name: "Miho Funayama",
-      image: "/images/miho.jpeg", 
+      image: "/images/miho.jpeg",
       title: "Fullstack Engineer | AI Enthusiast",
       description:
         "Miho brings a unique perspective from her experience in shipping and semiconductors. She is passionate about leveraging the latest technologies and is eager to apply her skills.",
@@ -46,25 +46,25 @@ export default function Team() {
         <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mb-8 mt-12">
           Our Team
         </h1>
-        <div className="flex flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
+        <div className="flex flex-col md:flex-row flex-wrap justify-center gap-4 sm:gap-6 md:gap-8">
           {teamMembers.map((member, index) => (
             <div
               key={index}
-              className="flex flex-col items-center p-4 w-48 sm:w-56 md:w-64"
+              className="flex flex-col items-center p-4 w-full sm:w-56 md:w-64"
               style={{ flexBasis: "calc(50% - 16px)" }}
             >
               <img
                 src={member.image}
                 alt={member.name}
-                className="w-20 h-20 sm:w-24 sm:h-24 md:w-32 md:h-32 rounded-full mb-4"
+                className="w-24 h-24 sm:w-32 sm:h-32 rounded-full mb-4"
               />
-              <h2 className="text-base sm:text-lg md:text-xl font-semibold">
+              <h2 className="text-lg sm:text-xl font-semibold">
                 {member.name}
               </h2>
-              <h3 className="text-sm sm:text-base md:text-lg font-medium text-gray-500">
+              <h3 className="text-sm sm:text-base font-medium text-gray-500">
                 {member.title}
               </h3>
-              <p className="text-sm sm:text-base md:text-lg text-center mt-2">
+              <p className="text-sm sm:text-base text-center mt-2">
                 {member.description}
               </p>
             </div>
