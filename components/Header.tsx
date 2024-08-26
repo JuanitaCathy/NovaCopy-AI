@@ -7,7 +7,7 @@ import { HiMenu, HiX } from "react-icons/hi";
 export default function NavbarDemo() {
   return (
     <div className="relative w-full flex items-center justify-center">
-      <Navbar className="top-5" />
+      <Navbar className="top-0" />
     </div>
   );
 }
@@ -76,7 +76,7 @@ function Navbar({ className }: { className?: string }) {
       </div>
 
       {/* Mobile Navbar */}
-      <div className="flex items-center justify-between md:hidden px-4 py-2">
+      <div className="flex items-center justify-between md:hidden px-4 backdrop-blur-lg py-2">
         {/* Logo */}
         <Image
           src="/NovaCopy_white_transparent.png"
