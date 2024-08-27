@@ -25,7 +25,7 @@ const faqItems = [
     id: 3,
     question: "How does NovaCopy AI work?",
     answer:
-      "Sign up by clicking here. Fill up the form by simply providing essential details about your business and target audience, and our AI generates tailored copy options. You can ask for further edits of the copy to meet your needs.",
+      'Sign up by clicking <a href="https://www.novacopyai.xyz/" target="_blank" rel="noopener noreferrer">here</a>. Fill up the form by simply providing essential details about your business and target audience, and our AI generates tailored copy options. You can ask for further edits of the copy to meet your needs.',
   },
   {
     id: 4,
@@ -55,13 +55,13 @@ const faqItems = [
     id: 8,
     question: "Can I get a refund?",
     answer:
-      "We offer a refund policy for eligible customers. Please review our refund policy for detailed information and eligibility criteria.",
+      'We offer a refund policy for eligible customers. Please review our <a href="https://www.novacopyai.xyz/pricing" target="_blank" rel="noopener noreferrer">refund policy</a> for detailed information and eligibility criteria.',
   },
   {
     id: 9,
     question: "What should I do if I encounter a problem with NovaCopy AI?",
     answer:
-      "Our well-trained AI customer support bot is available 24/7 to assist you with any issues or inquiries. If you would like to speak to a representative, please contact us through our.",
+      'Our well-trained AI customer support bot is available 24/7 to assist you with any issues or inquiries. If you would like to speak to a representative, please contact us through our <a href="mailto:novacopyaicustomerservice@gmail.com">email</a>.',
   },
   {
     id: 10,
@@ -117,7 +117,16 @@ const FAQSection = () => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails className="text-white">
-                <Typography>{item.answer}</Typography>
+                <Typography
+                  component="div"
+                  sx={{
+                    "& a": {
+                      textDecoration: "underline",
+                      color: "inherit",
+                    },
+                  }}
+                  dangerouslySetInnerHTML={{ __html: item.answer }}
+                />
               </AccordionDetails>
             </Accordion>
           ))}
@@ -146,7 +155,16 @@ const FAQSection = () => {
                 </Typography>
               </AccordionSummary>
               <AccordionDetails className="text-white">
-                <Typography>{item.answer}</Typography>
+                <Typography
+                  component="div"
+                  sx={{
+                    "& a": {
+                      textDecoration: "underline",
+                      color: "inherit",
+                    },
+                  }}
+                  dangerouslySetInnerHTML={{ __html: item.answer }}
+                />
               </AccordionDetails>
             </Accordion>
           ))}
