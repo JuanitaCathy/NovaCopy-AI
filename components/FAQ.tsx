@@ -80,8 +80,8 @@ const FAQSection = () => {
 
   return (
     <div className="p-6">
-      <Grid container spacing={4}>
-        <Grid item xs={12} md={6} className="pr-2">
+      <Grid container spacing={{ xs: 0, md: 4 }}>
+        <Grid item xs={12} md={6}>
           {faqItems.slice(0, 5).map((item) => (
             <Accordion
               key={item.id}
@@ -108,7 +108,7 @@ const FAQSection = () => {
           ))}
         </Grid>
 
-        <Grid item xs={12} md={6} className="pl-2">
+        <Grid item xs={12} md={6}>
           {faqItems.slice(5).map((item) => (
             <Accordion
               key={item.id}
