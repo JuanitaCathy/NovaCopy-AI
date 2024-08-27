@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Menu, MenuItem } from "../components/ui/navbar-menu";
 import { cn } from "@/lib/utils";
+import Link from 'next/link';
 import Image from "next/image";
 import { HiMenu, HiX } from "react-icons/hi";
 
@@ -23,12 +24,14 @@ function Navbar({ className }: { className?: string }) {
         <Menu setActive={setActive}>
           <div className="flex items-center space-x-6">
             {/* Logo */}
+            <Link href="/">
             <Image
               src="/NovaCopy_white_transparent.png"
               alt="NovaCopy Logo"
               width={40}
               height={40}
             />
+            </Link>
             <MenuItem
               setActive={setActive}
               active={active}
@@ -78,12 +81,14 @@ function Navbar({ className }: { className?: string }) {
       {/* Mobile Navbar */}
       <div className="flex items-center justify-between md:hidden px-4 backdrop-blur-lg py-2">
         {/* Logo */}
+        <Link href="/">
         <Image
           src="/NovaCopy_white_transparent.png"
           alt="NovaCopy Logo"
           width={70}
           height={70}
         />
+        </Link>
 
         {/* Hamburger Menu Icon */}
         <button className="text-white" onClick={() => setIsOpen(!isOpen)}>

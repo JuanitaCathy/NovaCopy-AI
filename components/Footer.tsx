@@ -14,12 +14,14 @@ export default function Footer({ className }: FooterProps) {
       className={`footer w-full footer-center bg-base-200 text-base-content rounded p-6 md:p-10 ${className}`}
     >
       <div className="flex justify-center mb-4">
+      <Link href="/">
         <Image
           src="/NovaCopy_white_transparent.png"
           alt="NovaCopy Logo"
           width={70}
           height={70}
         />
+        </Link>
       </div>
       <div className="container mx-auto">
         <ul className="flex flex-wrap justify-center space-x-4 my-4">
