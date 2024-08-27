@@ -122,7 +122,7 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="relative w-full max-w-7xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start">
+      <section className="relative w-full max-w-6xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start" style={{ transform: 'translateX(12px)' }}>
         <div className="md:w-1/2 text-left">
           <h2 className="text-2xl md:text-4xl font-bold mb-8">
             Your <span className="gradient-text">Content</span>, Your Way,
@@ -161,7 +161,7 @@ export default function Home() {
 
 
       {/* Features Section */}
-      <section className="w-full max-w-5xl py-8 md:py-16 px-4 z-0">
+      <section className="w-full max-w-6xl py-8 md:py-16 px-4 z-0">
         <h2 className="text-2xl md:text-4xl font-bold mb-8 text-center">
           Our <span className="gradient-text">Features</span>
         </h2>
