@@ -24,7 +24,6 @@ export default function Home() {
   //   { text: "Your Future", emoji: "🔮" },
   // ];
 
-
   // Features Data
   const features = [
     {
@@ -94,77 +93,87 @@ export default function Home() {
       <div className="relative h-screen pt-20 flex flex-col">
         <NavbarDemo />
         <div className="flex-1 flex flex-col items-center justify-center text-center p-4 md:p-6">
-        < Badge text={"We are launching soon ✨"} />
-        <h1 className="text-4xl md:text-6xl mb-7 font-bold">
-          <span className="bg-gradient-to-t from-gray-400 to-white bg-clip-text text-transparent">
-          Tired of Slow Content Creation?
-          </span>
-        </h1>
+          <Badge text={"We are launching soon ✨"} />
+          <h1 className="text-4xl md:text-6xl mb-7 font-bold">
+            <span className="bg-gradient-to-t from-gray-400 to-white bg-clip-text text-transparent">
+              Tired of Slow Content Creation?
+            </span>
+          </h1>
 
-        <div className="flex flex-col md:flex-row items-center justify-center md: mt-2 mb-8">
-        <span className="text-3xl md:text-4xl font-semibold bg-gradient-to-t from-gray-400 to-white bg-clip-text text-transparent">Write</span>
-          <div className="mt-4 md:mt-0 md:ml-6">
-          <TypewriterEffect
-            words={[
-              { text: "High-Quality Content", emoji: "💡" },
-              { text: "Words That Work", emoji: "🎯" },
-              { text: "Time-Saving Copy", emoji: "⏳" },
-              { text: "Magic", emoji: "🪄" },
-              { text: "Your Future", emoji: "🔮" },
-            ]}
-            className="text-4xl md:text-4xl"
-            cursorClassName="ml-2"
-            textClassName="gradient-text"
-          />
+          <div className="flex flex-col md:flex-row items-center justify-center md: mt-2 mb-8">
+            <span className="text-3xl md:text-4xl font-semibold bg-gradient-to-t from-gray-400 to-white bg-clip-text text-transparent">
+              Write
+            </span>
+            <div className="mt-4 md:mt-0 md:ml-6">
+              <TypewriterEffect
+                words={[
+                  { text: "High-Quality Content", emoji: "💡" },
+                  { text: "Words That Work", emoji: "🎯" },
+                  { text: "Time-Saving Copy", emoji: "⏳" },
+                  { text: "Magic", emoji: "🪄" },
+                  { text: "Your Future", emoji: "🔮" },
+                ]}
+                className="text-4xl md:text-4xl"
+                cursorClassName="ml-2"
+                textClassName="gradient-text"
+              />
+            </div>
           </div>
-        </div>
-        <div className="text-sm md:text-lg mb-6 px-4 sm:px-6 lg:px-9 text-gray-300">
-          <p className="mb-2 break-words">
-            We’ve got you! With our AI technology, generate
-          </p>
-          <p className="break-words">
-            tailor-made copy that will make your business skyrocket.
-          </p>
-        </div>
+          <div className="text-sm md:text-lg mb-6 px-4 sm:px-6 lg:px-9 text-gray-300">
+            <p className="mb-2 break-words">
+              We’ve got you! With our AI technology, generate
+            </p>
+            <p className="break-words">
+              tailor-made copy that will make your business skyrocket.
+            </p>
+          </div>
 
+          <div className="flex flex-col md:flex-row justify-center gap-4 mt-4">
+            <button
+              className="inline-flex items-center gap-2 border border-white/16 px-6 py-2 md:px-8 md:py-3 h-auto rounded-xl text-sm md:text-base font-semibold"
+              onClick={() =>
+                (window.location.href = "https://www.novacopyai.xyz/services")
+              }
+            >
+              <span className="font-semibold">Explore Services!</span>
+            </button>
 
-        <div className="flex flex-col md:flex-row justify-center gap-4 mt-4">
-        <button className="inline-flex items-center gap-2 border border-white/16 px-6 py-2 md:px-8 md:py-3 h-auto rounded-xl text-sm md:text-base font-semibold">
-          <span className="font-semibold">Explore Services!</span>
-        </button>
-
-          <ShiningButton />
+            <ShiningButton />
           </div>
         </div>
       </div>
 
-      <section className="relative w-full max-w-6xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start" style={{ transform: 'translateX(12px)' }}>
+      <section
+        className="relative w-full max-w-6xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start"
+        style={{ transform: "translateX(12px)" }}
+      >
         <div className="md:w-1/2 text-left">
           <h2 className="text-2xl md:text-4xl font-bold mb-8">
             Your <span className="gradient-text">Content</span>, Your Way,
             Faster <span className="gradient-text">! </span>
           </h2>
           <p className="text-base md:text-lg mb-4">
-            We&apos;ve all been there—staring at a blank screen, waiting for that
-            perfect idea to strike, or scrambling to fill up a content calendar
-            with something fresh and engaging. It&apos;s tough, right? You&apos;re not
-            alone in this struggle.
+            We&apos;ve all been there—staring at a blank screen, waiting for
+            that perfect idea to strike, or scrambling to fill up a content
+            calendar with something fresh and engaging. It&apos;s tough, right?
+            You&apos;re not alone in this struggle.
           </p>
           <p className="text-base md:text-lg mb-4">
-            At NovaCopy AI, we get it. We&apos;ve felt that same pressure to deliver
-            top-notch content, often under tight deadlines. That&apos;s exactly why
-            we created Nova AI. Not just another tool, but a creative partner
-            that understands your needs.
+            At NovaCopy AI, we get it. We&apos;ve felt that same pressure to
+            deliver top-notch content, often under tight deadlines. That&apos;s
+            exactly why we created Nova AI. Not just another tool, but a
+            creative partner that understands your needs.
           </p>
           <p className="text-base md:text-lg mb-4">
-            Nova AI is here to help you take back control of your content. It&apos;s
-            not about replacing you—it&apos;s about working with you. Together,
-            you&apos;ll breeze through those drafts, meet deadlines with ease, and
-            give your brand the voice it deserves.
+            Nova AI is here to help you take back control of your content.
+            It&apos;s not about replacing you—it&apos;s about working with you.
+            Together, you&apos;ll breeze through those drafts, meet deadlines
+            with ease, and give your brand the voice it deserves.
           </p>
           <p className="text-base md:text-lg mb-4">
             Ready to make content creation a whole lot easier? Come join our
-            waitlist and be one of the first to see how we&apos;re changing the game.
+            waitlist and be one of the first to see how we&apos;re changing the
+            game.
           </p>
           <div className="mt-4 md:mt-14">
             <ShiningButton />
@@ -174,7 +183,6 @@ export default function Home() {
           <Scene />
         </div>
       </section>
-
 
       {/* Features Section */}
       <section className="w-full max-w-6xl py-8 md:py-16 px-4 z-0">
