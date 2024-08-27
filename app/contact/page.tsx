@@ -10,7 +10,7 @@ export default function Contact() {
     <main className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center">
       <StarsBackground />
       <ShootingStars />
-      <div className="z-10 w-full max-w-5xl text-center p-4 md:p-12 md:mb-6 mt-12 md:mt-32">
+      <div className="z-10 w-full max-w-5xl text-center p-3 md:p-12 mt-12">
         <NavbarDemo />
         <ContactUS />
       </div>

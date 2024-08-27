@@ -138,7 +138,7 @@ export default function Home() {
         </div>
       </div>
 
-      <section className="relative w-full max-w-5xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start">
+      <section className="relative w-full max-w-6xl py-16 px-4 mt-24 flex flex-col md:flex-row items-center md:items-start" style={{ transform: 'translateX(12px)' }}>
         <div className="md:w-1/2 text-left">
           <h2 className="text-2xl md:text-4xl font-bold mb-8">
             Your <span className="gradient-text">Content</span>, Your Way,
@@ -167,17 +167,17 @@ export default function Home() {
             waitlist and be one of the first to see how we&apos;re changing the game.
           </p>
           <div className="mt-4 md:mt-14">
-            {/* Added spacing for smaller screens */}
             <ShiningButton />
           </div>
         </div>
-        <div className="md:w-1/2 full-screen-container">
+        <div className="w-full md:w-2/3 lg:w-3/4 full-screen-container">
           <Scene />
         </div>
       </section>
 
+
       {/* Features Section */}
-      <section className="w-full max-w-5xl py-8 md:py-16 px-4">
+      <section className="w-full max-w-6xl py-8 md:py-16 px-4 z-0">
         <h2 className="text-2xl md:text-4xl font-bold mb-8 text-center">
           Our <span className="gradient-text">Features</span>
         </h2>

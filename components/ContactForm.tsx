@@ -87,8 +87,8 @@ export default function ContactUS() {
   }, [showAlert]);
 
   return (
-    <div className="max-w-2xl mx-auto">
-      <h2 className="text-white text-3xl font-bold mb-6">Contact Us!</h2>
+    <div className="max-w-2xl mx-auto mt-10 md:mt-0">
+      <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold mt-8 mb-8">Contact Us!</h2>
       <form className="flex flex-col gap-6">
         <div className="w-100 flex flex-col md:flex-row gap-6">
           <div className="flex-grow">
