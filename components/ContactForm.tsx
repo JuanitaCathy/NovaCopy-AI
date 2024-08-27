@@ -1,5 +1,5 @@
 import React, { useState, ChangeEvent, FocusEvent, useEffect } from 'react';
-import { MovingBorderButton } from '../components/Submit'; 
+import { MovingBorderButton } from '../components/Submit';
 import { motion, AnimatePresence } from 'framer-motion';
 
 interface FormData {
@@ -70,7 +70,7 @@ export default function ContactUS() {
       setSubmitStatus(data.message);
       if (response.ok) {
         setFormData({ name: '', email: '', subject: '', message: '' });
-        setShowAlert(true); 
+        setShowAlert(true);
       }
     } catch (error) {
       setSubmitStatus('Failed to send message.');
@@ -87,11 +87,11 @@ export default function ContactUS() {
   }, [showAlert]);
 
   return (
-    <div className="max-w-4xl mx-auto">
+    <div className="max-w-2xl mx-auto">
       <h2 className="text-white text-3xl font-bold mb-6">Contact Us!</h2>
-      <form className="flex flex-col md:flex-row gap-6">
-        <div className="flex-1 space-y-6">
-          <div>
+      <form className="flex flex-col gap-6">
+        <div className="w-100 flex flex-col md:flex-row gap-6">
+          <div className="flex-grow">
             <label htmlFor="name" className="block text-gray-700 flex text-white mb-2">Name</label>
             <input
               type="text"
@@ -107,7 +107,7 @@ export default function ContactUS() {
             />
             {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
           </div>
-          <div>
+          <div className="flex-grow">
             <label htmlFor="email" className="block text-gray-700 mb-2 flex text-white">Email</label>
             <input
               type="email"
@@ -122,6 +122,7 @@ export default function ContactUS() {
               required
             />
             {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+          </div>
           </div>
           <div>
             <label htmlFor="subject" className="block text-gray-700 flex text-white mb-2">Subject</label>
@@ -139,7 +140,7 @@ export default function ContactUS() {
             />
             {errors.subject && <p className="text-red-500 text-sm">{errors.subject}</p>}
           </div>
-        </div>
+
 
         <div className="flex-1">
           <div>

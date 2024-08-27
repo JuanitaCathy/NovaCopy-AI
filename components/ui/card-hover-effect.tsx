@@ -9,6 +9,7 @@ export const HoverEffect = ({
 }: {
   items: {
     title: string;
+    icon: string
     description: string;
     link: string;
   }[];
@@ -56,7 +57,7 @@ export const HoverEffect = ({
               "relative z-5" // This is above the motion span
             )}
           >
-            <CardTitle>{item.title}</CardTitle>
+            <CardTitle>{item.title} <i className={item.icon} style={{ fontSize: '20px', color: "#a1a1aa" }}></i></CardTitle>
             <CardDescription>{item.description}</CardDescription>
           </Card>
         </Link>
