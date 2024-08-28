@@ -1,6 +1,8 @@
 "use client";
 
+import { useEffect, useState } from 'react';
 import NavbarDemo from "@/components/Header";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
@@ -13,16 +15,21 @@ import FAQSection from "@/components/FAQ";
 import { Badge } from "@/components/ui/Launch";
 import { InfiniteMovingCardsDemo } from "@/components/HypeScroll";
 
+import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
+import { useTranslation } from 'next-i18next';
+import { i18n, appWithTranslation } from '@/i18n';
+import type { NextPage } from 'next';
+
+import { TFunction } from 'next-i18next';
+
 const Scene = dynamic(() => import("@/components/Scene"), { ssr: false });
 
-export default function Home() {
-  // const words = [
-  //   { text: "High-Quality Content", emoji: "💡" },
-  //   { text: "Words That Work", emoji: "🎯" },
-  //   { text: "Time-Saving Copy", emoji: "⏳" },
-  //   { text: "Magic", emoji: "🪄" },
-  //   { text: "Your Future", emoji: "🔮" },
-  // ];
+interface HomeProps {
+  readonly t: TFunction;
+}
+const Home: NextPage<HomeProps> = ({ t }) => {
+
+  const [currentLanguage, setCurrentLanguage] = useState(i18n.language);
 
   // Features Data
   const features = [
@@ -92,8 +99,10 @@ export default function Home() {
 
       <div className="relative h-screen pt-20 flex flex-col">
         <NavbarDemo />
+        <LanguageSwitcher currentLanguage={currentLanguage} />
         <div className="flex-1 flex flex-col items-center justify-center text-center p-4 md:p-6">
           <Badge text={"We are launching soon ✨"} />
+          <h1>{t('title')}</h1>
           <h1 className="text-4xl md:text-6xl mb-7 font-bold">
             <span className="bg-gradient-to-t from-gray-400 to-white bg-clip-text text-transparent">
               Tired of Slow Content Creation?
@@ -216,3 +225,5 @@ export default function Home() {
     </main>
   );
 }
+
+export default appWithTranslation('common')(Home);

@@ -5,6 +5,7 @@ import Script from 'next/script';
 import "./globals.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { ConvexClientProvider } from "./ConvexClientProvider ";
+import { useTranslation } from 'next-i18next'; // Import from next-i18next
 
 const inter = Inter({ subsets: ["latin"] });
 const calistoga = Calistoga({ subsets: ["latin"], variable: '--font-serif', weight: ["400"] });
@@ -14,13 +15,16 @@ export const metadata: Metadata = {
   description: "Your personal AI Copywriting Assistant",
 };
 
-export default function RootLayout({
+const RootLayout = ({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
-  return (
-    <html lang="en">
+}: {
+  children: React.ReactNode
+}) => {
+  const { i18n } = useTranslation(); // Use useTranslation to get the i18n object
+  const locale = i18n.language; // Get the current language from the i18n object
+
+    return (
+      <html lang={locale}>
       {/* <head>
         <Script
           async
@@ -44,3 +48,5 @@ export default function RootLayout({
     </html>
   );
 }
+
+export default RootLayout;
