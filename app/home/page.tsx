@@ -7,6 +7,7 @@ import {
   SignedOut,
   useAuth,
 } from "@clerk/nextjs";
+import HeaderUser from "@/components/ui/UserHeader";
 import { useRouter } from "next/navigation";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
@@ -47,6 +48,7 @@ function AuthHandler({ children }: { children: React.ReactNode }) {
           <div className="flex justify-between items-center w-full">
             <div className="flex-grow flex justify-center">
               <NavbarDemo />
+              <HeaderUser />
             </div>
             <div className="ml-4">
             </div>
