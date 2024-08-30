@@ -28,46 +28,49 @@ export const TypewriterEffect = ({
   const [showEmoji, setShowEmoji] = useState(false);
 
   useEffect(() => {
-    const currentWord = words[currentWordIndex];
-    const { text, emoji } = currentWord;
+    const handleType = () => {
+      const currentWord = words[currentWordIndex];
+      const { text } = currentWord;
 
-    const type = () => {
       if (!isDeleting) {
         if (charIndex < text.length) {
           setDisplayedText((prev) => prev + text[charIndex]);
           setCharIndex((prev) => prev + 1);
         } else {
           setShowEmoji(true); // Show emoji when text is fully typed
-          setTimeout(() => setIsDeleting(true), 1000); // Wait 1 second before starting deletion
+          setTimeout(() => setIsDeleting(true), pauseDuration); // Short pause before deleting
         }
       } else {
-        setShowEmoji(false); // Remove emoji immediately when deleting
         if (charIndex > 0) {
           setDisplayedText((prev) => prev.slice(0, -1));
           setCharIndex((prev) => prev - 1);
         } else {
           setIsDeleting(false);
+          setShowEmoji(false);
           setCurrentWordIndex((prev) => (prev + 1) % words.length);
           setCharIndex(0);
-          setDisplayedText("");
+          setDisplayedText(""); // Clear text for the next word
         }
       }
     };
 
-    const interval = setInterval(type, typingSpeed);
+    const timeout = setTimeout(handleType, typingSpeed);
 
-    return () => clearInterval(interval);
-  }, [charIndex, isDeleting, currentWordIndex, typingSpeed, words, pauseDuration]);
-
-  const currentWord = words[currentWordIndex];
-  const { emoji } = currentWord;
+    // Cleanup timeout
+    return () => clearTimeout(timeout);
+  }, [
+    charIndex,
+    isDeleting,
+    currentWordIndex,
+    typingSpeed,
+    pauseDuration,
+    words,
+  ]);
 
   return (
     <span className={className}>
-      <span className={textClassName}>
-        {displayedText}
-      </span>
-      {showEmoji && <span>{emoji}</span>}
+      <span className={textClassName}>{displayedText}</span>
+      {showEmoji && <span>{words[currentWordIndex].emoji}</span>}
       <span className={cursorClassName}>|</span>
     </span>
   );
