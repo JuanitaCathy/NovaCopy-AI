@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import { useState } from "react";
 import Box from '@mui/material/Box';
 import Image from "next/image";
 import { motion } from "framer-motion";
@@ -56,6 +57,14 @@ export const Menu = ({
   setActive: (item: string | null) => void;
   children: React.ReactNode;
 }) => {
+  // Add useState hook to manage signIn state
+  const [signedIn, setSignedIn] = useState(false);
+
+  // Example function to toggle signIn state
+  const handleSignInToggle = () => {
+    setSignedIn(!signedIn);
+  };
+
   return (
     <Box display="flex" justifyContent="center" gap={4}>
     <nav
@@ -63,7 +72,8 @@ export const Menu = ({
       className="relative rounded-full border border-[#2c2f41] bg-[#1a1b2e]/50 backdrop-blur-lg shadow-input flex justify-center items-center space-x-8 px-16 py-5"
     >
       {children}
-      <HeaderUser />
+      {signedIn ?
+      (<HeaderUser />) : (<>SignIn</>)}
     </nav>
     </Box>
   );
