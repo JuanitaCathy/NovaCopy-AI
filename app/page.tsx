@@ -4,7 +4,7 @@ import NavbarDemo from "@/components/Header";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { TypewriterEffect } from "@/components/ui/typewriter-effect";
-import ShiningButton from "@/components/ui/ShiningButton";
+import StartButton from "@/components/ui/StartButton";
 import { HoverEffect } from "@/components/ui/card-hover-effect";
 import dynamic from "next/dynamic";
 import "./globals.css";
@@ -138,7 +138,7 @@ export default function Home() {
               <span className="font-semibold">Explore Services!</span>
             </button>
 
-            <ShiningButton />
+            <StartButton />
           </div>
         </div>
       </div>
@@ -176,7 +176,7 @@ export default function Home() {
             game.
           </p>
           <div className="mt-4 md:mt-14">
-            <ShiningButton />
+            <StartButton />
           </div>
         </div>
         <div className="w-full md:w-2/3 lg:w-3/4 full-screen-container">
