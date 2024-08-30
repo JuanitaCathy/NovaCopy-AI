@@ -7,7 +7,6 @@ import {
   SignedOut,
   useAuth,
 } from "@clerk/nextjs";
-import HeaderUser from "@/components/ui/UserHeader";
 import { useRouter } from "next/navigation";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
@@ -43,12 +42,10 @@ function AuthHandler({ children }: { children: React.ReactNode }) {
           {/* Background Effects */}
           <StarsBackground />
           <ShootingStars />
-          {/* <div className="z-10 w-full max-w-5xl text-center p-4 md:p-24 mt-24 md:mt-32"> */}
           <div className="w-full px-4">
           <div className="flex justify-between items-center w-full">
             <div className="flex-grow flex justify-center">
               <NavbarDemo />
-              <HeaderUser />
             </div>
             <div className="ml-4">
             </div>
@@ -57,7 +54,6 @@ function AuthHandler({ children }: { children: React.ReactNode }) {
             <h1 className="text-4xl md:text-5xl font-bold mb-12 mt-12">
               Welcome to AI Assistant!!
             </h1>
-          {/* </div> */}
           <Footer />
         </div>
       </SignedIn>
