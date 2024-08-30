@@ -4,6 +4,7 @@ import Box from '@mui/material/Box';
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
+import UserHeader from "./UserHeader";
 
 const transition = {
   type: "spring",
@@ -30,7 +31,7 @@ export const MenuItem = ({
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (href === "#" && onClick) {
       e.preventDefault(); // Prevent default link behavior
-      onClick(); 
+      onClick();
     }
   };
 
@@ -63,6 +64,7 @@ export const Menu = ({
     >
       {children}
     </nav>
+    <UserHeader />
     </Box>
   );
 };
