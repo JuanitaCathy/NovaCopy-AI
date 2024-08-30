@@ -4,6 +4,7 @@ import { Analytics } from "@vercel/analytics/react"
 import Script from 'next/script';
 import "./globals.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import { ClerkProvider } from "@clerk/clerk-react";
 import { ConvexClientProvider } from "./ConvexClientProvider ";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -36,9 +37,11 @@ export default function RootLayout({
         </Script>
       </head> */}
       <body className={`${inter.className}`}>
+      <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}>
         <ConvexClientProvider>
           {children}
         </ConvexClientProvider>
+        </ClerkProvider>
         <Analytics />
       </body>
     </html>

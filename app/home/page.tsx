@@ -1,7 +1,6 @@
 "use client";
 import { useEffect } from "react";
 import {
-  ClerkProvider,
   RedirectToSignIn,
   SignedIn,
   SignedOut,
@@ -13,15 +12,14 @@ import { StarsBackground } from "@/components/ui/stars-background";
 import NavbarDemo from "@/components/Header";
 import Footer from "@/components/Footer";
 
-export default function Home({ children }: { children: React.ReactNode }) {
+export default function Home() {
   return (
-    <ClerkProvider>
-      <AuthHandler>{children}</AuthHandler>
-    </ClerkProvider>
+    <AuthHandler>
+    </AuthHandler>
   );
 }
 
-function AuthHandler({ children }: { children: React.ReactNode }) {
+function AuthHandler() {
   const { isSignedIn } = useAuth(); // Use useAuth to get the signed-in state
   const router = useRouter(); // Initialize the router
 

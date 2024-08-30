@@ -72,8 +72,7 @@ export const Menu = ({
       className="relative rounded-full border border-[#2c2f41] bg-[#1a1b2e]/50 backdrop-blur-lg shadow-input flex justify-center items-center space-x-8 px-16 py-5"
     >
       {children}
-      {signedIn ?
-      (<HeaderUser />) : (<>SignIn</>)}
+      {signedIn ? (<HeaderUser />) : (<button onClick={handleSignInToggle}>Sign In</button>)}
     </nav>
     </Box>
   );
