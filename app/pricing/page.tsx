@@ -116,8 +116,7 @@ export default function Pricing() {
                 className="grid gap-x-1 rounded-full p-1 text-center text-sm font-semibold leading-5 bg-white dark:bg-black ring-2 ring-inset ring-gray-200/30 dark:ring-gray-500"
                 style={{
                   gridTemplateColumns: `repeat(${frequencies.length}, minmax(0, 1fr))`,
-                }}
-              >
+                }}>
                 <p className="sr-only">Payment frequency</p>
                 {frequencies.map((option) => (
                   <label
@@ -166,9 +165,7 @@ export default function Pricing() {
             {tiers.map((tier) => (
               <div
                 key={tier.id}
-                className='bg-white dark:bg-gray-900/80 ring-gray-300/70 dark:ring-gray-700
-                  max-w-lg ring-1 rounded-3xl p-8 xl:p-10'
-              >
+                className='bg-white dark:bg-gray-900/80 ring-gray-300/70 dark:ring-gray-700 max-w-lg ring-1 rounded-3xl p-8 xl:p-10 hover:bg-[#170f14]'>
                 <h3
                   id={tier.id}
                   className='text-3xl font-bold tracking-tight'
