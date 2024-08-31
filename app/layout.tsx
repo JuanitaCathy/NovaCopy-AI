@@ -1,19 +1,22 @@
 import type { Metadata } from "next";
-import { Inter,  Calistoga } from "next/font/google";
-import { Analytics } from "@vercel/analytics/react"
-import Script from 'next/script';
+import { Inter, Calistoga } from "next/font/google";
+import { Analytics } from "@vercel/analytics/react";
 import "./globals.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { ClerkProvider } from "@clerk/clerk-react";
-import { ConvexClientProvider } from "./ConvexClientProvider ";
+import ClerkLayout from "./clerkLayout"; // Corrected import statement
+// import { UserButton } from "@clerk/nextjs";
 
 const inter = Inter({ subsets: ["latin"] });
-const calistoga = Calistoga({ subsets: ["latin"], variable: '--font-serif', weight: ["400"] });
+const calistoga = Calistoga({
+  subsets: ["latin"],
+  variable: "--font-serif",
+  weight: ["400"],
+});
 
-export const metadata: Metadata = {
-  title: "NovaCopy AI",
-  description: "Your personal AI Copywriting Assistant",
-};
+// export const metadata: Metadata = {
+//   title: "NovaCopy AI",
+//   description: "Your personal AI Copywriting Assistant",
+// };
 
 export default function RootLayout({
   children,
@@ -22,28 +25,22 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      {/* <head>
-        <Script
-          async
-          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-        />
-        <Script id="google-analytics">
-          {`
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', '${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}');
-          `}
-        </Script>
-      </head> */}
       <body className={`${inter.className}`}>
-      <ClerkProvider publishableKey={process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY!}>
-        <ConvexClientProvider>
+        {/* Use ClerkLayout, which is a client component */}
+        <ClerkLayout>
           {children}
-        </ConvexClientProvider>
-        </ClerkProvider>
+        </ClerkLayout>
         <Analytics />
       </body>
     </html>
   );
 }
+
+// Header component without the toggle button
+// export function Header() {
+//   return (
+//     <header>
+//       <UserButton />
+//     </header>
+//   );
+// }

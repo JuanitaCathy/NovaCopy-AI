@@ -32,10 +32,10 @@ function AuthHandler() {
 
   return (
     <>
-      <SignedOut>
+      {/* <SignedOut>
         <RedirectToSignIn />
       </SignedOut>
-      <SignedIn>
+      <SignedIn> */}
         <div className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center">
           {/* Background Effects */}
           <StarsBackground />
@@ -54,7 +54,7 @@ function AuthHandler() {
             </h1>
           <Footer />
         </div>
-      </SignedIn>
+      {/* </SignedIn> */}
     </>
   );
 }
