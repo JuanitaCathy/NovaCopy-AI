@@ -6,7 +6,8 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
 // import Header from "../../app/layout";
-import { UserButton } from "@clerk/nextjs";
+import { useRouter } from "next/navigation";
+import { SignedIn, SignedOut, useClerk, UserButton } from "@clerk/nextjs";
 
 const transition = {
   type: "spring",
@@ -58,12 +59,18 @@ export const Menu = ({
   setActive: (item: string | null) => void;
   children: React.ReactNode;
 }) => {
-  // Add useState hook to manage signIn state
-  const [signedIn, setSignedIn] = useState(false);
+  const { openSignIn } = useClerk(); // Use Clerk's sign-in methods
+  const router = useRouter();
 
-  // Example function to toggle signIn state
-  const handleSignInToggle = () => {
-    setSignedIn(!signedIn);
+  // Function to handle the sign-in process
+  const handleSignIn = () => {
+    if (!openSignIn) {
+      console.error("Clerk sign-in is not available");
+      return;
+    }
+
+    // Redirect to the Clerk sign-in page
+    openSignIn();
   };
 
   return (
@@ -73,9 +80,14 @@ export const Menu = ({
       className="relative rounded-full border border-[#2c2f41] bg-[#1a1b2e]/50 backdrop-blur-lg shadow-input flex justify-center items-center space-x-8 px-16 py-5"
     >
       {children}
-      {/* {signedIn ? (<Header />) : (<button onClick={handleSignInToggle}>Sign In</button>)} */}
-      {signedIn ? (<Header />) : (<button onClick={handleSignInToggle}>Sign In</button>)}
-    </nav>
+      {/* Render Header if signed in, otherwise render Sign In button */}
+      <SignedIn>
+          <Header />
+        </SignedIn>
+        <SignedOut>
+          <button onClick={handleSignIn}>Sign In</button>
+        </SignedOut>
+      </nav>
     </Box>
   );
 };

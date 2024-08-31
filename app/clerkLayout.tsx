@@ -17,15 +17,15 @@ interface ClerkLayoutProps {
 export default function ClerkLayout({ children }: ClerkLayoutProps) {
   return (
     <ClerkProvider>
-      <SignedOut>
+      {/* <SignedOut> */}
         {/* Render the public view */}
         {/* You can place public content here */}
-        {children}
+        {/* {children}
       </SignedOut>
       <SignedIn>
-        <Header />
+        <Header /> */}
         <ConvexClientProvider>{children}</ConvexClientProvider>
-      </SignedIn>
+      {/* </SignedIn> */}
     </ClerkProvider>
   );
 }
