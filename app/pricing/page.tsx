@@ -113,18 +113,17 @@ export default function Pricing() {
             <div className="mt-10 flex justify-center">
               <div
                 role="radiogroup"
-                className="grid gap-x-1 rounded-full p-1 text-center text-sm font-semibold leading-5 bg-white dark:bg-black ring-2 ring-inset ring-gray-200/30 dark:ring-gray-500"
+                className="grid gap-x-1 rounded-full p-1 text-center text-sm font-semibold leading-5 bg-white dark:bg-slate-900 ring-2 ring-inset ring-gray-200/30 dark:ring-gray-500"
                 style={{
                   gridTemplateColumns: `repeat(${frequencies.length}, minmax(0, 1fr))`,
-                }}
-              >
+                }}>
                 <p className="sr-only">Payment frequency</p>
                 {frequencies.map((option) => (
                   <label
                     className={cn(
                       frequency.value === option.value
-                        ? 'bg-slate-500/90 text-white dark:bg-slate-900/70 dark:text-white/90'
-                        : 'bg-transparent text-gray-400 hover:bg-slate-500/10',
+                        ? 'bg-slate-700/90 text-white dark:bg-fuchsia-600 dark:text-white/90'
+                        : 'text-gray-400 hover:bg-fuchsia-300',
                       'cursor-pointer rounded-full px-3 py-2 transition-all',
                     )}
                     key={option.value}
@@ -166,9 +165,7 @@ export default function Pricing() {
             {tiers.map((tier) => (
               <div
                 key={tier.id}
-                className='bg-white dark:bg-gray-900/80 ring-gray-300/70 dark:ring-gray-700
-                  max-w-lg ring-1 rounded-3xl p-8 xl:p-10'
-              >
+                className='bg-white dark:bg-gray-900/40 ring-gray-800/70 dark:ring-gray-500 max-w-lg ring-1 rounded-3xl p-8 xl:p-10 hover:bg-slate-700'>
                 <h3
                   id={tier.id}
                   className='text-3xl font-bold tracking-tight'
@@ -176,7 +173,7 @@ export default function Pricing() {
                   {tier.name}
                 </h3>
                 <p
-                  className='text-gray-600 dark:text-gray-400 mt-6 text-base leading-6 text-center' 
+                  className='text-gray-700 dark:text-gray-300 mt-6 text-base leading-6 text-center' 
                 >
                   {tier.description}
                 </p>
@@ -201,9 +198,9 @@ export default function Pricing() {
                   className='flex mt-10 shadow-sm' >
                   <button
                     className='w-full inline-flex items-center justify-center font-medium ring-offset-background 
-                      dark:md:hover:bg-fuchsia-600 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
+                      dark:md:hover:bg-fuchsia-800 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
                       disabled:pointer-events-none disabled:opacity-50 text-black dark:text-white h-12 rounded-md px-6 sm:px-10 text-md
-                      bg-gray-100 dark:bg-gray-600 border border-solid border-gray-300 dark:border-gray-800'
+                      dark:bg-gray-900 border border border-white/16 rounded-xl'
                   >
                     {tier.cta}
                   </button>
