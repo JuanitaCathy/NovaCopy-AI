@@ -1,18 +1,18 @@
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useRouter } from 'next/navigation';
-import { useAuth } from '@clerk/nextjs';
+import useUserMetadata from '../app/hooks/useUserMetadata';
 
-const SignedUpContent = () => {
-  const { isSignedIn, isSignedUp } = useAuth();
+function SignedUpContent() {
+  const { needsOnboarding } = useUserMetadata();
   const router = useRouter();
 
   useEffect(() => {
-    if (isSignedIn && isSignedUp) {
-      router.push('/onboarding'); // Redirect to onboarding page
+    if (needsOnboarding) {
+      router.push('/app/onboarding'); //redirecting to onboarding page
     }
-  }, [isSignedIn, isSignedUp, router]);
+  }, [needsOnboarding, router]);
 
   return <div>Redirecting to onboarding...</div>;
-};
+}
 
 export default SignedUpContent;

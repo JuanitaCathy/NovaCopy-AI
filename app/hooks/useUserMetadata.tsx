@@ -1,26 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
 import { useUser } from '@clerk/nextjs';
 
 const useUserMetadata = () => {
-  const { user } = useUser();
-  const [needsOnboarding, setNeedsOnboarding] = useState<boolean>(false);
-  const router = useRouter();
+  const { user } = useUser(); // Ensure user data is being fetched
 
-  useEffect(() => {
-    if (user) {
-      // Fetch user metadata or custom claims
-      // Assume metadata contains a field `onboardingComplete` indicating onboarding status
-      const isOnboardingComplete = user.metadata?.onboardingComplete || false;
-      setNeedsOnboarding(!isOnboardingComplete);
-    }
-  }, [user]);
-
-  useEffect(() => {
-    if (needsOnboarding) {
-      router.push('/onboarding'); // Redirect to onboarding page
-    }
-  }, [needsOnboarding, router]);
+  // Assuming user contains metadata or you have to handle it differently
+  const needsOnboarding = user?.publicMetadata?.onboardingNeeded || false;
 
   return { needsOnboarding };
 };
