@@ -1,9 +1,13 @@
 "use client";
 import React from "react";
+import { useState } from "react";
 import Box from '@mui/material/Box';
 import Image from "next/image";
 import { motion } from "framer-motion";
 import Link from "next/link";
+// import Header from "../../app/layout";
+import { useRouter } from "next/navigation";
+import { SignedIn, SignedOut, useClerk, UserButton } from "@clerk/nextjs";
 
 const transition = {
   type: "spring",
@@ -30,7 +34,7 @@ export const MenuItem = ({
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     if (href === "#" && onClick) {
       e.preventDefault(); // Prevent default link behavior
-      onClick(); 
+      onClick();
     }
   };
 
@@ -55,6 +59,20 @@ export const Menu = ({
   setActive: (item: string | null) => void;
   children: React.ReactNode;
 }) => {
+  const { openSignIn } = useClerk(); // Use Clerk's sign-in methods
+  const router = useRouter();
+
+  // Function to handle the sign-in process
+  const handleSignIn = () => {
+    if (!openSignIn) {
+      console.error("Clerk sign-in is not available");
+      return;
+    }
+
+    // Redirect to the Clerk sign-in page
+    openSignIn();
+  };
+
   return (
     <Box display="flex" justifyContent="center" gap={4}>
     <nav
@@ -62,7 +80,14 @@ export const Menu = ({
       className="relative rounded-full border border-[#2c2f41] bg-[#1a1b2e]/50 backdrop-blur-lg shadow-input flex justify-center items-center space-x-8 px-16 py-5"
     >
       {children}
-    </nav>
+      {/* Render Header if signed in, otherwise render Sign In button */}
+      <SignedIn>
+          <Header />
+        </SignedIn>
+        <SignedOut>
+          <button onClick={handleSignIn}>Sign In</button>
+        </SignedOut>
+      </nav>
     </Box>
   );
 };
@@ -77,3 +102,11 @@ export const HoveredLink = ({ children, ...rest }: any) => {
     </Link>
   );
 };
+
+export function Header() {
+    return (
+      <header>
+        <UserButton />
+      </header>
+    );
+  }
