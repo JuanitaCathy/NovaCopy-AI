@@ -10,11 +10,18 @@ export const completeOnboarding = async (formData: FormData) => {
   }
 
   try {
+    const applicationName = formData.get('applicationName') as string | null
+    const applicationType = formData.get('applicationType') as string | null
+
+    if (!applicationName || !applicationType) {
+      throw new Error('Form data is missing required fields')
+    }
+
     await clerkClient().users.updateUser(userId, {
       publicMetadata: {
         onboardingComplete: true,
-        applicationName: formData.get('applicationName'),
-        applicationType: formData.get('applicationType'),
+        applicationName,
+        applicationType,
       },
     })
     return { message: 'User metadata Updated' }
