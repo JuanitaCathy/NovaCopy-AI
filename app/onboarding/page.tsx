@@ -4,6 +4,7 @@ import * as React from 'react'
 import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { completeOnboarding } from './_actions'
+import NavbarDemo from '@/components/Header'
 
 export default function OnboardingComponent() {
   const { user } = useUser()
@@ -15,6 +16,8 @@ export default function OnboardingComponent() {
     router.push('/dashboard')
   }
   return (
+    <>
+    <NavbarDemo />
     <div className="px-8 py-12 sm:py-16 md:px-20">
       <div className="mx-auto max-w-sm overflow-hidden rounded-lg bg-white shadow-lg">
         <div className="p-8">
@@ -56,5 +59,6 @@ export default function OnboardingComponent() {
         </form>
       </div>
     </div>
+    </>
   )
 }

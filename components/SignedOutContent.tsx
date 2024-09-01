@@ -166,9 +166,9 @@ export default function SignedOutContent() {
             <StartButton />
           </div>
         </div>
-        <div className="w-full md:w-2/3 lg:w-3/4 full-screen-container">
+        {/* <div className="w-full md:w-2/3 lg:w-3/4 full-screen-container">
           <Scene />
-        </div>
+        </div> */}
       </section>
 
       {/* Features Section */}
