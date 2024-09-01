@@ -1,21 +1,38 @@
 "use client";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
-import NavbarDemo from "@/components/Header";
-import Footer from "@/components/Footer";
+import TallyForm from "@/components/TallyForm";
+import BackButton from "@/components/BackButton";
+import Image from "next/image";
 
 export default function Onboarding() {
   return (
-    <main className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center">
+    <div className="relative min-h-screen flex flex-col">
       {/* Background Effects */}
       <StarsBackground />
       <ShootingStars />
-      <div className="z-10 w-full max-w-5xl text-center p-4 md:p-24 mt-24 md:mt-32">
-        <NavbarDemo />
+
+      {/* Back to Homepage Button */}
+      <div className="absolute top-7 left-4 z-20">
+        <BackButton />
       </div>
-      <div data-tf-live="01J6NXBJW1V0V5KGNF1AD99YSD"></div>
-      <script src="//embed.typeform.com/next/embed.js"></script>
-      <Footer />
-    </main>
+
+      {/* Logo */}
+      <div className="absolute top-4 right-6 z-20">
+        {" "}
+        <Image
+          src="/NovaCopy_white_transparent.png"
+          alt="Logo"
+          width={80}
+          height={80}
+          className="object-contain"
+        />
+      </div>
+
+      {/* Tally Form */}
+      <div className="flex-grow w-full">
+        <TallyForm />
+      </div>
+    </div>
   );
 }

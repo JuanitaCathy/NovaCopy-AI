@@ -2,11 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 1, 1, 20;
-    --background-end-rgb: 1, 1, 20;
-  }
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 1, 1, 20;
+  --background-end-rgb: 1, 1, 20;
+}
 
 body {
   color: rgb(var(--foreground-rgb));
@@ -19,7 +19,12 @@ body {
 }
 
 .gradient-button {
-  background: linear-gradient(to right, #00b4d8, #9b5de5, #f25f5c); /* gradient of lightblue, purple, and pink */
+  background: linear-gradient(
+    to right,
+    #00b4d8,
+    #9b5de5,
+    #f25f5c
+  ); /* gradient of lightblue, purple, and pink */
   color: white; /* text-color */
   border: none;
   padding: 12px 24px;
@@ -27,7 +32,9 @@ body {
   font-size: 16px;
   font-weight: bold;
   cursor: pointer;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition:
+    background 0.3s ease,
+    transform 0.3s ease;
 }
 
 .gradient-text {
@@ -65,7 +72,6 @@ body {
   margin: 0;
 }
 
-
 @layer utilities {
   .text-balance {
     text-wrap: balance;
@@ -89,13 +95,21 @@ body {
   }
 
   @keyframes accordion-up {
-    from { max-height: 100px; }
-    to { max-height: 0; }
+    from {
+      max-height: 100px;
+    }
+    to {
+      max-height: 0;
+    }
   }
 
   @keyframes accordion-down {
-    from { max-height: 0; }
-    to { max-height: 100px; }
+    from {
+      max-height: 0;
+    }
+    to {
+      max-height: 100px;
+    }
   }
 
   /* Add shining animation effect */
@@ -123,6 +137,4 @@ body {
     transform: translateX(-100%);
     animation: shine 1.5s infinite linear;
   }
-
-
 }
