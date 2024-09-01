@@ -9,9 +9,25 @@ import Link from "next/link";
 export default function Team() {
   const teamMembers = [
     {
+      name: "Syeda Farheen Masroor",
+      image: "/images/farheen.jpg",
+      title: "Founder | Front-End Developer",
+      description:
+        "Starting out university this fall, Farheen is a front-end developer and aspiring software engineer. She has versatile skill sets, including writing and communicating effectively, planning a product, and building solutions independently.",
+      linkedin: "https://www.linkedin.com/in/syeda-farheen-masroor-b9a5b6285/",
+    },
+    {
+      name: "Juanita Cathy J",
+      image: "/images/juanita.jpeg",
+      title: "Co-Founder | Full Stack Engineer",
+      description:
+        "Juanita is an undergraduate in CS with expertise in full stack development and AI. Having worked with two startups, she is passionate about building software products that make an impact.",
+      linkedin: "https://www.linkedin.com/in/juanita-cathy/",
+    },
+    {
       name: "Miho Funayama",
       image: "/images/miho.jpeg",
-      title: "Fullstack Engineer | AI Enthusiast",
+      title: "Co-Founder | Fullstack Engineer",
       description:
         "Miho brings a unique perspective from her experience in shipping and semiconductors. She is passionate about leveraging the latest technologies and is eager to apply her skills.",
       linkedin: "https://www.linkedin.com/in/miho-funayama-653b391b4/",
@@ -19,26 +35,10 @@ export default function Team() {
     {
       name: "Cindy Mae Ngoho",
       image: "/images/cindy.jpeg",
-      title: "Web Developer | CS Graduate",
+      title: "Co-Founder | Web Developer",
       description:
         "Cindy Mae is a web developer with a background in computer science, currently focused on building a portfolio and expanding her expertise in full-stack development. She is dedicated to mastering the technologies needed to create seamless and efficient user experiences.",
       linkedin: "https://www.linkedin.com/in/cindy-ngoho/",
-    },
-    {
-      name: "Juanita Cathy J",
-      image: "/images/juanita.jpeg",
-      title: "Full Stack Engineer | AI Developer",
-      description:
-        "Juanita is an undergraduate in CS with expertise in full stack development and AI. Having worked with two startups, she is passionate about building software products that make an impact.",
-      linkedin: "https://www.linkedin.com/in/juanita-cathy/",
-    },
-    {
-      name: "Syeda Farheen Masroor",
-      image: "/images/farheen.jpg",
-      title: "Front-End Developer",
-      description:
-        "Starting out university this fall, Farheen is a front-end developer and aspiring software engineer. She has versatile skill sets, including writing and communicating effectively, planning a product, and building solutions independently.",
-      linkedin: "https://www.linkedin.com/in/syeda-farheen-masroor-b9a5b6285/",
     },
   ];
 
@@ -58,7 +58,11 @@ export default function Team() {
               className="flex flex-col items-center p-4 w-full sm:w-56 md:w-64"
               style={{ flexBasis: "calc(50% - 16px)" }}
             >
-              <Link href={member.linkedin} target="_blank" rel="noopener noreferrer">
+              <Link
+                href={member.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 <img
                   src={member.image}
                   alt={member.name}
@@ -83,4 +87,3 @@ export default function Team() {
     </main>
   );
 }
-
