@@ -1,3 +1,5 @@
+'use client'
+
 import React, { useState } from "react";
 import { Menu, MenuItem } from "../components/ui/navbar-menu";
 import { cn } from "@/lib/utils";
