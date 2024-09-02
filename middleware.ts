@@ -3,8 +3,8 @@ import { NextResponse } from 'next/server';
 
 const isPublicRoute = createRouteMatcher(['/', '/onboarding', '/sign-up']);
 
-export default clerkMiddleware((auth, req) => {
-  const { userId, sessionClaims, redirectToSignIn } = auth();
+export default clerkMiddleware(async (auth, req) => {
+  const { userId, user, redirectToSignIn } = auth();
 
   // If the user isn't signed in and the route is private, redirect to sign-in
   if (!userId && !isPublicRoute(req)) {
@@ -12,13 +12,22 @@ export default clerkMiddleware((auth, req) => {
   }
 
   // Check if the user needs onboarding
-  if (userId) {
-    const onboardingComplete = sessionClaims?.metadata?.onboardingComplete;
+  if (userId && user) {
+    console.log('User:', user);  // デバッグ用のログを追加
+    const onboardingComplete = user.publicMetadata.onboardingComplete as boolean | undefined;
+
+    console.log('onboardingComplete:', onboardingComplete);  // デバッグ用のログを追加
 
     // If onboarding is not complete and not already on the onboarding page, redirect
     if (!onboardingComplete && req.nextUrl.pathname !== '/onboarding') {
       const onboardingUrl = new URL('/onboarding', req.url);
       return NextResponse.redirect(onboardingUrl);
+    }
+
+    // If onboarding is complete, redirect to /dashboard
+    if (onboardingComplete && req.nextUrl.pathname === '/onboarding') {
+      const dashboardUrl = new URL('/dashboard', req.url);
+      return NextResponse.redirect(dashboardUrl);
     }
   }
 

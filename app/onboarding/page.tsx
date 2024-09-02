@@ -5,6 +5,7 @@ import { useUser } from '@clerk/nextjs'
 import { useRouter } from 'next/navigation'
 import { completeOnboarding } from './_actions'
 import NavbarDemo from '@/components/Header'
+import { LOADIPHLPAPI } from 'dns'
 
 export default function OnboardingComponent() {
   const { user } = useUser()
@@ -19,15 +20,15 @@ export default function OnboardingComponent() {
 
     if (applicationName && applicationType) {
       const response = await completeOnboarding(formData)
-      console.log(response.message)
+      console.log(response.message, "response")  // This logs the response message from the server
 
-      if (response.message === 'User metadata Updated') {
-        try {
-          await user?.reload()  // Ensure user reloads successfully
-          router.push('/dashboard')  // Redirect to the dashboard
-        } catch (error) {
-          console.error('Error reloading user:', error)
-        }
+      try {
+        await user?.reload()
+        console.log('User reloaded successfully')
+        console.log('Navigating to /dashboard')
+        await router.push('/dashboard')
+      } catch (error) {
+        console.error('Error reloading user:', error)
       }
     } else {
       console.error("Form data is missing required fields or has incorrect types")
