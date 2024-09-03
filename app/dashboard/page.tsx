@@ -1,47 +1,100 @@
 'use client'
 
-import { useState } from "react";
-import Sidebar from "../../components/Sidebar";
+import { useState, useEffect } from "react";
+import Image from "next/image";
+import Link from "next/link";
+import {
+  Box,
+  Stack,
+  TextField,
+  Button,
+  Typography,
+  IconButton,
+} from "@mui/material";
+import React from "react";
 
-export default function SignedInContent() {
+export default function Dashboard() {
   const [userInput, setUserInput] = useState("");
-  const [businesses, setBusinesses] = useState(["Business 1"]); // 登録ビジネスのリスト
+  const [submitted, setSubmitted] = React.useState(false);
+  const [message, setMessage] = useState("");
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setUserInput(event.target.value);
-  };
+  const sendUserInput = async () => {
+    if (userInput.trim() === "") return;
+    setUserInput("");
+    setMessage(userInput);
 
-  const handleAddBusiness = () => {
-    const newBusiness = prompt("新しいビジネスの名前を入力してください:");
-    if (newBusiness) {
-      setBusinesses([...businesses, newBusiness]);
-    }
+    const response = fetch("/api/chat", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(userInput),
+    }).then(async (res) => {
+      if (!res.body) {
+        throw new Error("Response body is null");
+      }
+      const reader = res.body.getReader();
+      const decoder = new TextDecoder();
+
+      let result = "";
+      return reader.read().then(function processText({ done, value }): Promise<string> {
+        if (done) {
+          return result;
+        }
+        const text = decoder.decode(value || new Int8Array(), { stream: true });
+        result += text;
+        return reader.read().then(processText);
+      });
+    });
   };
 
   return (
     <main className="relative min-h-screen overflow-hidden flex flex-col">
       <div className="flex flex-grow">
         {/* Side bar */}
-        <Sidebar businesses={businesses} handleAddBusiness={handleAddBusiness} />
+        <section className="w-1/6 bg-gray-800 p-4">
+        <div className="flex justify-center mb-4">
+        <Link href="/">
+          <Image
+            src="/NovaCopy_white_transparent.png"
+            alt="NovaCopy Logo"
+            width={70}
+            height={70}
+          />
+        </Link>
+      </div>
+          {/* <div className="h-64 p-2 border border-gray-300 rounded"></div> */}
+          <div className="h-64 p-2 rounded">
+            <ul>
+              <li>Home</li>
+            </ul>
+          </div>
+        </section>
 
         {/* User Input Field */}
         <section className="w-1/2 p-4">
           <h2 className="text-xl font-semibold">Prompt</h2>
-          <textarea
-            className="w-full h-64 p-2 border border-gray-300 rounded"
-            placeholder="Please enter here..."
+          <TextField
+          className="bg-white h-64"
+            label="Type your message"
+            fullWidth
             value={userInput}
-            onChange={handleInputChange}
-          ></textarea>
+            onChange={(e) => setUserInput(e.target.value)}
+            multiline
+            variant="outlined"
+            size="small"
+          ></TextField>
 
           <h2 className="text-xl font-semibold">Tone</h2>
           <textarea
             className="w-full h-30 p-2 border border-gray-300 rounded"
             placeholder="Please enter here..."
           ></textarea>
-          <button className="mt-2 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600">
-            Generate
-          </button>
+          <Button variant="contained"
+            color="primary"
+            onClick={sendUserInput}>
+              Generate
+          </Button>
         </section>
 
         {/* AI Response Field */}
