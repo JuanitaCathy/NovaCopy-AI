@@ -10,7 +10,11 @@ import {
   Button,
   Typography,
   IconButton,
+  AppBar,
+  Container,
+  Toolbar
 } from "@mui/material";
+import AdbIcon from "@mui/icons-material/Adb" 
 import React from "react";
 
 export default function Dashboard() {
@@ -49,60 +53,66 @@ export default function Dashboard() {
   };
 
   return (
-    <main className="relative min-h-screen overflow-hidden flex flex-col">
-      <div className="flex flex-grow">
-        {/* Side bar */}
-        <section className="w-1/6 bg-gray-800 p-4">
-        <div className="flex justify-center mb-4">
-        <Link href="/">
-          <Image
-            src="/NovaCopy_white_transparent.png"
-            alt="NovaCopy Logo"
-            width={70}
-            height={70}
-          />
-        </Link>
-      </div>
-          {/* <div className="h-64 p-2 border border-gray-300 rounded"></div> */}
-          <div className="h-64 p-2 rounded">
-            <ul>
-              <li>Home</li>
-            </ul>
-          </div>
-        </section>
+            <main className="relative min-h-screen overflow-hidden flex flex-col">
+                   <Toolbar disableGutters className="bg-[#0f172a] drop-shadow-md">
+                      <Link href="/">
+                        <Image
+                          src="/NovaCopy_white_transparent.png"
+                          alt="NovaCopy Logo"
+                          width={70}
+                          height={70}
+                          className="pl-4"
+                        />
+                      </Link>
+                   </Toolbar>
+                      <div className="flex flex-grow">
+                        {/* Side bar */}
+                        <section className="w-1/6 bg-gray-800 p-4">
+                          {/* <div className="h-64 p-2 border border-gray-300 rounded"></div> */}
+                          <div className="h-64 p-2 rounded">
+                            <ul>
+                              <li><Button className="text-zinc-50">Profile</Button></li>
+                              <li><Button className="text-zinc-50">Create New Project</Button></li>
+                              <li><Button className="text-zinc-50">My Projects</Button></li>
+                              <li><Button className="text-zinc-50">Support & Feedback</Button></li>
+                              <li><Button className="text-zinc-50">Home</Button></li>
+                            </ul>
+                          </div>
+                        </section>
 
-        {/* User Input Field */}
-        <section className="w-1/2 p-4">
-          <h2 className="text-xl font-semibold">Prompt</h2>
-          <TextField
-          className="bg-white h-64"
-            label="Type your message"
-            fullWidth
-            value={userInput}
-            onChange={(e) => setUserInput(e.target.value)}
-            multiline
-            variant="outlined"
-            size="small"
-          ></TextField>
+                        {/* User Input Field */}
+                        <section className="w-1/2 p-4">
+                          <h2 className="text-xl font-semibold py-2">Prompt</h2>
+                          <TextField
+                          className="bg-white h-64"
+                            label="Type your message"
+                            fullWidth
+                            value={userInput}
+                            onChange={(e) => setUserInput(e.target.value)}
+                            multiline
+                            variant="outlined"
+                            maxRows={12}
+                          ></TextField>
 
-          <h2 className="text-xl font-semibold">Tone</h2>
-          <textarea
-            className="w-full h-30 p-2 border border-gray-300 rounded"
-            placeholder="Please enter here..."
-          ></textarea>
-          <Button variant="contained"
-            color="primary"
-            onClick={sendUserInput}>
-              Generate
-          </Button>
-        </section>
+                            <h2 className="text-xl font-semibold pt-8">Tone</h2>
+                            <textarea
+                              className="w-full h-30 p-2 border border-gray-300 rounded"
+                              placeholder="Please enter here..."
+                            ></textarea>
+                          <Button variant="contained"
+                            color="primary"
+                            onClick={sendUserInput}>
+                              Generate
+                          </Button>
+                        </section>
 
-        {/* AI Response Field */}
-        <section className="w-1/2 bg-gray-500 p-4">
-          <h2 className="text-xl font-semibold">AI Response</h2>
-          <div className="h-64 p-2 border border-gray-300 rounded"></div>
-        </section>
-      </div>
-    </main>
+                        {/* AI Response Field */}
+                        <section className="w-1/2 bg-gray-500 p-4">
+                          <h2 className="text-xl font-semibold py-2">AI Response</h2>
+                          <div className="h-64 p-2 border border-gray-300 rounded"></div>
+                        </section>
+                     </div>
+            </main>
+        
   );
 }
