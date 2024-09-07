@@ -134,15 +134,32 @@ const Copywriter: React.FC = () => {
 
   const handleSavePDF = () => {
     const doc = new jsPDF();
-    let yOffset = 10;
+    const pageWidth = doc.internal.pageSize.width;
+    const margin = 10; // Margin from the left edge
+    let yOffset = 20; // Starting Y offset for the first line
 
-    messages.forEach((msg, index) => {
-      doc.text(
-        10,
-        yOffset,
-        `${msg.from === "user" ? "You" : "Nova"}: ${msg.text}`
-      );
-      yOffset += 10;
+    // Set a basic, standard font
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+
+    // Filter out the first message (assuming it is the greeting)
+    const filteredMessages = messages.slice(1); // Exclude the first message
+
+    // Add the remaining messages
+    filteredMessages.forEach((msg) => {
+      const author = msg.from === "user" ? "You" : "Nova";
+      const fullText = `${author}: ${msg.text}`;
+
+      // Split the text if it overflows the page width
+      const textLines = doc.splitTextToSize(fullText, pageWidth - 2 * margin);
+
+      // Add each line of text
+      textLines.forEach((line: string | string[]) => {
+        doc.text(line, margin, yOffset);
+        yOffset += 10; // Adjust spacing between lines
+      });
+
+      yOffset += 10; // Extra spacing between messages
     });
 
     doc.save("generated-copy.pdf");
