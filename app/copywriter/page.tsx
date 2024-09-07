@@ -1,10 +1,11 @@
 "use client";
 
-import { useState, useEffect, KeyboardEvent } from "react";
+import { useState, useEffect, useRef, KeyboardEvent } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { ShootingStars } from "@/components/ui/shooting-stars";
+import { jsPDF } from "jspdf"; // Import jsPDF for PDF generation
 
 const SidebarItem = ({ label, icon }: { label: string; icon: JSX.Element }) => (
   <div className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap z-10">
@@ -13,7 +14,15 @@ const SidebarItem = ({ label, icon }: { label: string; icon: JSX.Element }) => (
   </div>
 );
 
-const ChatMessage = ({ text, from }: { text: string; from: "user" | "ai" }) => (
+const ChatMessage = ({
+  text,
+  from,
+  onCopy,
+}: {
+  text: string;
+  from: "user" | "ai";
+  onCopy?: () => void;
+}) => (
   <div
     className={`mb-4 ${from === "user" ? "flex justify-end" : "flex justify-start"}`}
   >
@@ -23,11 +32,18 @@ const ChatMessage = ({ text, from }: { text: string; from: "user" | "ai" }) => (
       }`}
       style={{
         padding: "10px",
-        margin: "8px 0",
         maxWidth: from === "user" ? "70%" : "80%",
       }} // Adjusted width and padding
     >
       {text}
+      {from === "ai" && (
+        <button
+          className="ml-2 text-sm text-[#00b4d8] hover:underline"
+          onClick={onCopy}
+        >
+          Copy
+        </button>
+      )}
     </div>
   </div>
 );
@@ -47,6 +63,8 @@ const Copywriter: React.FC = () => {
   ]);
   const router = useRouter();
 
+  const messageContainerRef = useRef<HTMLDivElement>(null);
+
   useEffect(() => {
     setMessages([
       {
@@ -55,6 +73,13 @@ const Copywriter: React.FC = () => {
       },
     ]);
   }, []);
+
+  useEffect(() => {
+    if (messageContainerRef.current) {
+      messageContainerRef.current.scrollTop =
+        messageContainerRef.current.scrollHeight;
+    }
+  }, [messages]);
 
   const handleSend = async () => {
     if (input.trim() === "") return; // Prevent sending empty messages
@@ -102,6 +127,27 @@ const Copywriter: React.FC = () => {
     }
   };
 
+  const handleCopy = (text: string) => {
+    navigator.clipboard.writeText(text);
+    alert("Text copied to clipboard!");
+  };
+
+  const handleSavePDF = () => {
+    const doc = new jsPDF();
+    let yOffset = 10;
+
+    messages.forEach((msg, index) => {
+      doc.text(
+        10,
+        yOffset,
+        `${msg.from === "user" ? "You" : "Nova"}: ${msg.text}`
+      );
+      yOffset += 10;
+    });
+
+    doc.save("generated-copy.pdf");
+  };
+
   return (
     <div className="relative h-screen overflow-hidden">
       <StarsBackground className="absolute inset-0 z-1" />
@@ -146,10 +192,18 @@ const Copywriter: React.FC = () => {
           <section className="flex flex-col flex-1 bg-[#1a1a2e] p-4 rounded-md">
             <div
               className="flex-1 overflow-y-auto mb-4"
+              ref={messageContainerRef}
               style={{ maxHeight: "calc(100vh - 250px)" }}
             >
               {messages.map((msg, index) => (
-                <ChatMessage key={index} text={msg.text} from={msg.from} />
+                <ChatMessage
+                  key={index}
+                  text={msg.text}
+                  from={msg.from}
+                  onCopy={
+                    msg.from === "ai" ? () => handleCopy(msg.text) : undefined
+                  }
+                />
               ))}
               {loading && (
                 <div className="text-center text-gray-400">Generating...</div>
@@ -176,6 +230,12 @@ const Copywriter: React.FC = () => {
                 style={{ height: "calc(2rem + 1.5rem)" }} // Ensure button height matches text area
               >
                 Generate
+              </button>
+              <button
+                className="px-4 py-2 bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md hover:bg-[#0489b1] transition-all duration-300"
+                onClick={handleSavePDF}
+              >
+                Save as PDF
               </button>
             </div>
           </section>
