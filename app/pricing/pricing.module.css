@@ -1,0 +1,10 @@
+.fancyOverlay,
+.fancyGlass {
+  --primary-light: theme('colors.stone.400');
+  --primary-main: theme('colors.stone.500');
+  --primary-darker: theme('colors.stone.900');
+  --secondary-light: theme('colors.gray.400');
+  --secondary-main: theme('colors.gray.500');
+  --secondary-darker: theme('colors.gray.900');
+  --glass-color: 107, 114, 128;
+}
