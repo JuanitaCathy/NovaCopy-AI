@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, KeyboardEvent } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { StarsBackground } from "@/components/ui/stars-background";
@@ -13,30 +13,101 @@ const SidebarItem = ({ label, icon }: { label: string; icon: JSX.Element }) => (
   </div>
 );
 
+const ChatMessage = ({ text, from }: { text: string; from: "user" | "ai" }) => (
+  <div
+    className={`mb-4 ${from === "user" ? "flex justify-end" : "flex justify-start"}`}
+  >
+    <div
+      className={`px-4 py-2 rounded-lg ${from === "user" ? "bg-[#00b4d8] text-white" : "bg-[#16213e] text-white"} ${
+        from === "user" ? "ml-auto" : "mr-auto"
+      }`}
+      style={{
+        padding: "10px",
+        margin: "8px 0",
+        maxWidth: from === "user" ? "70%" : "80%",
+      }} // Adjusted width and padding
+    >
+      {text}
+    </div>
+  </div>
+);
+
 const Copywriter: React.FC = () => {
-  const [userInput, setUserInput] = useState("");
-  const [tone, setTone] = useState("");
-  const [aiResponse, setAiResponse] = useState("");
-  const [loading, setLoading] = useState(false); 
+  const [messages, setMessages] = useState<
+    { text: string; from: "user" | "ai" }[]
+  >([]);
+  const [input, setInput] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [questionIndex, setQuestionIndex] = useState(0);
+  const [questions] = useState([
+    "Tell me a little bit about your Product/Service? Be as detailed as possible.",
+    "Who are you trying to target, what pain points do you want me to focus on?",
+    "What is your Call-To-Action and offer (if any)?",
+    "Do you have a certain tone you'd like me to follow?",
+  ]);
   const router = useRouter();
 
-  const sendUserInput = async () => {
+  useEffect(() => {
+    setMessages([
+      {
+        text: "Hello! My name is Nova 🤖! I'm here to help you generate the perfect copy! Let's begin?",
+        from: "ai",
+      },
+    ]);
+  }, []);
+
+  const handleSend = async () => {
+    if (input.trim() === "") return; // Prevent sending empty messages
+
+    const userMessage = { text: input, from: "user" as "user" | "ai" };
+    const newMessages = [...messages, userMessage];
+    setMessages(newMessages);
     setLoading(true);
-    // Simulate AI response
-    setTimeout(() => {
-      setAiResponse("This is a mock response from the AI.");
-      setLoading(false);
-    }, 2000);
+
+    if (questionIndex < questions.length) {
+      // Ask the next question
+      setTimeout(() => {
+        const aiMessage = {
+          text: questions[questionIndex],
+          from: "ai" as "user" | "ai",
+        };
+        setMessages([...newMessages, aiMessage]);
+        setQuestionIndex(questionIndex + 1);
+        setInput("");
+        setLoading(false);
+      }, 2000);
+    } else {
+      // Generate AI response after all questions are answered
+      setTimeout(() => {
+        const finalMessage = {
+          text: "Thank you for the information! I'll use this to generate your copy.",
+          from: "ai" as "user" | "ai",
+        };
+        setMessages([...newMessages, finalMessage]);
+        setLoading(false);
+        setInput(""); // Clear input after sending
+      }, 2000);
+    }
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+    if (e.key === "Enter") {
+      if (e.shiftKey) {
+        // Allow new line on Shift + Enter
+        return;
+      } else {
+        e.preventDefault(); // Prevent default new line behavior
+        handleSend();
+      }
+    }
   };
 
   return (
     <div className="relative h-screen overflow-hidden">
-      {/* Background Effects */}
       <StarsBackground className="absolute inset-0 z-1" />
       <ShootingStars className="absolute inset-0 z-1" />
 
       <div className="flex h-full">
-        {/* Sidebar */}
         <aside className="w-64 bg-[#1a1a2e] p-4 shadow-lg z-20">
           <div className="flex items-center mb-5">
             <Image
@@ -61,70 +132,51 @@ const Copywriter: React.FC = () => {
           </div>
         </aside>
 
-        {/* Main Content */}
         <div className="flex-1 p-8 flex flex-col space-y-8 text-white z-20">
-          {/* Header */}
-          <header className="flex items-center justify-between mb-6">
+          <header className="flex items-center justify-between">
             <h1 className="text-4xl font-bold">AI Copywriter</h1>
             <button
-              onClick={() => router.push('/dashboard')}
+              onClick={() => router.push("/dashboard")}
               className="bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white px-4 py-2 rounded-md hover:bg-[#0489b1] transition-all duration-300"
             >
               Back to Dashboard
             </button>
           </header>
 
-          {/* User Input Section */}
-          <section className="flex space-x-8">
-            <div className="w-1/2 flex flex-col space-y-4">
-              <h2 className="text-2xl font-semibold">Prompt</h2>
-              <textarea
-                className="w-full h-32 p-4 border border-[#00b4d8] bg-[#16213e] text-white rounded-md"
-                placeholder="Type your message..."
-                value={userInput}
-                onChange={(e) => setUserInput(e.target.value)}
-              ></textarea>
-
-              <h2 className="text-2xl font-semibold">Tone</h2>
-              <textarea
-                className="w-full h-24 p-4 border border-[#00b4d8] bg-[#16213e] text-white rounded-md"
-                placeholder="Specify the tone (e.g., Formal, Friendly, etc.)"
-                value={tone}
-                onChange={(e) => setTone(e.target.value)}
-              ></textarea>
-
+          <section className="flex flex-col flex-1 bg-[#1a1a2e] p-4 rounded-md">
+            <div
+              className="flex-1 overflow-y-auto mb-4"
+              style={{ maxHeight: "calc(100vh - 250px)" }}
+            >
+              {messages.map((msg, index) => (
+                <ChatMessage key={index} text={msg.text} from={msg.from} />
+              ))}
+              {loading && (
+                <div className="text-center text-gray-400">Generating...</div>
+              )}
+            </div>
+            <div className="flex items-center space-x-4">
+              <div className="flex-1">
+                <textarea
+                  className="w-full p-4 border border-[#00b4d8] bg-[#16213e] text-white rounded-md"
+                  placeholder="Type your message..."
+                  value={input}
+                  onChange={(e) => setInput(e.target.value)}
+                  onKeyDown={handleKeyDown}
+                  rows={2} // Adjust the number of visible rows
+                ></textarea>
+                <p className="text-sm text-gray-400 mt-2">
+                  Press Enter to send, Shift + Enter for a new line.
+                </p>
+              </div>
               <button
-                className="self-start px-6 py-2 mt-4 bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md hover:bg-[#0489b1] transition-all duration-300"
-                onClick={sendUserInput}
+                className="px-6 py-2 bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md hover:bg-[#0489b1] transition-all duration-300"
+                onClick={handleSend}
+                disabled={loading}
+                style={{ height: "calc(2rem + 1.5rem)" }} // Ensure button height matches text area
               >
                 Generate
               </button>
-            </div>
-
-            {/* AI Response Section */}
-            <div className="w-1/2 flex flex-col space-y-4">
-              <h2 className="text-2xl font-semibold">AI Response</h2>
-              <div className="w-full h-64 p-4 border border-[#00b4d8] bg-[#16213e] text-white rounded-md">
-                {loading ? "Generating..." : aiResponse || "The AI response will be displayed here."}
-              </div>
-              <div className="flex space-x-4 mt-4">
-                <button
-                  className="px-4 py-2 bg-[#00b4d8] text-white rounded-md hover:bg-[#0489b1] transition-all duration-300"
-                  onClick={() => navigator.clipboard.writeText(aiResponse)}
-                >
-                  Copy to Clipboard
-                </button>
-                <button
-                  className="px-4 py-2 bg-[#00b4d8] text-white rounded-md hover:bg-[#0489b1] transition-all duration-300"
-                >
-                  Save
-                </button>
-                <button
-                  className="px-4 py-2 bg-[#00b4d8] text-white rounded-md hover:bg-[#0489b1] transition-all duration-300"
-                >
-                  Edit
-                </button>
-              </div>
             </div>
           </section>
         </div>
