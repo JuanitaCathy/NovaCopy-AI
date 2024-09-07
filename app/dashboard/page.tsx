@@ -61,7 +61,7 @@ const Dashboard: React.FC = () => {
                 </span>{" "}
                 back!
               </h1>
-              <h1 className="text-4xl font-bold mt-2">
+              <h1 className="text-4xl font-semibold mt-2">
                 What copy would you like to generate today?
               </h1>
               <input
@@ -111,6 +111,22 @@ const Dashboard: React.FC = () => {
               </div>
               <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">
                 Past Copy 3
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h2 className="text-xl font-semibold mt-5 mb-4">Tutorials</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              {/* Replace with dynamic content */}
+              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">
+                Tutorial 1
+              </div>
+              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">
+                Tutorial 2
+              </div>
+              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">
+                Tutorial 3
               </div>
             </div>
           </div>
