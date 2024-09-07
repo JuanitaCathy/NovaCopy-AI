@@ -5,7 +5,7 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { ShootingStars } from "@/components/ui/shooting-stars";
-import { jsPDF } from "jspdf"; // Import jsPDF for PDF generation
+import { jsPDF } from "jspdf";
 
 const SidebarItem = ({ label, icon }: { label: string; icon: JSX.Element }) => (
   <div className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap z-10">
@@ -61,6 +61,7 @@ const Copywriter: React.FC = () => {
     "What is your Call-To-Action and offer (if any)?",
     "Do you have a certain tone you'd like me to follow?",
   ]);
+  const [bannerTitle, setBannerTitle] = useState("Welcome to AI Copywriter");
   const router = useRouter();
 
   const messageContainerRef = useRef<HTMLDivElement>(null);
@@ -72,6 +73,8 @@ const Copywriter: React.FC = () => {
         from: "ai",
       },
     ]);
+    // Update banner title
+    setBannerTitle("Generating Copy for Your Request");
   }, []);
 
   useEffect(() => {
@@ -135,6 +138,7 @@ const Copywriter: React.FC = () => {
   const handleSavePDF = () => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.width;
+    const pageHeight = doc.internal.pageSize.height;
     const margin = 10; // Margin from the left edge
     let yOffset = 20; // Starting Y offset for the first line
 
@@ -155,6 +159,11 @@ const Copywriter: React.FC = () => {
 
       // Add each line of text
       textLines.forEach((line: string | string[]) => {
+        // Check if adding this line would exceed the page height
+        if (yOffset + 10 > pageHeight - 10) {
+          doc.addPage(); // Add a new page if it exceeds
+          yOffset = 20; // Reset Y offset for the new page
+        }
         doc.text(line, margin, yOffset);
         yOffset += 10; // Adjust spacing between lines
       });
@@ -166,10 +175,11 @@ const Copywriter: React.FC = () => {
   };
 
   return (
-    <div className="relative h-screen overflow-hidden">
+    <div className="relative h-screen overflow-hidden overflow-y-auto">
+      {" "}
+      {/* Added overflow-y-auto here */}
       <StarsBackground className="absolute inset-0 z-1" />
       <ShootingStars className="absolute inset-0 z-1" />
-
       <div className="flex h-full">
         <aside className="w-64 bg-[#1a1a2e] p-4 shadow-lg z-20">
           <div className="flex items-center mb-5">
@@ -206,53 +216,50 @@ const Copywriter: React.FC = () => {
             </button>
           </header>
 
-          <section className="flex flex-col flex-1 bg-[#1a1a2e] p-4 rounded-md">
+          <section className="flex flex-col flex-1 bg-[#1a1a2e] p-3 rounded-md">
+            <div className="p-3 rounded-t-md flex items-center justify-between">
+              <h2 className="text-xl font-bold text-white">{bannerTitle}</h2>
+              <button
+                onClick={handleSavePDF}
+                className="bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white px-4 py-2 rounded-md hover:bg-[#0489b1] transition-all duration-300"
+              >
+                Save as PDF
+              </button>
+            </div>
             <div
-              className="flex-1 overflow-y-auto mb-4"
+              className="flex-1 overflow-y-auto p-3"
               ref={messageContainerRef}
-              style={{ maxHeight: "calc(100vh - 250px)" }}
+              style={{ maxHeight: "calc(100vh - 200px)" }} // Set a fixed height for the chat area
             >
-              {messages.map((msg, index) => (
+              {messages.map((message, index) => (
                 <ChatMessage
                   key={index}
-                  text={msg.text}
-                  from={msg.from}
-                  onCopy={
-                    msg.from === "ai" ? () => handleCopy(msg.text) : undefined
-                  }
+                  text={message.text}
+                  from={message.from}
+                  onCopy={() => handleCopy(message.text)}
                 />
               ))}
               {loading && (
-                <div className="text-center text-gray-400">Generating...</div>
+                <div className="flex justify-center">
+                  <div className="loader" />
+                </div>
               )}
             </div>
-            <div className="flex items-center space-x-4">
-              <div className="flex-1">
-                <textarea
-                  className="w-full p-4 border border-[#00b4d8] bg-[#16213e] text-white rounded-md"
-                  placeholder="Type your message..."
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  rows={2} // Adjust the number of visible rows
-                ></textarea>
-                <p className="text-sm text-gray-400 mt-2">
-                  Press Enter to send, Shift + Enter for a new line.
-                </p>
-              </div>
+
+            <div className="flex items-center p-3 bg-[#1a1a2e] rounded-b-md">
+              <textarea
+                value={input}
+                onChange={(e) => setInput(e.target.value)}
+                onKeyDown={handleKeyDown}
+                placeholder="Type your message here..."
+                className="flex-1 p-2 bg-[#16213e] text-white rounded-md border border-[#00b4d8]"
+                rows={2}
+              />
               <button
-                className="px-6 py-2 bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md hover:bg-[#0489b1] transition-all duration-300"
                 onClick={handleSend}
-                disabled={loading}
-                style={{ height: "calc(2rem + 1.5rem)" }} // Ensure button height matches text area
+                className="bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white px-4 py-5 rounded-md ml-2 hover:bg-[#0489b1]"
               >
-                Generate
-              </button>
-              <button
-                className="px-4 py-2 bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md hover:bg-[#0489b1] transition-all duration-300"
-                onClick={handleSavePDF}
-              >
-                Save as PDF
+                Send
               </button>
             </div>
           </section>
