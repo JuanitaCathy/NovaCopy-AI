@@ -1,4 +1,4 @@
-// components/TallyForm.tsx
+"use client"
 import React, { useEffect } from "react";
 
 const TallyForm: React.FC = () => {
