@@ -8,9 +8,9 @@ import { ShootingStars } from "@/components/ui/shooting-stars";
 import { jsPDF } from "jspdf";
 
 const SidebarItem = ({ label, icon }: { label: string; icon: JSX.Element }) => (
-  <div className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap z-10">
-    {icon}
-    <span className="text-sm font-medium ml-2">{label}</span>
+  <div className="flex items-center px-4 py-2 space-x-2 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap z-10">
+    <div className="flex items-center justify-center w-6 h-12">{icon}</div>
+    <span className="text-sm font-medium">{label}</span>
   </div>
 );
 
@@ -139,14 +139,12 @@ const Copywriter: React.FC = () => {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.width;
     const pageHeight = doc.internal.pageSize.height;
-    const margin = 10; // Margin from the left edge
-    let yOffset = 20; // Starting Y offset for the first line
+    const margin = 10;
+    let yOffset = 20;
 
-    // Set a basic, standard font
     doc.setFont("helvetica", "normal");
     doc.setFontSize(12);
 
-    // Filter out the first message (assuming it is the greeting)
     const filteredMessages = messages.slice(1); // Exclude the first message
 
     // Add the remaining messages
@@ -159,7 +157,6 @@ const Copywriter: React.FC = () => {
 
       // Add each line of text
       textLines.forEach((line: string | string[]) => {
-        // Check if adding this line would exceed the page height
         if (yOffset + 10 > pageHeight - 10) {
           doc.addPage(); // Add a new page if it exceeds
           yOffset = 20; // Reset Y offset for the new page
@@ -197,23 +194,25 @@ const Copywriter: React.FC = () => {
               </button>
             </div>
           </div>
-          <div className="flex flex-col space-y-1">
+          <div className="flex flex-col space-y-2">
             <SidebarItem label="Create Custom Copy" icon={<svg />} />
             <SidebarItem label="Browse Templates" icon={<svg />} />
             <SidebarItem label="Previous Copies" icon={<svg />} />
             <SidebarItem label="Settings" icon={<svg />} />
           </div>
-        </aside>
-
-        <div className="flex-1 p-8 flex flex-col space-y-8 text-white z-20">
-          <header className="flex items-center justify-between">
-            <h1 className="text-4xl font-bold">AI Copywriter</h1>
+          <div className="m-5 mt-10">
             <button
               onClick={() => router.push("/dashboard")}
               className="bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white px-4 py-2 rounded-md hover:bg-[#0489b1] transition-all duration-300"
             >
               Back to Dashboard
             </button>
+          </div>
+        </aside>
+
+        <div className="flex-1 p-8 flex flex-col space-y-8 text-white z-20">
+          <header className="flex items-center justify-between">
+            <h1 className="text-4xl font-bold">AI Copywriter</h1>
           </header>
 
           <section className="flex flex-col flex-1 bg-[#1a1a2e] p-3 rounded-md">
@@ -261,6 +260,9 @@ const Copywriter: React.FC = () => {
               >
                 Send
               </button>
+            </div>
+            <div className="text-gray-400 text-sm mt-2">
+              Press Enter to send, press Shift + Enter to enter a new line.
             </div>
           </section>
         </div>
