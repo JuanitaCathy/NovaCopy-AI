@@ -127,17 +127,6 @@ const Copywriter: React.FC = () => {
               </div>
             </div>
           </section>
-
-          {/* Previous Copies */}
-          <section className="w-full flex flex-col space-y-4">
-            <h2 className="text-2xl font-semibold">Previous Copies</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {/* Placeholder for previous copies */}
-              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">Previous Copy 1</div>
-              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">Previous Copy 2</div>
-              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">Previous Copy 3</div>
-            </div>
-          </section>
         </div>
       </div>
     </div>
