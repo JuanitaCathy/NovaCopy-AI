@@ -5,10 +5,42 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { ShootingStars } from "@/components/ui/shooting-stars";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faEnvelope,
+  faPen,
+  faInfoCircle,
+  faShoppingCart,
+  faTag,
+  faSearch,
+} from "@fortawesome/free-solid-svg-icons";
+import {
+  faFacebook,
+  faInstagram,
+  faGoogle,
+} from "@fortawesome/free-brands-svg-icons";
 
 const SidebarItem = ({ label, icon }: { label: string; icon: JSX.Element }) => (
-  <div className="flex items-center px-4 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap">
-    {icon}
+  <div className="flex items-center px-4 py-2 space-x-2 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap z-10">
+    <div className="flex items-center justify-center w-6 h-12">{icon}</div>
+    <span className="text-sm font-medium">{label}</span>
+  </div>
+);
+
+const ClickableIcon = ({
+  label,
+  icon,
+  onClick,
+}: {
+  label: string;
+  icon: JSX.Element;
+  onClick: () => void;
+}) => (
+  <div
+    onClick={onClick}
+    className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105"
+  >
+    <div className="bg-[#1a1a2e] p-3 rounded-full mb-2">{icon}</div>
     <span className="text-sm font-medium">{label}</span>
   </div>
 );
@@ -17,15 +49,18 @@ const Dashboard: React.FC = () => {
   const [search, setSearch] = useState("");
   const router = useRouter();
 
+  const handleIconClick = (label: string) => {
+    router.push(`/copywriter?type=${encodeURIComponent(label)}`);
+  };
+
   return (
-    <div className="relative h-screen overflow-hidden">
+    <div className="relative h-screen overflow-hidden overflow-y-auto">
+      {" "}
       {/* Background Effects */}
       <StarsBackground />
       <ShootingStars />
-
       <div className="flex h-full">
-        {/* Sidebar */}
-        <aside className="w-64 bg-[#1a1a2e] p-4 shadow-lg z-20">
+        <aside className="w-60 bg-[#1a1a2e] p-4 shadow-lg z-20">
           <div className="flex items-center mb-5">
             <Image
               src="/NovaCopy_white.png"
@@ -36,15 +71,18 @@ const Dashboard: React.FC = () => {
             />
             <div className="ml-3 mt-5 text-white">
               <h2 className="text-xl font-semibold">NovaCopy AI</h2>
-              <button className="text-[#00b4d8] hover mt-4">
+              <button
+                onClick={() => router.push("/pricing")}
+                className="text-[#00b4d8] hover mt-4"
+              >
                 Upgrade your plan
               </button>
             </div>
           </div>
-          <div className="flex flex-col space-y-1">
+          <div className="flex flex-col space-y-2">
             <SidebarItem label="Create Custom Copy" icon={<svg />} />
-            <SidebarItem label="Templates" icon={<svg />} />
-            <SidebarItem label="Option 1" icon={<svg />} />
+            <SidebarItem label="Browse Templates" icon={<svg />} />
+            <SidebarItem label="Previous Copies" icon={<svg />} />
             <SidebarItem label="Settings" icon={<svg />} />
           </div>
         </aside>
@@ -60,9 +98,6 @@ const Dashboard: React.FC = () => {
                   Welcome{" "}
                 </span>{" "}
                 back!
-              </h1>
-              <h1 className="text-4xl font-semibold mt-2">
-                What copy would you like to generate today?
               </h1>
               <input
                 type="text"
@@ -83,52 +118,56 @@ const Dashboard: React.FC = () => {
 
           <div className="mb-6">
             <h2 className="text-xl font-semibold mb-4">
-              You might want to try
+              What copy would you like to generate today?
             </h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {/* Replace with dynamic content */}
-              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">
-                Suggestion 1
-              </div>
-              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">
-                Suggestion 2
-              </div>
-              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">
-                Suggestion 3
-              </div>
+
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+              <ClickableIcon
+                label="Email Ad"
+                icon={<FontAwesomeIcon icon={faEnvelope} />}
+                onClick={() => handleIconClick("Email Ad")}
+              />
+              <ClickableIcon
+                label="Facebook Ad"
+                icon={<FontAwesomeIcon icon={faFacebook} />}
+                onClick={() => handleIconClick("Facebook Ad")}
+              />
+              <ClickableIcon
+                label="Instagram Ad"
+                icon={<FontAwesomeIcon icon={faInstagram} />}
+                onClick={() => handleIconClick("Instagram Ad")}
+              />
+              <ClickableIcon
+                label="Social Media Caption"
+                icon={<FontAwesomeIcon icon={faPen} />}
+                onClick={() => handleIconClick("Social Media Caption")}
+              />
+              <ClickableIcon
+                label="About Us Page"
+                icon={<FontAwesomeIcon icon={faInfoCircle} />}
+                onClick={() => handleIconClick("About Us Page")}
+              />
+              <ClickableIcon
+                label="Sales Page"
+                icon={<FontAwesomeIcon icon={faShoppingCart} />}
+                onClick={() => handleIconClick("Sales Page")}
+              />
+              <ClickableIcon
+                label="Product Description"
+                icon={<FontAwesomeIcon icon={faTag} />}
+                onClick={() => handleIconClick("Product Description")}
+              />
+              <ClickableIcon
+                label="Google Ad"
+                icon={<FontAwesomeIcon icon={faGoogle} />}
+                onClick={() => handleIconClick("Google Ad")}
+              />
             </div>
           </div>
 
           <div>
-            <h2 className="text-xl font-semibold mb-4">Past Copies</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {/* Replace with dynamic content */}
-              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">
-                Past Copy 1
-              </div>
-              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">
-                Past Copy 2
-              </div>
-              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">
-                Past Copy 3
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-semibold mt-5 mb-4">Tutorials</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-              {/* Replace with dynamic content */}
-              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">
-                Tutorial 1
-              </div>
-              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">
-                Tutorial 2
-              </div>
-              <div className="bg-[#1a1a2e] p-4 rounded-md shadow-md">
-                Tutorial 3
-              </div>
-            </div>
+            <h2 className="text-xl font-semibold mb-4">Your Metrics</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
           </div>
         </main>
       </div>
