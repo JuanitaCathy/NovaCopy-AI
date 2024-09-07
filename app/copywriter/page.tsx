@@ -63,6 +63,8 @@ const Copywriter: React.FC = () => {
   ]);
   const [bannerTitle, setBannerTitle] = useState("Welcome to AI Copywriter");
   const router = useRouter();
+  const query = new URLSearchParams(window.location.search);
+  const type = query.get("type") || "Email Ad";
 
   const messageContainerRef = useRef<HTMLDivElement>(null);
 
@@ -178,7 +180,7 @@ const Copywriter: React.FC = () => {
       <StarsBackground className="absolute inset-0 z-1" />
       <ShootingStars className="absolute inset-0 z-1" />
       <div className="flex h-full">
-        <aside className="w-64 bg-[#1a1a2e] p-4 shadow-lg z-20">
+        <aside className="w-60 bg-[#1a1a2e] p-4 shadow-lg z-20">
           <div className="flex items-center mb-5">
             <Image
               src="/NovaCopy_white.png"
@@ -213,9 +215,12 @@ const Copywriter: React.FC = () => {
         <div className="flex-1 p-8 flex flex-col space-y-8 text-white z-20">
           <header className="flex items-center justify-between">
             <h1 className="text-4xl font-bold">AI Copywriter</h1>
+            <div className="bg-[#9b5de5] text-white px-4 py-2 rounded-md">
+              <span>{type}</span>
+            </div>
           </header>
 
-          <section className="flex flex-col flex-1 bg-[#1a1a2e] p-3 rounded-md">
+          <section className="flex flex-col flex-1 bg-[#1a1a2e] p-3 rounded-md mb-2">
             <div className="p-3 rounded-t-md flex items-center justify-between">
               <h2 className="text-xl font-bold text-white">{bannerTitle}</h2>
               <button
