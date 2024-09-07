@@ -71,7 +71,10 @@ const Dashboard: React.FC = () => {
             />
             <div className="ml-3 mt-5 text-white">
               <h2 className="text-xl font-semibold">NovaCopy AI</h2>
-              <button className="text-[#00b4d8] hover mt-4">
+              <button
+                onClick={() => router.push("/pricing")}
+                className="text-[#00b4d8] hover mt-4"
+              >
                 Upgrade your plan
               </button>
             </div>
