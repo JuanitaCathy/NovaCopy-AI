@@ -7,21 +7,28 @@ import { StarsBackground } from "@/components/ui/stars-background";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 
 const SidebarItem = ({ label, icon }: { label: string; icon: JSX.Element }) => (
-  <div className="flex items-center px-4 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap">
+  <div className="flex items-center px-4 py-2 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap z-10">
     {icon}
-    <span className="text-sm font-medium">{label}</span>
+    <span className="text-sm font-medium ml-2">{label}</span>
   </div>
 );
 
 const Copywriter: React.FC = () => {
-  const [search, setSearch] = useState("");
+  const [userInput, setUserInput] = useState("");
+  const [tone, setTone] = useState("");
+  const [aiResponse, setAiResponse] = useState("");
   const router = useRouter();
+
+  const sendUserInput = () => {
+    // This is where you'd handle sending userInput and tone to your AI.
+    setAiResponse("This is a mock response from the AI.");
+  };
 
   return (
     <div className="relative h-screen overflow-hidden">
       {/* Background Effects */}
-      <StarsBackground />
-      <ShootingStars />
+      <StarsBackground className="absolute inset-0 z-1" />
+      <ShootingStars className="absolute inset-0 z-1" />
 
       <div className="flex h-full">
         {/* Sidebar */}
@@ -50,6 +57,41 @@ const Copywriter: React.FC = () => {
         </aside>
 
         {/* Main Content */}
+        <div className="flex-1 p-8 flex space-x-8 text-white z-20">
+          {/* User Input Section */}
+          <section className="w-1/2 flex flex-col space-y-4">
+            <h2 className="text-2xl font-semibold">Prompt</h2>
+            <textarea
+              className="w-full h-32 p-4 border border-[#00b4d8] bg-[#16213e] text-white rounded-md"
+              placeholder="Type your message..."
+              value={userInput}
+              onChange={(e) => setUserInput(e.target.value)}
+            ></textarea>
+
+            <h2 className="text-2xl font-semibold">Tone</h2>
+            <textarea
+              className="w-full h-24 p-4 border border-[#00b4d8] bg-[#16213e] text-white rounded-md"
+              placeholder="Specify the tone (e.g., Formal, Friendly, etc.)"
+              value={tone}
+              onChange={(e) => setTone(e.target.value)}
+            ></textarea>
+
+            <button
+              className="self-start px-6 py-2 mt-4 bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md hover:bg-[#0489b1] transition-all duration-300"
+              onClick={sendUserInput}
+            >
+              Generate
+            </button>
+          </section>
+
+          {/* AI Response Section */}
+          <section className="w-1/2 flex flex-col space-y-4">
+            <h2 className="text-2xl font-semibold">AI Response</h2>
+            <div className="w-full h-64 p-4 border border-[#00b4d8] bg-[#16213e] text-white rounded-md">
+              {aiResponse || "The AI response will be displayed here."}
+            </div>
+          </section>
+        </div>
       </div>
     </div>
   );
