@@ -192,7 +192,7 @@ const Copywriter: React.FC = () => {
       const now = new Date();
       const options: Intl.DateTimeFormatOptions = {
         year: "numeric",
-        month: "long",
+        month: "numeric",
         day: "numeric",
         hour: "2-digit",
         minute: "2-digit",
@@ -214,6 +214,13 @@ const Copywriter: React.FC = () => {
     existingCopies.push(copy);
     localStorage.setItem("chatCopies", JSON.stringify(existingCopies));
 
+    // Save timestamp for the copy
+    const timestamps = JSON.parse(
+      localStorage.getItem("copyTimestamps") || "[]"
+    );
+    timestamps.push(new Date().toISOString());
+    localStorage.setItem("copyTimestamps", JSON.stringify(timestamps));
+
     // Navigate to the previous copies page
     router.push("/previous-copies");
   };
@@ -225,7 +232,7 @@ const Copywriter: React.FC = () => {
       <StarsBackground className="absolute inset-0 z-1" />
       <ShootingStars className="absolute inset-0 z-1" />
       <div className="flex h-full">
-        <aside className="w-60 h-screen bg-[#1a1a2e] p-4 shadow-lg z-20">
+        <aside className="fixed top-0 left-0 w-60 h-full bg-[#1a1a2e] p-4 shadow-lg z-20">
           <div className="flex items-center mb-5">
             <Image
               src="/NovaCopy_white.png"
@@ -265,7 +272,7 @@ const Copywriter: React.FC = () => {
           </div>
         </aside>
 
-        <div className="flex-1 p-8 flex flex-col space-y-8 text-white z-20">
+        <div className="flex-1 ml-60 p-8 flex flex-col space-y-8 text-white z-20">
           <header className="flex items-center justify-between">
             <h1 className="text-4xl font-bold">AI Copywriter</h1>
             <div className="bg-[#9b5de5] text-white px-4 py-2 rounded-md">
@@ -297,39 +304,37 @@ const Copywriter: React.FC = () => {
                 />
               ))}
               {loading && (
-                <div className="flex justify-center">
-                  <div className="loader" />
+                <div className="animate-pulse text-center text-gray-400">
+                  <p>Nova is typing...</p>
                 </div>
               )}
             </div>
-
-            <div className="flex items-center p-3 bg-[#1a1a2e] rounded-b-md">
+            <div className="flex items-center border-t border-gray-700 pt-2">
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={handleKeyDown}
-                placeholder="Type your message here..."
+                placeholder="Type your message..."
                 className="flex-1 p-2 bg-[#16213e] text-white rounded-md border border-[#00b4d8]"
                 rows={2}
               />
               <button
                 onClick={handleSend}
-                className="bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white px-4 py-5 rounded-md ml-2 hover:bg-[#0489b1]"
+                className="bg-[#00b4d8] text-white px-4 py-5 rounded-md ml-2 hover:bg-[#0489b1]"
               >
                 Send
+              </button>
+              <button
+                onClick={handleSave}
+                className="bg-[#fd5c63] text-white px-4 py-5 rounded-md ml-2 hover:bg-[#C60C30]"
+              >
+                Save
               </button>
             </div>
             <div className="flex justify-between">
               <div className="text-gray-400 text-sm mt-2 ml-3">
                 Press Enter to send, press Shift + Enter to enter a new line.
               </div>
-              <button
-                onClick={handleSave}
-                className="p-2 text-white bg-[#00b4d8] hover:bg-[#0489b1] rounded-lg transition-all duration-300"
-                style={{ marginRight: "16px" }}
-              >
-                Save
-              </button>
             </div>
           </section>
         </div>
