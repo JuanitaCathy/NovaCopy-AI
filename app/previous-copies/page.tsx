@@ -1,5 +1,4 @@
 "use client";
-
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
@@ -36,6 +35,8 @@ const PreviousCopies: React.FC = () => {
     title: string;
     messages: { text: string; from: "user" | "ai" }[];
   } | null>(null);
+  const [isEditing, setIsEditing] = useState<number | null>(null);
+  const [newTitle, setNewTitle] = useState<string>("");
   const router = useRouter();
 
   useEffect(() => {
@@ -47,22 +48,38 @@ const PreviousCopies: React.FC = () => {
     title: string;
     messages: { text: string; from: "user" | "ai" }[];
   }) => {
-    setSelectedCopy(copy);
+    if (isEditing === null) {
+      setSelectedCopy(copy);
+    }
   };
 
   const handleDelete = (index: number) => {
-    // Create a new array without the deleted item
     const updatedCopies = copies.filter((_, i) => i !== index);
-
-    // Update the state
     setCopies(updatedCopies);
-
-    // Update local storage
     localStorage.setItem("chatCopies", JSON.stringify(updatedCopies));
   };
 
+  const handleRename = (index: number) => {
+    const updatedCopies = [...copies];
+    updatedCopies[index].title = newTitle;
+    setCopies(updatedCopies);
+    localStorage.setItem("chatCopies", JSON.stringify(updatedCopies));
+    setIsEditing(null);
+  };
+
+  const handleRenameStart = (index: number, currentTitle: string) => {
+    setIsEditing(index);
+    setNewTitle(currentTitle);
+  };
+
+  const handleRenameCancel = () => {
+    setIsEditing(null);
+    setNewTitle("");
+  };
+
   return (
-    <div className="relative h-screen overflow-hidden">
+    <div className="relative h-screen overflow-hidden overflow-y-auto">
+      {" "}
       <StarsBackground className="absolute inset-0 z-1" />
       <ShootingStars className="absolute inset-0 z-1" />
       <div className="flex h-full">
@@ -126,12 +143,18 @@ const PreviousCopies: React.FC = () => {
                   {selectedCopy.messages.map((message, index) => (
                     <div
                       key={index}
-                      className={`mb-4 ${message.from === "user" ? "flex justify-end" : "flex justify-start"}`}
+                      className={`mb-4 ${
+                        message.from === "user"
+                          ? "flex justify-end"
+                          : "flex justify-start"
+                      }`}
                     >
                       <div
-                        className={`px-4 py-2 rounded-lg ${message.from === "user" ? "bg-[#00b4d8] text-white" : "bg-[#16213e] text-white"} ${
-                          message.from === "user" ? "ml-auto" : "mr-auto"
-                        }`}
+                        className={`px-4 py-2 rounded-lg ${
+                          message.from === "user"
+                            ? "bg-[#00b4d8] text-white"
+                            : "bg-[#16213e] text-white"
+                        } ${message.from === "user" ? "ml-auto" : "mr-auto"}`}
                         style={{
                           padding: "10px",
                           maxWidth: message.from === "user" ? "70%" : "80%",
@@ -157,16 +180,52 @@ const PreviousCopies: React.FC = () => {
                     className="p-4 bg-[#1a1a2e] rounded-md cursor-pointer hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] relative"
                     onClick={() => handleItemClick(copy)}
                   >
-                    <h3 className="text-lg font-semibold">{copy.title}</h3>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation(); // Prevent click event from bubbling up to the list item
-                        handleDelete(index);
-                      }}
-                      className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 transition-all duration-300"
-                    >
-                      Delete
-                    </button>
+                    {isEditing === index ? (
+                      <>
+                        <input
+                          type="text"
+                          value={newTitle}
+                          onChange={(e) => setNewTitle(e.target.value)}
+                          className="p-2 rounded bg-[#16213e] text-white w-4/5"
+                        />
+                        <div className="mt-2 space-x-2">
+                          <button
+                            onClick={() => handleRename(index)}
+                            className="bg-[#018749] text-white px-2 py-1 rounded-md hover:bg-[#1B4D3E] transition-all duration-300"
+                          >
+                            Save
+                          </button>
+                          <button
+                            onClick={handleRenameCancel}
+                            className="bg-gray-500 text-white px-2 py-1 rounded-md hover:bg-gray-600 transition-all duration-300"
+                          >
+                            Cancel
+                          </button>
+                        </div>
+                      </>
+                    ) : (
+                      <>
+                        <h3 className="text-lg font-semibold">{copy.title}</h3>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleRenameStart(index, copy.title);
+                          }}
+                          className="absolute top-2 right-20 bg-yellow-500 text-white px-2 py-1 rounded-md hover:bg-yellow-600 transition-all duration-300"
+                        >
+                          Rename
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            handleDelete(index);
+                          }}
+                          className="absolute top-2 right-2 bg-red-500 text-white px-2 py-1 rounded-md hover:bg-red-600 transition-all duration-300"
+                        >
+                          Delete
+                        </button>
+                      </>
+                    )}
                   </li>
                 ))}
               </ul>

@@ -199,15 +199,11 @@ const Copywriter: React.FC = () => {
         second: "2-digit",
         hour12: true,
       };
-      return (
-        now.toLocaleDateString("en-US", options) +
-        " " +
-        now.toLocaleTimeString("en-US", options)
-      );
+      return now.toLocaleDateString("en-US", options);
     };
 
     const copy = {
-      title: `Copy Created on ${formatDateTime()}`, // Call the function here
+      title: `Copy Created on ${formatDateTime()}`,
       messages: messages,
     };
 
