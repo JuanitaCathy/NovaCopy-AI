@@ -40,26 +40,28 @@ const tiers: PricingTier[] = [
       `5 content templates`,
       `Community support`,
     ],
-    cta: `Go to Playground`,
+    cta: `Go to Playgound`,
   },
   {
     name: 'Basic',
     id: '1',
-    href: '/dashboard',
-    price: { '1': '$3.99', '2': '$49.99' },
+    href: '/onboarding',
+    //price: { '1': '$3.99', '2': '$49.99' },
+    price: { '1': 'coming soon', '2': 'coming soon' },
     description: `Ideal for small businesses looking to level up their content.`,
     features: [
       `Access to all basic writing tools`,
       `10 content templates`,
       `Standard support`,
     ],
-    cta: `Sign Up`,
+    cta: `Coming soon!`,
   },
   {
     name: 'Custom',
     id: '2',
     href: '/contact-us',
-    price: { '1': '$14.99', '2': '$179.88' },
+    //price: { '1': '$14.99', '2': '$179.88' },
+    price: { '1': 'coming soon', '2': 'coming soon' },
     description: `Tailored solutions for enterprises with specific needs. `,
     features: [
       `Custom tools and integrations`,
@@ -67,7 +69,7 @@ const tiers: PricingTier[] = [
       `Onboarding and training sessions`,
       `Custom security and compliance features`,
     ],
-    cta: `Get started`,
+    cta: `Coming soon!`,
   },
 ];
 
@@ -101,13 +103,13 @@ export default function Pricing() {
       <ShootingStars />
       <div className="z-10 w-full max-w-7xl text-center p-3 md:p-12 mt-16">
         <NavbarDemo />
-          <div className="w-full lg:w-auto mx-auto max-w-4xl lg:text-center mt-10 pt-24">
+          <div className="w-full lg:w-auto mx-auto max-w-4xl lg:text-center mt-10 pt-32 pb-9">
             <h1 className="text-4xl md:text-4xl mb-7 font-bold !leading-tight">
               In celebration of our launch, we have decided to offer our services completely free for 7 days!
             </h1>
           </div>
 
-          <div className="w-full lg:w-auto mx-auto max-w-4xl lg:text-center mt-10 py-6 h-64">
+          <div className="w-full lg:w-auto mx-auto max-w-4xl lg:text-center mt-10 py-9 h-64">
             <a
               href={tiers[0].href}
               aria-describedby={tiers[0].id}
@@ -118,9 +120,9 @@ export default function Pricing() {
             </a>
           </div>
           
-
-        {/*    {frequencies.length > 1 ? (
-          <div className="mt-10 flex justify-center">
+         {/*
+           {frequencies.length > 1 ? (
+          <div className="mt-10 flex justify-center pt-32">
             <div
               role="radiogroup"
               className="grid gap-x-1 rounded-full p-1 text-center text-sm font-semibold leading-5 bg-white dark:bg-slate-900 ring-2 ring-inset ring-gray-200/30 dark:ring-gray-500"
@@ -163,10 +165,19 @@ export default function Pricing() {
           </div>
         ) : (
           <div className="mt-12" aria-hidden="true"></div>
-        )}
+        )} */}
+
+          <div className="w-full lg:w-auto mx-auto max-w-4xl lg:text-center mt-10 pt-96 py-3">
+            <h1 className="text-4xl md:text-4xl mb-7 font-bold !leading-tight">
+              NovaCopy grows with your brand
+            </h1>
+            <h6 className="text-lg text-black dark:text-white text-4xl tracking-tight">
+              Choose the right NovaCopy plan for you
+            </h6>
+          </div>
        <div
           className={cn(
-            'isolate mx-auto mt-6 mb-28 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none select-none',
+            'isolate mx-auto mt-6 mb-28 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none select-none ',
             tiers.length === 2 ? 'lg:grid-cols-2' : '',
             tiers.length === 3 ? 'lg:grid-cols-3' : '',
           )}>
@@ -227,7 +238,7 @@ export default function Pricing() {
               </ul>
             </div>
           ))}
-        </div> */}
+        </div> 
       </div>
       <Footer />
     </main>

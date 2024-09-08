@@ -150,7 +150,7 @@ export default function Home() {
         <div className="md:w-1/2 text-left">
           <h2 className="text-2xl md:text-4xl font-bold mb-8">
             Your <span className="gradient-text">Content</span>, Your Way,
-            Faster <span className="gradient-text">! </span>
+            Faster<span className="gradient-text">! </span>
           </h2>
           <p className="text-base md:text-lg mb-4">
             We&apos;ve all been there—staring at a blank screen, waiting for
@@ -205,7 +205,7 @@ export default function Home() {
 
       <section>
         <h2 className="text-2xl md:text-3xl font-bold mb-8 text-center">
-          Frequently asked <span className="gradient-text">Questions!</span>
+          Frequently Asked <span className="gradient-text">Questions!</span>
         </h2>
         <FAQSection />
       </section>
