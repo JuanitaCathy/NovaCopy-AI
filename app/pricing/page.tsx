@@ -1,11 +1,52 @@
 "use client";
+import React, { useRef } from "react";
 import { useState } from "react";
-import styles from './pricing.module.css'
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import NavbarDemo from "@/components/Header";
 import Footer from "@/components/Footer";
 import { text } from "stream/consumers";
+import { useNavigate } from "react-router-dom";
+import { useRouter } from "next/router";
+
+/*
+const PricingButton: React.FC = () => {
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const router = useRouter();
+
+  const handleClick = () => {
+    navigate('/OnboardingForm');
+  }
+
+  return (
+    <main className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center">
+ 
+      <StarsBackground />
+      <ShootingStars />
+      <div className="z-10 w-full max-w-7xl text-center p-3 md:p-12 mt-16">
+        <NavbarDemo />
+        <div className="w-full lg:w-auto mx-auto max-w-4xl lg:text-center mt-10">
+            <h1 className="text-black dark:text-white text-4xl font-semibold max-w-xs sm:max-w-none md:text-4xl !leading-tight pt-8">
+            In celebration of our launch, we are offering our services completely free for 7 days!
+            </h1>
+        </div>
+        <div className="z-10 w-full max-w-7xl text-center md:p-12 mt-16">
+          <button
+            //ref={buttonRef}
+            className="gradient-button px-6 bg-pink-500 text-white font-semibold rounded-lg shadow-md hover:bg-pink-600 transition duration-300"
+            onClick={handleClick}>
+            Get Started!
+          </button>
+        </div>
+        </div>
+      <Footer />
+    </main>
+  );
+};
+
+export default PricingButton;
+
+*/
 
 export interface PricingTierFrequency {
   id: string;
@@ -92,23 +133,25 @@ const CheckIcon = ({ className }: { className?: string }) => {
  const cn = (...args: Array<string | boolean | undefined | null>) =>
   args.filter(Boolean).join(' '); 
 
+
+
 export default function Pricing() {
 
   const [frequency, setFrequency] = useState(frequencies[0]);
 
+
   return (
     <main className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center">
-      {/* Background Effects */}
+      
       <StarsBackground />
       <ShootingStars />
       <div className="z-10 w-full max-w-7xl text-center p-3 md:p-12 mt-16">
         <NavbarDemo />
         <div className="w-full lg:w-auto mx-auto max-w-4xl lg:text-center mt-10">
-            <h1 className="text-black dark:text-white text-4xl font-semibold max-w-xs sm:max-w-none md:text-4xl !leading-tight">
-              Unlock the Power of AI-Driven Copywriting with Flexible Plans to Suit Every Need
+            <h1 className="text-black dark:text-white text-4xl font-semibold max-w-xs sm:max-w-none md:text-4xl !leading-tight pt-8">
+            In celebration of our launch, we are offering our services completely free for 7 days!
             </h1>
         </div>
-
         {frequencies.length > 1 ? (
             <div className="mt-10 flex justify-center">
               <div
@@ -223,10 +266,10 @@ export default function Pricing() {
               </div>
             ))}
           </div>
-        
-
       </div>
       <Footer />
     </main>
   );
 }
+    
+
