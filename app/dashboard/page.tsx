@@ -149,7 +149,6 @@ const Dashboard: React.FC = () => {
   // Data for the graph
   const activityData = {
     labels: [
-      "7 Days Ago",
       "6 Days Ago",
       "5 Days Ago",
       "4 Days Ago",
