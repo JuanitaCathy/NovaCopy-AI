@@ -7,12 +7,27 @@ import { StarsBackground } from "@/components/ui/stars-background";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { jsPDF } from "jspdf";
 
-const SidebarItem = ({ label, icon }: { label: string; icon: JSX.Element }) => (
-  <div className="flex items-center px-4 py-2 space-x-2 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap z-10">
-    <div className="flex items-center justify-center w-6 h-12">{icon}</div>
-    <span className="text-sm font-medium">{label}</span>
-  </div>
-);
+const SidebarItem = ({
+  label,
+  icon,
+  href,
+}: {
+  label: string;
+  icon: JSX.Element;
+  href: string;
+}) => {
+  const router = useRouter();
+
+  return (
+    <div
+      onClick={() => router.push(href)}
+      className="flex items-center px-4 py-2 space-x-2 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap z-10"
+    >
+      <div className="flex items-center justify-center w-6 h-12">{icon}</div>
+      <span className="text-sm font-medium">{label}</span>
+    </div>
+  );
+};
 
 const ChatMessage = ({
   text,
@@ -75,8 +90,7 @@ const Copywriter: React.FC = () => {
         from: "ai",
       },
     ]);
-    // Update banner title
-    setBannerTitle("Generating Copy for Your Request");
+    setBannerTitle(`Copy Generation Request`);
   }, []);
 
   useEffect(() => {
@@ -173,6 +187,37 @@ const Copywriter: React.FC = () => {
     doc.save("generated-copy.pdf");
   };
 
+  const handleSave = () => {
+    const formatDateTime = () => {
+      const now = new Date();
+      const options: Intl.DateTimeFormatOptions = {
+        year: "numeric",
+        month: "long",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit",
+        hour12: true,
+      };
+      return now.toLocaleDateString("en-US", options);
+    };
+
+    const copy = {
+      title: `Copy Created on ${formatDateTime()}`,
+      messages: messages,
+    };
+
+    // Save chat copy to localStorage
+    const existingCopies = JSON.parse(
+      localStorage.getItem("chatCopies") || "[]"
+    );
+    existingCopies.push(copy);
+    localStorage.setItem("chatCopies", JSON.stringify(existingCopies));
+
+    // Navigate to the previous copies page
+    router.push("/previous-copies");
+  };
+
   return (
     <div className="relative h-screen overflow-hidden overflow-y-auto">
       {" "}
@@ -180,7 +225,7 @@ const Copywriter: React.FC = () => {
       <StarsBackground className="absolute inset-0 z-1" />
       <ShootingStars className="absolute inset-0 z-1" />
       <div className="flex h-full">
-        <aside className="w-60 bg-[#1a1a2e] p-4 shadow-lg z-20">
+        <aside className="w-60 h-screen bg-[#1a1a2e] p-4 shadow-lg z-20">
           <div className="flex items-center mb-5">
             <Image
               src="/NovaCopy_white.png"
@@ -197,10 +242,18 @@ const Copywriter: React.FC = () => {
             </div>
           </div>
           <div className="flex flex-col space-y-2">
-            <SidebarItem label="Create Custom Copy" icon={<svg />} />
-            <SidebarItem label="Browse Templates" icon={<svg />} />
-            <SidebarItem label="Previous Copies" icon={<svg />} />
-            <SidebarItem label="Settings" icon={<svg />} />
+            <SidebarItem
+              label="Create Custom Copy"
+              icon={<svg />}
+              href="/copywriter"
+            />
+            <SidebarItem
+              label="Previous Copies"
+              icon={<svg />}
+              href="/previous-copies"
+            />
+            <SidebarItem label="Settings" icon={<svg />} href="/settings" />
+            <SidebarItem label="Feedback" icon={<svg />} href="/feedback" />
           </div>
           <div className="m-5 mt-10">
             <button
@@ -266,8 +319,17 @@ const Copywriter: React.FC = () => {
                 Send
               </button>
             </div>
-            <div className="text-gray-400 text-sm mt-2">
-              Press Enter to send, press Shift + Enter to enter a new line.
+            <div className="flex justify-between">
+              <div className="text-gray-400 text-sm mt-2 ml-3">
+                Press Enter to send, press Shift + Enter to enter a new line.
+              </div>
+              <button
+                onClick={handleSave}
+                className="p-2 text-white bg-[#00b4d8] hover:bg-[#0489b1] rounded-lg transition-all duration-300"
+                style={{ marginRight: "16px" }}
+              >
+                Save
+              </button>
             </div>
           </section>
         </div>
