@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { ShootingStars } from "@/components/ui/shooting-stars";
+import jsPDF from "jspdf";
 
 const SidebarItem = ({
   label,
@@ -75,6 +76,43 @@ const PreviousCopies: React.FC = () => {
   const handleRenameCancel = () => {
     setIsEditing(null);
     setNewTitle("");
+  };
+
+  const handleSavePDF = () => {
+    if (!selectedCopy) return;
+
+    const { title, messages } = selectedCopy;
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.width;
+    const pageHeight = doc.internal.pageSize.height;
+    const margin = 10;
+    let yOffset = 20;
+
+    doc.setFont("helvetica", "normal");
+    doc.setFontSize(12);
+
+    // Skip the first message if you want
+    const filteredMessages = messages.slice(1);
+
+    filteredMessages.forEach((msg) => {
+      const author = msg.from === "user" ? "You" : "Nova";
+      const fullText = `${author}: ${msg.text}`;
+
+      const textLines = doc.splitTextToSize(fullText, pageWidth - 2 * margin);
+
+      textLines.forEach((line: string | string[]) => {
+        if (yOffset + 10 > pageHeight - 10) {
+          doc.addPage();
+          yOffset = 20;
+        }
+        doc.text(line, margin, yOffset);
+        yOffset += 10;
+      });
+
+      yOffset += 10;
+    });
+
+    doc.save(`${title}.pdf`);
   };
 
   return (
@@ -165,12 +203,20 @@ const PreviousCopies: React.FC = () => {
                     </div>
                   ))}
                 </div>
-                <button
-                  onClick={() => setSelectedCopy(null)}
-                  className="bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white px-4 py-2 rounded-md hover:bg-[#0489b1] transition-all duration-300"
-                >
-                  Back to List
-                </button>
+                <div className="flex justify-between">
+                  <button
+                    onClick={() => setSelectedCopy(null)}
+                    className="bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white px-4 py-2 rounded-md hover:bg-[#0489b1] transition-all duration-300"
+                  >
+                    Back to List
+                  </button>
+                  <button
+                    onClick={handleSavePDF}
+                    className="bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white px-4 py-2 rounded-md hover:bg-[#0489b1] transition-all duration-300"
+                  >
+                    Save as PDF
+                  </button>
+                </div>
               </>
             ) : (
               <ul className="space-y-4">
