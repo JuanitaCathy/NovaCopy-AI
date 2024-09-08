@@ -19,45 +19,27 @@ import {
   faInstagram,
   faGoogle,
 } from "@fortawesome/free-brands-svg-icons";
+import { Line } from "react-chartjs-2";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
-const SidebarItem = ({
-  label,
-  icon,
-  href,
-}: {
-  label: string;
-  icon: JSX.Element;
-  href: string;
-}) => {
-  const router = useRouter();
-
-  return (
-    <div
-      onClick={() => router.push(href)}
-      className="flex items-center px-4 py-2 space-x-2 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap z-10"
-    >
-      <div className="flex items-center justify-center w-6 h-12">{icon}</div>
-      <span className="text-sm font-medium">{label}</span>
-    </div>
-  );
-};
-
-const ClickableIcon = ({
-  label,
-  icon,
-  onClick,
-}: {
-  label: string;
-  icon: JSX.Element;
-  onClick: () => void;
-}) => (
-  <div
-    onClick={onClick}
-    className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:scale-105"
-  >
-    <div className="bg-[#1a1a2e] p-3 rounded-full mb-2">{icon}</div>
-    <span className="text-sm font-medium">{label}</span>
-  </div>
+// Register Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  Title,
+  Tooltip,
+  Legend
 );
 
 const Dashboard: React.FC = () => {
@@ -68,10 +50,87 @@ const Dashboard: React.FC = () => {
     router.push(`/copywriter?type=${encodeURIComponent(label)}`);
   };
 
+  const ClickableIcon = ({
+    label,
+    icon,
+    onClick,
+  }: {
+    label: string;
+    icon: JSX.Element;
+    onClick: () => void;
+  }) => (
+    <div
+      onClick={onClick}
+      className="flex flex-col items-center cursor-pointer transition-all duration-300 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] hover:text-white rounded-full p-2"
+    >
+      <div className="bg-[#1a1a2e] p-3 rounded-full mb-2 flex items-center justify-center transition-all duration-300">
+        {icon}
+      </div>
+      <span className="text-sm font-medium">{label}</span>
+    </div>
+  );
+
+  const SidebarItem = ({
+    label,
+    icon,
+    href,
+  }: {
+    label: string;
+    icon: JSX.Element;
+    href: string;
+  }) => {
+    const router = useRouter();
+
+    return (
+      <div
+        onClick={() => router.push(href)}
+        className="flex items-center px-4 py-2 space-x-2 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap z-10"
+      >
+        <div className="flex items-center justify-center w-6 h-12">{icon}</div>
+        <span className="text-sm font-medium">{label}</span>
+      </div>
+    );
+  };
+
+  // Dummy data for the graph
+  const activityData = {
+    labels: [
+      "1 Day Ago",
+      "2 Days Ago",
+      "3 Days Ago",
+      "4 Days Ago",
+      "5 Days Ago",
+      "6 Days Ago",
+      "Today",
+    ],
+    datasets: [
+      {
+        label: "Copies Generated",
+        data: [5, 10, 15, 20, 25, 30, 35], // Example data
+        borderColor: "rgba(75, 192, 192, 1)",
+        backgroundColor: "rgba(75, 192, 192, 0.2)",
+        fill: true,
+      },
+    ],
+  };
+
+  const activityOptions = {
+    responsive: true,
+    plugins: {
+      legend: {
+        position: "top" as const,
+      },
+      tooltip: {
+        callbacks: {
+          label: (context: any) =>
+            `${context.dataset.label}: ${context.raw} copies`,
+        },
+      },
+    },
+  };
+
   return (
     <div className="relative h-screen overflow-hidden overflow-y-auto">
-      {" "}
-      {/* Background Effects */}
       <StarsBackground />
       <ShootingStars />
       <div className="flex h-full">
@@ -120,10 +179,8 @@ const Dashboard: React.FC = () => {
           <div className="flex items-center justify-between mb-7">
             <div className="flex-1">
               <h1 className="text-5xl font-bold mb-4">
-                {" "}
                 <span className="bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] bg-clip-text text-transparent">
-                  {" "}
-                  Welcome{" "}
+                  Welcome
                 </span>{" "}
                 back!
               </h1>
@@ -193,9 +250,30 @@ const Dashboard: React.FC = () => {
             </div>
           </div>
 
-          <div>
-            <h2 className="text-xl font-semibold mb-4">Your Metrics</h2>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"></div>
+          <div className="flex space-x-6 pb-7">
+            <div className="flex-1 bg-[#1a1a2e] p-4 rounded-lg shadow-lg">
+              <h2 className="text-xl font-semibold mb-4">Your Metrics</h2>
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-3">
+                  Number of copies generated:
+                </h3>
+                <p className="mb-3">This week: -----</p>
+                <p className="mb-3">This month: -----</p>
+                <p className="mb-3">All time: -----</p>
+              </div>
+              <div className="mb-6">
+                <h3 className="text-lg font-semibold mb-2">
+                  Number of copies left:
+                </h3>
+                <p>-----</p>
+              </div>
+            </div>
+            <div className="flex-1 bg-[#1a1a2e] p-4 rounded-lg shadow-lg">
+              <h2 className="text-xl font-semibold mb-4">Activity Graph</h2>
+              <div className="h-64">
+                <Line data={activityData} options={activityOptions} />
+              </div>
+            </div>
           </div>
         </main>
       </div>
