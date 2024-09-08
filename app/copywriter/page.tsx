@@ -225,7 +225,7 @@ const Copywriter: React.FC = () => {
       <StarsBackground className="absolute inset-0 z-1" />
       <ShootingStars className="absolute inset-0 z-1" />
       <div className="flex h-full">
-        <aside className="w-60 h-screen bg-[#1a1a2e] p-4 shadow-lg z-20">
+        <aside className="fixed top-0 left-0 w-60 h-full bg-[#1a1a2e] p-4 shadow-lg z-20">
           <div className="flex items-center mb-5">
             <Image
               src="/NovaCopy_white.png"
@@ -265,7 +265,7 @@ const Copywriter: React.FC = () => {
           </div>
         </aside>
 
-        <div className="flex-1 p-8 flex flex-col space-y-8 text-white z-20">
+        <div className="flex-1 ml-60 p-8 flex flex-col space-y-8 text-white z-20">
           <header className="flex items-center justify-between">
             <h1 className="text-4xl font-bold">AI Copywriter</h1>
             <div className="bg-[#9b5de5] text-white px-4 py-2 rounded-md">
