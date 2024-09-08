@@ -1,11 +1,10 @@
-"use client"
-import { useState, useEffect, useRef, KeyboardEvent } from 'react';
+"use client";
+import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { StarsBackground } from '@/components/ui/stars-background';
 import { ShootingStars } from '@/components/ui/shooting-stars';
 import { jsPDF } from 'jspdf';
-import TypingEffect from '@/components/TypingEffect';
 
 const SidebarItem = ({ label, icon }: { label: string; icon: JSX.Element }) => (
   <div className="flex items-center px-4 py-2 space-x-2 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap z-10">
@@ -54,11 +53,6 @@ const Copywriter: React.FC = () => {
   >([]);
   const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [questions] = useState([
-    'Tell me a little bit about your Product/Service? Be as detailed as possible.',
-    'Who are you trying to target, what pain points do you want me to focus on?',
-  ]);
   const [bannerTitle, setBannerTitle] = useState('Welcome to AI Copywriter');
   const [type, setType] = useState('Email Ad'); // Initialize with default value
   const router = useRouter();
@@ -85,70 +79,63 @@ const Copywriter: React.FC = () => {
     }
   }, [messages]);
 
-  interface Message {
-    text: string | JSX.Element;
-    from: 'user' | 'ai';
-  }
-  
   const handleSend = async () => {
     if (input.trim() === '') return;
-  
-    const userMessage = { text: input, from: 'user' as 'user' | 'ai' };
-    const newMessages = [...messages, userMessage];
-    setMessages(newMessages);
+
+    // Add user's message to the chat
+    setMessages(prevMessages => [
+      ...prevMessages,
+      { text: input, from: 'user' }
+    ]);
+
     setLoading(true);
-  
+
     try {
-      
-      const response = await fetch('/api/generate', {
+      const res = await fetch('/api/generate', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          prompt: input, 
+          prompt: input, // User input
+          tone: 'Formal', // Example tone, adjust as needed
+          format: 'email', // Example format, adjust as needed
         }),
       });
-  
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
+
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
       }
-  
-      const data = await response.json();
-      console.log('Response data:', data);
-  
-      if (!data.generated_text) {
-        throw new Error('Unexpected response format: generated_text not found');
-      }
-  
-      // Add the AI response to the messages
-      const finalMessage = {
-        text: data.generated_text,
-        from: 'ai' as 'user' | 'ai',
-      };
-  
-      setMessages([...newMessages, finalMessage]);
-  
+
+      const data = await res.json();
+      console.log('Response data:', data); // Log the entire response
+
+      // Assuming the response format contains a "choices" array
+      const generatedText = data.choices && data.choices[0] ? data.choices[0].text : 'No response text found';
+
+      // Add AI's response to the chat
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { text: generatedText, from: 'ai' }
+      ]);
+
     } catch (error) {
       console.error('Error:', error);
-      const errorMessage = {
-        text: 'Sorry, something went wrong. Please try again.',
-        from: 'ai' as 'user' | 'ai',
-      };
-      setMessages([...newMessages, errorMessage]);
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { text: 'Sorry, something went wrong. Please try again.', from: 'ai' }
+      ]);
     } finally {
       setLoading(false);
-      setInput(''); 
+      setInput('');
     }
   };
-  
-  
+
   const handleCopy = (text: string | JSX.Element) => {
     const textToCopy = typeof text === 'string' ? text : text.toString();
     navigator.clipboard.writeText(textToCopy);
     alert('Text copied to clipboard!');
   };
-  
 
   const handleSavePDF = () => {
     const doc = new jsPDF();

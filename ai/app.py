@@ -1,10 +1,12 @@
 import os
 import requests
+import logging
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
+# Load environment variables from .env file
 load_dotenv()
 
 app = FastAPI()
@@ -21,6 +23,9 @@ API_KEY = os.getenv("OPENROUTER_API_KEY")
 if API_KEY is None:
     raise ValueError("API_KEY environment variable is not set")
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
+
 class GenerateRequest(BaseModel):
     prompt: str
     tone: str
@@ -28,19 +33,21 @@ class GenerateRequest(BaseModel):
 
 @app.post("/generate")
 async def generate_text(request: GenerateRequest):
+    # Construct the boilerplate prompt based on user input
+    boilerplate_prompt = f"Write a copy for the purpose of {request.format} in a {request.tone} tone. The user prompt is: {request.prompt}"
+
+    generated_text = f"Generate content based on the prompt: {boilerplate_prompt}"
+
     headers = {
         "Authorization": f"Bearer {API_KEY}",
         "Content-Type": "application/json",
     }
     payload = {
-        "prompt": request.prompt,
+        "prompt": generated_text,
         "tone": request.tone,
         "format": request.format,
     }
     response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
-
-    logging.info(f"API Response Status Code: {response.status_code}")
-    logging.info(f"API Response Content: {response.text}")
 
 
     if response.status_code == 200:
