@@ -1,7 +1,7 @@
-"use client"
+"use client";
 import React, { useEffect } from "react";
 
-const TallyForm: React.FC = () => {
+const OnboardingForm: React.FC = () => {
   useEffect(() => {
     // Load Tally widget script
     const script = document.createElement("script");
@@ -39,4 +39,4 @@ const TallyForm: React.FC = () => {
   );
 };
 
-export default TallyForm;
+export default OnboardingForm;
