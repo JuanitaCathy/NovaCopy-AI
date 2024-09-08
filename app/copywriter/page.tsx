@@ -1,11 +1,10 @@
 "use client";
-
-import { useState, useEffect, useRef, KeyboardEvent } from "react";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { StarsBackground } from "@/components/ui/stars-background";
-import { ShootingStars } from "@/components/ui/shooting-stars";
-import { jsPDF } from "jspdf";
+import { useState, useEffect, useRef } from 'react';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { StarsBackground } from '@/components/ui/stars-background';
+import { ShootingStars } from '@/components/ui/shooting-stars';
+import { jsPDF } from 'jspdf';
 
 const SidebarItem = ({
   label,
@@ -34,24 +33,24 @@ const ChatMessage = ({
   from,
   onCopy,
 }: {
-  text: string;
-  from: "user" | "ai";
+  text: string | JSX.Element;
+  from: 'user' | 'ai';
   onCopy?: () => void;
 }) => (
   <div
-    className={`mb-4 ${from === "user" ? "flex justify-end" : "flex justify-start"}`}
+    className={`mb-4 ${from === 'user' ? 'flex justify-end' : 'flex justify-start'}`}
   >
     <div
-      className={`px-4 py-2 rounded-lg ${from === "user" ? "bg-[#00b4d8] text-white" : "bg-[#16213e] text-white"} ${
-        from === "user" ? "ml-auto" : "mr-auto"
+      className={`px-4 py-2 rounded-lg ${from === 'user' ? 'bg-[#00b4d8] text-white' : 'bg-[#16213e] text-white'} ${
+        from === 'user' ? 'ml-auto' : 'mr-auto'
       }`}
       style={{
-        padding: "10px",
-        maxWidth: from === "user" ? "70%" : "80%",
-      }} // Adjusted width and padding
+        padding: '10px',
+        maxWidth: from === 'user' ? '70%' : '80%',
+      }}
     >
       {text}
-      {from === "ai" && (
+      {from === 'ai' && (
         <button
           className="ml-2 text-sm text-[#00b4d8] hover:underline"
           onClick={onCopy}
@@ -65,29 +64,24 @@ const ChatMessage = ({
 
 const Copywriter: React.FC = () => {
   const [messages, setMessages] = useState<
-    { text: string; from: "user" | "ai" }[]
+    { text: string | JSX.Element; from: 'user' | 'ai' }[]
   >([]);
-  const [input, setInput] = useState("");
+  const [input, setInput] = useState('');
   const [loading, setLoading] = useState(false);
-  const [questionIndex, setQuestionIndex] = useState(0);
-  const [questions] = useState([
-    "Tell me a little bit about your Product/Service? Be as detailed as possible.",
-    "Who are you trying to target, what pain points do you want me to focus on?",
-    "What is your Call-To-Action and offer (if any)?",
-    "Do you have a certain tone you'd like me to follow?",
-  ]);
-  const [bannerTitle, setBannerTitle] = useState("Welcome to AI Copywriter");
+  const [bannerTitle, setBannerTitle] = useState('Welcome to AI Copywriter');
+  const [type, setType] = useState('Email Ad'); // Initialize with default value
   const router = useRouter();
-  const query = new URLSearchParams(window.location.search);
-  const type = query.get("type") || "Email Ad";
-
   const messageContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    // Handle client-side logic here
+    const query = new URLSearchParams(window.location.search);
+    setType(query.get("type") || "Email Ad");
+
     setMessages([
       {
-        text: "Hello! My name is Nova 🤖! I'm here to help you generate the perfect copy! Let's begin?",
-        from: "ai",
+        text: 'Hello! My name is Nova 🤖! I\'m here to help you generate the perfect copy! Let\'s begin?',
+        from: 'ai',
       },
     ]);
     setBannerTitle(`Copy Generation Request`);
@@ -101,54 +95,61 @@ const Copywriter: React.FC = () => {
   }, [messages]);
 
   const handleSend = async () => {
-    if (input.trim() === "") return; // Prevent sending empty messages
+    if (input.trim() === '') return;
 
-    const userMessage = { text: input, from: "user" as "user" | "ai" };
-    const newMessages = [...messages, userMessage];
-    setMessages(newMessages);
+    // Add user's message to the chat
+    setMessages(prevMessages => [
+      ...prevMessages,
+      { text: input, from: 'user' }
+    ]);
+
     setLoading(true);
 
-    if (questionIndex < questions.length) {
-      // Ask the next question
-      setTimeout(() => {
-        const aiMessage = {
-          text: questions[questionIndex],
-          from: "ai" as "user" | "ai",
-        };
-        setMessages([...newMessages, aiMessage]);
-        setQuestionIndex(questionIndex + 1);
-        setInput("");
-        setLoading(false);
-      }, 2000);
-    } else {
-      // Generate AI response after all questions are answered
-      setTimeout(() => {
-        const finalMessage = {
-          text: "Thank you for the information! I'll use this to generate your copy.",
-          from: "ai" as "user" | "ai",
-        };
-        setMessages([...newMessages, finalMessage]);
-        setLoading(false);
-        setInput(""); // Clear input after sending
-      }, 2000);
-    }
-  };
+    try {
+      const res = await fetch('/api/generate', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          prompt: input, // User input
+          tone: 'Formal', // Example tone, adjust as needed
+          format: 'email', // Example format, adjust as needed
+        }),
+      });
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
-    if (e.key === "Enter") {
-      if (e.shiftKey) {
-        // Allow new line on Shift + Enter
-        return;
-      } else {
-        e.preventDefault(); // Prevent default new line behavior
-        handleSend();
+      if (!res.ok) {
+        throw new Error(`HTTP error! Status: ${res.status}`);
       }
+
+      const data = await res.json();
+      console.log('Response data:', data); // Log the entire response
+
+      // Assuming the response format contains a "choices" array
+      const generatedText = data.choices && data.choices[0] ? data.choices[0].text : 'No response text found';
+
+      // Add AI's response to the chat
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { text: generatedText, from: 'ai' }
+      ]);
+
+    } catch (error) {
+      console.error('Error:', error);
+      setMessages(prevMessages => [
+        ...prevMessages,
+        { text: 'Sorry, something went wrong. Please try again.', from: 'ai' }
+      ]);
+    } finally {
+      setLoading(false);
+      setInput('');
     }
   };
 
-  const handleCopy = (text: string) => {
-    navigator.clipboard.writeText(text);
-    alert("Text copied to clipboard!");
+  const handleCopy = (text: string | JSX.Element) => {
+    const textToCopy = typeof text === 'string' ? text : text.toString();
+    navigator.clipboard.writeText(textToCopy);
+    alert('Text copied to clipboard!');
   };
 
   const handleSavePDF = () => {
@@ -158,33 +159,30 @@ const Copywriter: React.FC = () => {
     const margin = 10;
     let yOffset = 20;
 
-    doc.setFont("helvetica", "normal");
+    doc.setFont('helvetica', 'normal');
     doc.setFontSize(12);
 
-    const filteredMessages = messages.slice(1); // Exclude the first message
+    const filteredMessages = messages.slice(1);
 
-    // Add the remaining messages
     filteredMessages.forEach((msg) => {
-      const author = msg.from === "user" ? "You" : "Nova";
+      const author = msg.from === 'user' ? 'You' : 'Nova';
       const fullText = `${author}: ${msg.text}`;
 
-      // Split the text if it overflows the page width
       const textLines = doc.splitTextToSize(fullText, pageWidth - 2 * margin);
 
-      // Add each line of text
       textLines.forEach((line: string | string[]) => {
         if (yOffset + 10 > pageHeight - 10) {
-          doc.addPage(); // Add a new page if it exceeds
-          yOffset = 20; // Reset Y offset for the new page
+          doc.addPage();
+          yOffset = 20;
         }
         doc.text(line, margin, yOffset);
-        yOffset += 10; // Adjust spacing between lines
+        yOffset += 10;
       });
 
-      yOffset += 10; // Extra spacing between messages
+      yOffset += 10;
     });
 
-    doc.save("generated-copy.pdf");
+    doc.save('generated-copy.pdf');
   };
 
   const handleSave = () => {
@@ -227,8 +225,6 @@ const Copywriter: React.FC = () => {
 
   return (
     <div className="relative h-screen overflow-hidden overflow-y-auto">
-      {" "}
-      {/* Added overflow-y-auto here */}
       <StarsBackground className="absolute inset-0 z-1" />
       <ShootingStars className="absolute inset-0 z-1" />
       <div className="flex h-full">
@@ -264,7 +260,7 @@ const Copywriter: React.FC = () => {
           </div>
           <div className="m-5 mt-10">
             <button
-              onClick={() => router.push("/dashboard")}
+              onClick={() => router.push('/dashboard')}
               className="bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white px-4 py-2 rounded-md hover:bg-[#0489b1] transition-all duration-300"
             >
               Back to Dashboard
@@ -293,14 +289,14 @@ const Copywriter: React.FC = () => {
             <div
               className="flex-1 overflow-y-auto p-3"
               ref={messageContainerRef}
-              style={{ maxHeight: "calc(100vh - 200px)" }} // Set a fixed height for the chat area
+              style={{ maxHeight: 'calc(100vh - 200px)' }}
             >
               {messages.map((message, index) => (
                 <ChatMessage
                   key={index}
                   text={message.text}
                   from={message.from}
-                  onCopy={() => handleCopy(message.text)}
+                  onCopy={() => handleCopy(typeof message.text === 'string' ? message.text : message.text.toString())}
                 />
               ))}
               {loading && (
