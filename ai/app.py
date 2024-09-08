@@ -33,22 +33,25 @@ class GenerateRequest(BaseModel):
 
 @app.post("/generate")
 async def generate_text(request: GenerateRequest):
-    # Construct the boilerplate prompt based on user input
-    boilerplate_prompt = f"Write a copy for the purpose of {request.format} in a {request.tone} tone. The user prompt is: {request.prompt}"
-
-    generated_text = f"Generate content based on the prompt: {boilerplate_prompt}"
+    # Construct the final prompt based on user inputs
+    boilerplate_prompt = f"""
+    Write a copy for the purpose of {request.format} in a {request.tone} tone. Make it in a proper format and make heading and brand name bold.
+    Here are some details about the product:
+    - Product/Service: {request.prompt}
+    """
 
     headers = {
         "Authorization": f"Bearer {API_KEY}",
         "Content-Type": "application/json",
     }
-    payload = {
-        "prompt": generated_text,
-        "tone": request.tone,
-        "format": request.format,
-    }
-    response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
 
+    payload = {
+        "prompt": boilerplate_prompt,
+        "temperature": 0.7,  # Adjust as necessary
+        "max_tokens": 300,  # Adjust token limit based on requirements
+    }
+
+    response = requests.post("https://openrouter.ai/api/v1/chat/completions", headers=headers, json=payload)
 
     if response.status_code == 200:
         return response.json()

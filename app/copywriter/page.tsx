@@ -1,10 +1,10 @@
 "use client";
-import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
-import { useRouter } from 'next/navigation';
-import { StarsBackground } from '@/components/ui/stars-background';
-import { ShootingStars } from '@/components/ui/shooting-stars';
-import { jsPDF } from 'jspdf';
+import { useState, useEffect, useRef } from "react";
+import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { StarsBackground } from "@/components/ui/stars-background";
+import { ShootingStars } from "@/components/ui/shooting-stars";
+import { jsPDF } from "jspdf";
 
 const SidebarItem = ({
   label,
@@ -34,23 +34,25 @@ const ChatMessage = ({
   onCopy,
 }: {
   text: string | JSX.Element;
-  from: 'user' | 'ai';
+  from: "user" | "ai";
   onCopy?: () => void;
 }) => (
   <div
-    className={`mb-4 ${from === 'user' ? 'flex justify-end' : 'flex justify-start'}`}
+    className={`mb-4 ${
+      from === "user" ? "flex justify-end" : "flex justify-start"
+    }`}
   >
     <div
-      className={`px-4 py-2 rounded-lg ${from === 'user' ? 'bg-[#00b4d8] text-white' : 'bg-[#16213e] text-white'} ${
-        from === 'user' ? 'ml-auto' : 'mr-auto'
-      }`}
+      className={`px-4 py-2 rounded-lg ${
+        from === "user" ? "bg-[#00b4d8] text-white" : "bg-[#16213e] text-white"
+      } ${from === "user" ? "ml-auto" : "mr-auto"}`}
       style={{
-        padding: '10px',
-        maxWidth: from === 'user' ? '70%' : '80%',
+        padding: "10px",
+        maxWidth: from === "user" ? "70%" : "80%",
       }}
     >
       {text}
-      {from === 'ai' && (
+      {from === "ai" && (
         <button
           className="ml-2 text-sm text-[#00b4d8] hover:underline"
           onClick={onCopy}
@@ -64,28 +66,34 @@ const ChatMessage = ({
 
 const Copywriter: React.FC = () => {
   const [messages, setMessages] = useState<
-    { text: string | JSX.Element; from: 'user' | 'ai' }[]
+    { text: string | JSX.Element; from: "user" | "ai" }[]
   >([]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
-  const [bannerTitle, setBannerTitle] = useState('Welcome to AI Copywriter');
-  const [type, setType] = useState('Email Ad'); // Initialize with default value
+  const [questions, setQuestions] = useState<string[]>([
+    "What's your product or service?",
+    "What's your brand name and product name?",
+    "Are there any sales, offers, or pain points you'd like to focus on?",
+    "Who is the copy targeted towards? Anything else to keep in mind?",
+  ]); // List of questions to ask
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [userResponses, setUserResponses] = useState<string[]>([]); // Store user responses here
+
   const router = useRouter();
   const messageContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Handle client-side logic here
-    const query = new URLSearchParams(window.location.search);
-    setType(query.get("type") || "Email Ad");
-
     setMessages([
       {
         text: 'Hello! My name is Nova 🤖! I\'m here to help you generate the perfect copy! Let\'s begin?',
         from: 'ai',
       },
+      {
+        text: questions[currentQuestionIndex], // Ask the first question
+        from: 'ai',
+      },
     ]);
-    setBannerTitle(`Copy Generation Request`);
-  }, []);
+  }, [currentQuestionIndex]);
 
   useEffect(() => {
     if (messageContainerRef.current) {
@@ -95,26 +103,51 @@ const Copywriter: React.FC = () => {
   }, [messages]);
 
   const handleSend = async () => {
-    if (input.trim() === '') return;
+    if (input.trim() === "") return;
 
-    // Add user's message to the chat
-    setMessages(prevMessages => [
+    // Append the user's message to the messages array
+    setMessages((prevMessages) => [
       ...prevMessages,
-      { text: input, from: 'user' }
+      { text: input, from: "user" },
     ]);
 
+    setUserResponses([...userResponses, input]); // Store the user response
+    setInput("");
+
+    // Move to the next question
+    if (currentQuestionIndex < questions.length - 1) {
+      setCurrentQuestionIndex(currentQuestionIndex + 1);
+      setMessages((prevMessages) => [
+        ...prevMessages,
+        { text: questions[currentQuestionIndex + 1], from: "ai" },
+      ]);
+    } else {
+      // Once all questions are answered, call the API to generate text
+      generateText();
+    }
+  };
+
+  const generateText = async () => {
     setLoading(true);
 
+    // Prepare the final prompt for the AI model based on user's responses
+    const prompt = `
+      The user has a product/service: ${userResponses[0]}.
+      Brand name: ${userResponses[1]}.
+      Key points like offers or pain points to focus on: ${userResponses[2]}.
+      Target audience and anything else to keep in mind: ${userResponses[3]}.
+    `;
+
     try {
-      const res = await fetch('/api/generate', {
-        method: 'POST',
+      const res = await fetch("/api/generate", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          prompt: input, // User input
-          tone: 'Formal', // Example tone, adjust as needed
-          format: 'email', // Example format, adjust as needed
+          prompt: prompt, // Send the combined prompt
+          tone: "Formal", // Example tone, adjust as needed
+          format: "email", // Example format, adjust as needed
         }),
       });
 
@@ -123,33 +156,21 @@ const Copywriter: React.FC = () => {
       }
 
       const data = await res.json();
-      console.log('Response data:', data); // Log the entire response
+      const generatedText = data.choices?.[0]?.text || "No response text found";
 
-      // Assuming the response format contains a "choices" array
-      const generatedText = data.choices && data.choices[0] ? data.choices[0].text : 'No response text found';
-
-      // Add AI's response to the chat
-      setMessages(prevMessages => [
+      // Append the generated copy to the messages
+      setMessages((prevMessages) => [
         ...prevMessages,
-        { text: generatedText, from: 'ai' }
+        { text: generatedText, from: "ai" },
       ]);
-
     } catch (error) {
-      console.error('Error:', error);
-      setMessages(prevMessages => [
+      setMessages((prevMessages) => [
         ...prevMessages,
-        { text: 'Sorry, something went wrong. Please try again.', from: 'ai' }
+        { text: "Sorry, something went wrong. Please try again.", from: "ai" },
       ]);
     } finally {
       setLoading(false);
-      setInput('');
     }
-  };
-
-  const handleCopy = (text: string | JSX.Element) => {
-    const textToCopy = typeof text === 'string' ? text : text.toString();
-    navigator.clipboard.writeText(textToCopy);
-    alert('Text copied to clipboard!');
   };
 
   const handleSavePDF = () => {
@@ -159,13 +180,13 @@ const Copywriter: React.FC = () => {
     const margin = 10;
     let yOffset = 20;
 
-    doc.setFont('helvetica', 'normal');
+    doc.setFont("helvetica", "normal");
     doc.setFontSize(12);
 
     const filteredMessages = messages.slice(1);
 
     filteredMessages.forEach((msg) => {
-      const author = msg.from === 'user' ? 'You' : 'Nova';
+      const author = msg.from === "user" ? "You" : "Nova";
       const fullText = `${author}: ${msg.text}`;
 
       const textLines = doc.splitTextToSize(fullText, pageWidth - 2 * margin);
@@ -182,45 +203,7 @@ const Copywriter: React.FC = () => {
       yOffset += 10;
     });
 
-    doc.save('generated-copy.pdf');
-  };
-
-  const handleSave = () => {
-    const formatDateTime = () => {
-      const now = new Date();
-      const options: Intl.DateTimeFormatOptions = {
-        year: "numeric",
-        month: "numeric",
-        day: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-        second: "2-digit",
-        hour12: true,
-      };
-      return now.toLocaleDateString("en-US", options);
-    };
-
-    const copy = {
-      title: `Copy Created on ${formatDateTime()}`,
-      messages: messages,
-    };
-
-    // Save chat copy to localStorage
-    const existingCopies = JSON.parse(
-      localStorage.getItem("chatCopies") || "[]"
-    );
-    existingCopies.push(copy);
-    localStorage.setItem("chatCopies", JSON.stringify(existingCopies));
-
-    // Save timestamp for the copy
-    const timestamps = JSON.parse(
-      localStorage.getItem("copyTimestamps") || "[]"
-    );
-    timestamps.push(new Date().toISOString());
-    localStorage.setItem("copyTimestamps", JSON.stringify(timestamps));
-
-    // Navigate to the previous copies page
-    router.push("/previous-copies");
+    doc.save("generated-copy.pdf");
   };
 
   return (
@@ -238,7 +221,7 @@ const Copywriter: React.FC = () => {
               className="rounded-full"
             />
             <div className="ml-3 mt-5 text-white">
-              <h2 className="text-xl font-semibold">NovaCopy AI</h2>
+              <h2 className="text-xl font-bold">NovaCopy AI</h2>
               <button className="text-[#00b4d8] hover mt-4">
                 Upgrade your plan
               </button>
@@ -260,7 +243,7 @@ const Copywriter: React.FC = () => {
           </div>
           <div className="m-5 mt-10">
             <button
-              onClick={() => router.push('/dashboard')}
+              onClick={() => router.push("/dashboard")}
               className="bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white px-4 py-2 rounded-md hover:bg-[#0489b1] transition-all duration-300"
             >
               Back to Dashboard
@@ -271,32 +254,28 @@ const Copywriter: React.FC = () => {
         <div className="flex-1 ml-60 p-8 flex flex-col space-y-8 text-white z-20">
           <header className="flex items-center justify-between">
             <h1 className="text-4xl font-bold">AI Copywriter</h1>
-            <div className="bg-[#9b5de5] text-white px-4 py-2 rounded-md">
-              <span>{type}</span>
-            </div>
-          </header>
-
-          <section className="flex flex-col flex-1 bg-[#1a1a2e] p-3 rounded-md mb-2">
-            <div className="p-3 rounded-t-md flex items-center justify-between">
-              <h2 className="text-xl font-bold text-white">{bannerTitle}</h2>
+            <div className="flex items-center">
               <button
                 onClick={handleSavePDF}
-                className="bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white px-4 py-2 rounded-md hover:bg-[#0489b1] transition-all duration-300"
+                className="bg-[#00b4d8] text-white px-4 py-2 rounded-md hover:bg-[#0489b1] transition-all duration-300"
               >
                 Save as PDF
               </button>
             </div>
+          </header>
+
+          <section className="flex flex-col flex-1 bg-[#1a1a2e] p-3 rounded-md mb-2">
             <div
               className="flex-1 overflow-y-auto p-3"
               ref={messageContainerRef}
-              style={{ maxHeight: 'calc(100vh - 200px)' }}
+              style={{ maxHeight: "calc(100vh - 200px)" }}
             >
-              {messages.map((message, index) => (
+              {messages.map((msg, index) => (
                 <ChatMessage
                   key={index}
-                  text={message.text}
-                  from={message.from}
-                  onCopy={() => handleCopy(typeof message.text === 'string' ? message.text : message.text.toString())}
+                  text={msg.text}
+                  from={msg.from}
+                  onCopy={() => navigator.clipboard.writeText(msg.text.toString())}
                 />
               ))}
               {loading && (
@@ -309,22 +288,21 @@ const Copywriter: React.FC = () => {
               <textarea
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
-                onKeyDown={handleKeyDown}
                 placeholder="Type your message..."
                 className="flex-1 p-2 bg-[#16213e] text-white rounded-md border border-[#00b4d8]"
                 rows={2}
               />
               <button
                 onClick={handleSend}
-                className="bg-[#00b4d8] text-white px-4 py-5 rounded-md ml-2 hover:bg-[#0489b1]"
+                className="bg-[#00b4d8] text-white px-4 py-2 rounded-md ml-2 hover:bg-[#0489b1]"
               >
                 Send
               </button>
               <button
-                onClick={handleSave}
-                className="bg-[#fd5c63] text-white px-4 py-5 rounded-md ml-2 hover:bg-[#C60C30]"
+                onClick={() => setInput("")} // Clear input
+                className="bg-[#fd5c63] text-white px-4 py-2 rounded-md ml-2 hover:bg-[#C60C30]"
               >
-                Save
+                Clear
               </button>
             </div>
             <div className="flex justify-between">
