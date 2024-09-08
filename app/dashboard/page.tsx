@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { StarsBackground } from "@/components/ui/stars-background";
@@ -16,8 +16,8 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import {
   faFacebook,
-  faInstagram,
   faGoogle,
+  faInstagram,
 } from "@fortawesome/free-brands-svg-icons";
 import { Line } from "react-chartjs-2";
 import {
@@ -44,7 +44,61 @@ ChartJS.register(
 
 const Dashboard: React.FC = () => {
   const [search, setSearch] = useState("");
+  const [saveStats, setSaveStats] = useState<{
+    week: number;
+    month: number;
+    allTime: number;
+  }>({
+    week: 0,
+    month: 0,
+    allTime: 0,
+  });
+  const [dailySaveData, setDailySaveData] = useState<number[]>([]);
   const router = useRouter();
+
+  // Calculate save statistics
+  useEffect(() => {
+    const timestamps = JSON.parse(
+      localStorage.getItem("copyTimestamps") || "[]"
+    );
+    const now = new Date();
+    const oneWeekAgo = new Date(now);
+    oneWeekAgo.setDate(now.getDate() - 7);
+    const oneMonthAgo = new Date(now);
+    oneMonthAgo.setMonth(now.getMonth() - 1);
+
+    const weekCount = timestamps.filter(
+      (timestamp: string) => new Date(timestamp) > oneWeekAgo
+    ).length;
+
+    const monthCount = timestamps.filter(
+      (timestamp: string) => new Date(timestamp) > oneMonthAgo
+    ).length;
+
+    const allTimeCount = timestamps.length;
+
+    setSaveStats({
+      week: weekCount,
+      month: monthCount,
+      allTime: allTimeCount,
+    });
+
+    // Calculate daily save counts for the past week
+    const dailyCounts = Array(7).fill(0); // Array to store daily counts for the past week
+    timestamps.forEach((timestamp: string) => {
+      const date = new Date(timestamp);
+      if (date > oneWeekAgo) {
+        const diffDays = Math.floor(
+          (now.getTime() - date.getTime()) / (1000 * 60 * 60 * 24)
+        );
+        if (diffDays < 7) {
+          dailyCounts[6 - diffDays] += 1;
+        }
+      }
+    });
+
+    setDailySaveData(dailyCounts);
+  }, []);
 
   const handleIconClick = (label: string) => {
     router.push(`/copywriter?type=${encodeURIComponent(label)}`);
@@ -92,21 +146,22 @@ const Dashboard: React.FC = () => {
     );
   };
 
-  // Dummy data for the graph
+  // Data for the graph
   const activityData = {
     labels: [
-      "1 Day Ago",
-      "2 Days Ago",
-      "3 Days Ago",
-      "4 Days Ago",
-      "5 Days Ago",
+      "7 Days Ago",
       "6 Days Ago",
+      "5 Days Ago",
+      "4 Days Ago",
+      "3 Days Ago",
+      "2 Days Ago",
+      "1 Day Ago",
       "Today",
     ],
     datasets: [
       {
-        label: "Copies Generated",
-        data: [5, 10, 15, 20, 25, 30, 35], // Example data
+        label: "Saves This Week",
+        data: dailySaveData,
         borderColor: "rgba(75, 192, 192, 1)",
         backgroundColor: "rgba(75, 192, 192, 0.2)",
         fill: true,
@@ -123,7 +178,7 @@ const Dashboard: React.FC = () => {
       tooltip: {
         callbacks: {
           label: (context: any) =>
-            `${context.dataset.label}: ${context.raw} copies`,
+            `${context.dataset.label}: ${context.raw} saves`,
         },
       },
     },
@@ -131,7 +186,6 @@ const Dashboard: React.FC = () => {
 
   return (
     <div className="relative h-screen overflow-hidden flex overflow-y-auto">
-      {" "}
       <StarsBackground />
       <ShootingStars />
       {/* Sidebar */}
@@ -257,9 +311,9 @@ const Dashboard: React.FC = () => {
               <h3 className="text-lg font-semibold mb-3">
                 Number of copies generated:
               </h3>
-              <p className="mb-3">This week: -----</p>
-              <p className="mb-3">This month: -----</p>
-              <p className="mb-3">All time: -----</p>
+              <p className="mb-3">This week: {saveStats.week}</p>
+              <p className="mb-3">This month: {saveStats.month}</p>
+              <p className="mb-3">All time: {saveStats.allTime}</p>
             </div>
             <div className="mb-6">
               <h3 className="text-lg font-semibold mb-2">
