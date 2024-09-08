@@ -44,7 +44,7 @@ const FeedbackForm: React.FC = () => {
           top: 25,
           right: 0,
           bottom: 25,
-          left: 250,
+          left: 150,
           border: "none",
           backgroundColor: "transparent",
           overflow: "hidden",

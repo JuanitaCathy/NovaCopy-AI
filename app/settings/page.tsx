@@ -39,7 +39,7 @@ const Settings: React.FC = () => {
       <StarsBackground />
       <ShootingStars />
       <div className="flex h-full">
-        <aside className="w-60 h-screen bg-[#1a1a2e] p-4 shadow-lg z-20">
+        <aside className="fixed top-0 left-0 w-60 h-full bg-[#1a1a2e] p-4 shadow-lg z-20">
           <div className="flex items-center mb-5">
             <Image
               src="/NovaCopy_white.png"
@@ -80,6 +80,7 @@ const Settings: React.FC = () => {
         </aside>
 
         {/* Main Content */}
+        <div className="ml-60"></div>
       </div>
     </div>
   );
