@@ -1,45 +1,43 @@
 "use client";
-
-import { useState } from "react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import FeedbackForm from "@/components/FeedbackForm";
 import { StarsBackground } from "@/components/ui/stars-background";
 import { ShootingStars } from "@/components/ui/shooting-stars";
-
-const SidebarItem = ({
-  label,
-  icon,
-  href,
-}: {
-  label: string;
-  icon: JSX.Element;
-  href: string;
-}) => {
-  const router = useRouter();
-
-  return (
-    <div
-      onClick={() => router.push(href)}
-      className="flex items-center px-4 py-2 space-x-2 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap z-10"
-    >
-      <div className="flex items-center justify-center w-6 h-12">{icon}</div>
-      <span className="text-sm font-medium">{label}</span>
-    </div>
-  );
-};
 
 const Feedback: React.FC = () => {
   const [search, setSearch] = useState("");
   const router = useRouter();
 
+  const SidebarItem = ({
+    label,
+    icon,
+    href,
+  }: {
+    label: string;
+    icon: JSX.Element;
+    href: string;
+  }) => {
+    const router = useRouter();
+
+    return (
+      <div
+        onClick={() => router.push(href)}
+        className="flex items-center px-4 py-2 space-x-2 hover:bg-gradient-to-r from-[#00b4d8] to-[#9b5de5] text-white rounded-md cursor-pointer transition-all duration-300 whitespace-nowrap z-10"
+      >
+        <div className="flex items-center justify-center w-6 h-12">{icon}</div>
+        <span className="text-sm font-medium">{label}</span>
+      </div>
+    );
+  };
+
   return (
     <div className="relative h-screen overflow-hidden overflow-y-auto">
-      {" "}
-      {/* Background Effects */}
       <StarsBackground />
       <ShootingStars />
       <div className="flex h-full">
-        <aside className="w-60 bg-[#1a1a2e] p-4 shadow-lg z-20">
+        <aside className="fixed w-60 h-screen bg-[#1a1a2e] p-4 shadow-lg z-20">
           <div className="flex items-center mb-5">
             <Image
               src="/NovaCopy_white.png"
@@ -80,6 +78,9 @@ const Feedback: React.FC = () => {
         </aside>
 
         {/* Main Content */}
+        <div className="flex-1">
+          <FeedbackForm />
+        </div>
       </div>
     </div>
   );

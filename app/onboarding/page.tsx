@@ -1,9 +1,9 @@
 "use client";
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
-import TallyForm from "@/components/TallyForm";
 import BackButton from "@/components/BackButton";
 import Image from "next/image";
+import OnboardingForm from "@/components/OnboardingForm";
 
 export default function Onboarding() {
   return (
@@ -31,7 +31,7 @@ export default function Onboarding() {
 
       {/* Tally Form */}
       <div className="flex-grow w-full">
-        <TallyForm />
+        <OnboardingForm />
       </div>
     </div>
   );

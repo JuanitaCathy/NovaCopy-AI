@@ -75,7 +75,7 @@ const Dashboard: React.FC = () => {
       <StarsBackground />
       <ShootingStars />
       <div className="flex h-full">
-        <aside className="w-60 bg-[#1a1a2e] p-4 shadow-lg z-20">
+        <aside className="w-60 h-screen bg-[#1a1a2e] p-4 shadow-lg z-20">
           <div className="flex items-center mb-5">
             <Image
               src="/NovaCopy_white.png"
