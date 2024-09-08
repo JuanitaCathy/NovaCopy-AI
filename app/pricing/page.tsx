@@ -32,7 +32,7 @@ const tiers: PricingTier[] = [
   {
     name: 'Free',
     id: '0',
-    href: '/dashboard',
+    href: '/onboarding',
     price: { '1': '$0', '2': '$0' },
     description: `Get started with AI copywriting at no cost.`,
     features: [
@@ -101,13 +101,25 @@ export default function Pricing() {
       <ShootingStars />
       <div className="z-10 w-full max-w-7xl text-center p-3 md:p-12 mt-16">
         <NavbarDemo />
-        <div className="w-full lg:w-auto mx-auto max-w-4xl lg:text-center mt-10">
-          <h1 className="text-black dark:text-white text-4xl font-semibold max-w-xs sm:max-w-none md:text-4xl !leading-tight">
-            Unlock the Power of AI-Driven Copywriting with Flexible Plans to Suit Every Need
-          </h1>
-        </div>
+          <div className="w-full lg:w-auto mx-auto max-w-4xl lg:text-center mt-10 pt-24">
+            <h1 className="text-4xl md:text-4xl mb-7 font-bold !leading-tight">
+              In celebration of our launch, we have decided to offer our services completely free for 7 days!
+            </h1>
+          </div>
 
-        {frequencies.length > 1 ? (
+          <div className="w-full lg:w-auto mx-auto max-w-4xl lg:text-center mt-10 py-6 h-64">
+            <a
+              href={tiers[0].href}
+              aria-describedby={tiers[0].id}
+              className='mt-10 shadow-sm'>
+              <button className='gradient-button text-white font-semibold rounded-lg shadow-md transition duration-300 text-3xl'>
+                {tiers[0].cta}
+              </button>
+            </a>
+          </div>
+          
+
+        {/*    {frequencies.length > 1 ? (
           <div className="mt-10 flex justify-center">
             <div
               role="radiogroup"
@@ -152,14 +164,12 @@ export default function Pricing() {
         ) : (
           <div className="mt-12" aria-hidden="true"></div>
         )}
-
-        <div
+       <div
           className={cn(
             'isolate mx-auto mt-6 mb-28 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none select-none',
             tiers.length === 2 ? 'lg:grid-cols-2' : '',
             tiers.length === 3 ? 'lg:grid-cols-3' : '',
-          )}
-        >
+          )}>
           {tiers.map((tier) => (
             <div
               key={tier.id}
@@ -217,7 +227,7 @@ export default function Pricing() {
               </ul>
             </div>
           ))}
-        </div>
+        </div> */}
       </div>
       <Footer />
     </main>
