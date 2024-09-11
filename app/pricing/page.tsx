@@ -1,4 +1,5 @@
 "use client";
+import getStripe from "@/utils/get-stripe";
 import { useState } from "react";
 import styles from './pricing.module.css'
 import { ShootingStars } from "@/components/ui/shooting-stars";
@@ -87,10 +88,15 @@ const CheckIcon = ({ className }: { className?: string }) => {
       />
     </svg>
   );
-}; 
+};
 
+<<<<<<< Updated upstream
  const cn = (...args: Array<string | boolean | undefined | null>) =>
   args.filter(Boolean).join(' '); 
+=======
+const cn = (...args: Array<string | boolean | undefined | null>) =>
+  args.filter(Boolean).join(' ');
+>>>>>>> Stashed changes
 
 export default function Pricing() {
 
@@ -132,6 +138,7 @@ export default function Pricing() {
                   >
                     {option.label}
 
+<<<<<<< Updated upstream
                     <button
                       value={option.value}
                       id={option.value}
@@ -149,6 +156,68 @@ export default function Pricing() {
                       {option.label}
                     </button>
                   </label>
+=======
+        <div
+          className={cn(
+            'isolate mx-auto mt-6 mb-28 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none select-none',
+            tiers.length === 2 ? 'lg:grid-cols-2' : '',
+            tiers.length === 3 ? 'lg:grid-cols-3' : '',
+          )}
+        >
+          {tiers.map((tier) => (
+            <div
+              key={tier.id}
+              className='bg-white dark:bg-gray-900/40 ring-gray-800/70 dark:ring-gray-500 max-w-lg ring-1 rounded-3xl p-8 xl:p-10 hover:bg-slate-700'>
+              <h3
+                id={tier.id}
+                className='text-3xl font-bold tracking-tight'
+              >
+                {tier.name}
+              </h3>
+              <p
+                className='text-gray-700 dark:text-gray-300 mt-6 text-base leading-6 text-center'
+              >
+                {tier.description}
+              </p>
+              <p className="mt-6 flex items-baseline gap-x-2">
+                <span
+                  className='text-black dark:text-white text-4xl font-bold tracking-tight'
+                >
+                  {typeof tier.price === 'string'
+                    ? tier.price
+                    : tier.price[frequency.value]}
+                </span>
+                {typeof tier.price !== 'string' ? (
+                  <span className='text-sm font-semibold leading-6'>
+                    {frequency.priceSuffix}
+                  </span>
+                ) : null}
+              </p>
+              <a
+                href={tier.href}
+                aria-describedby={tier.id}
+                className='flex mt-10 shadow-sm' >
+                <button
+                  className='w-full inline-flex items-center justify-center font-medium ring-offset-background
+                    dark:md:hover:bg-fuchsia-800 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+                    disabled:pointer-events-none disabled:opacity-50 text-black dark:text-white h-12 rounded-md px-6 sm:px-10 text-md
+                   dark:bg-gray-900 border border border-white/16 rounded-xl'
+                >
+                  {tier.cta}
+                </button>
+              </a>
+              <ul
+                className='mt-8 space-y-3 text-base leading-6 xl:mt-10 text-gray-700 dark:text-gray-400'
+              >
+                {tier.features.map((feature) => (
+                  <li key={feature} className="flex gap-x-2 text-left">
+                    <CheckIcon
+                      className='text-slate-500 h-6 w-5 flex-none'
+                      aria-hidden="true"
+                    />
+                    {feature}
+                  </li>
+>>>>>>> Stashed changes
                 ))}
               </div>
             </div>
