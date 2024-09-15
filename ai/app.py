@@ -35,9 +35,12 @@ class GenerateRequest(BaseModel):
 async def generate_text(request: GenerateRequest):
     # Construct the final prompt based on user inputs
     boilerplate_prompt = f"""
-    Write a copy for the purpose of {request.format} in a {request.tone} tone. Make it in a proper format and make heading and brand name bold.
+    Write a copy for the purpose of {request.format} in a {request.tone} tone. 
     Here are some details about the product:
     - Product/Service: {request.prompt}
+
+    Please provide the email content directly without any additional introduction or notes. And the first line of content is always the heading.
+    Subject from 2nd line.
     """
 
     headers = {
