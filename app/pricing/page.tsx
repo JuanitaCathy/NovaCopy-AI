@@ -1,7 +1,7 @@
 "use client";
 import getStripe from "@/utils/get-stripe";
 import { useState } from "react";
-import styles from './pricing.module.css'
+import './pricing.module.css'
 import { ShootingStars } from "@/components/ui/shooting-stars";
 import { StarsBackground } from "@/components/ui/stars-background";
 import NavbarDemo from "@/components/Header";
@@ -94,7 +94,7 @@ const CheckIcon = ({ className }: { className?: string }) => {
   args.filter(Boolean).join(' ');
 
 export default function Pricing() {
-  const handleSubmit = async (amount) => {
+  const handleSubmit = async (amount: string) => {
     const checkoutSession = await fetch("/api/checkout_session", {
       method: "POST",
       headers: {
@@ -106,8 +106,8 @@ export default function Pricing() {
     console.log(checkoutSession);
     const checkoutSessionJson = await checkoutSession.json();
 
-    if (checkoutSession.statusCode === 500) {
-      console.error(checkoutSession.message);
+    if (checkoutSession.status === 500) {
+      console.error(checkoutSession.statusText);
       return;
     }
 
@@ -177,6 +177,7 @@ export default function Pricing() {
                     </button>
                   </label>
                 ))}
+
               </div>
             </div>
           ) : (
@@ -220,19 +221,16 @@ export default function Pricing() {
                     </span>
                   ) : null}
                 </p>
-                <a
-                  href={tier.href}
-                  aria-describedby={tier.id}
-                  className='flex mt-10 shadow-sm' >
-                  <button
-                    className='w-full inline-flex items-center justify-center font-medium ring-offset-background
-                      dark:md:hover:bg-fuchsia-800 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
-                      disabled:pointer-events-none disabled:opacity-50 text-black dark:text-white h-12 rounded-md px-6 sm:px-10 text-md
-                     dark:bg-gray-900 border border border-white/16 rounded-xl'
-                  >
-                    {tier.cta}
-                  </button>
-                </a>
+                <button
+                  className='w-full inline-flex items-center justify-center font-medium ring-offset-background
+                    dark:md:hover:bg-fuchsia-800 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
+                    disabled:pointer-events-none disabled:opacity-50 text-black dark:text-white h-12 rounded-md px-6 sm:px-10 text-md
+                    dark:bg-gray-900 border border border-white/16 rounded-xl'
+                  onClick={() => handleSubmit((tier.price as Record<string, string>)[frequency.value])}
+                >
+                  {tier.cta}
+                </button>
+            {/* ))} */}
 
                 <ul
                   className='mt-8 space-y-3 text-base leading-6 xl:mt-10 text-gray-700 dark:text-gray-400'
