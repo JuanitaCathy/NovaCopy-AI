@@ -48,7 +48,7 @@ export const tiers: PricingTier[] = [
     name: 'Basic 🎉',
     id: '1',
     href: '/dashboard', // sign-up form
-    price: { '1': '$0', '2': '$0' },
+    price: { '1': '$3.99', '2': '$49.99' },
     description: `Ideal for small businesses looking to level up their content.`,
     features: [
       `Access to all basic writing tools`,
@@ -61,7 +61,7 @@ export const tiers: PricingTier[] = [
     name: 'Custom 🎉',
     id: '2',
     href: '/contact-us', // sign-up form
-    price: { '1': '$0', '2': '$0' },
+    price: { '1': '$14.99', '2': '$179.88' },
     description: `Tailored solutions for enterprises with specific needs. `,
     features: [
       `Custom tools and integrations`,
@@ -90,15 +90,36 @@ const CheckIcon = ({ className }: { className?: string }) => {
   );
 };
 
-<<<<<<< Updated upstream
  const cn = (...args: Array<string | boolean | undefined | null>) =>
-  args.filter(Boolean).join(' '); 
-=======
-const cn = (...args: Array<string | boolean | undefined | null>) =>
   args.filter(Boolean).join(' ');
->>>>>>> Stashed changes
 
 export default function Pricing() {
+  const handleSubmit = async (amount) => {
+    const checkoutSession = await fetch("/api/checkout_session", {
+      method: "POST",
+      headers: {
+        origin: "http://localhost:3000",
+      },
+      body: JSON.stringify({ amount })
+    });
+
+    console.log(checkoutSession);
+    const checkoutSessionJson = await checkoutSession.json();
+
+    if (checkoutSession.statusCode === 500) {
+      console.error(checkoutSession.message);
+      return;
+    }
+
+    const stripe = await getStripe();
+    const { error } = await stripe.redirectToCheckout({
+      sessionId: checkoutSessionJson.id,
+    });
+
+    if (error) {
+      console.warn(error.message);
+    }
+  };
 
   const [frequency, setFrequency] = useState(frequencies[0]);
 
@@ -138,7 +159,6 @@ export default function Pricing() {
                   >
                     {option.label}
 
-<<<<<<< Updated upstream
                     <button
                       value={option.value}
                       id={option.value}
@@ -156,68 +176,6 @@ export default function Pricing() {
                       {option.label}
                     </button>
                   </label>
-=======
-        <div
-          className={cn(
-            'isolate mx-auto mt-6 mb-28 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none select-none',
-            tiers.length === 2 ? 'lg:grid-cols-2' : '',
-            tiers.length === 3 ? 'lg:grid-cols-3' : '',
-          )}
-        >
-          {tiers.map((tier) => (
-            <div
-              key={tier.id}
-              className='bg-white dark:bg-gray-900/40 ring-gray-800/70 dark:ring-gray-500 max-w-lg ring-1 rounded-3xl p-8 xl:p-10 hover:bg-slate-700'>
-              <h3
-                id={tier.id}
-                className='text-3xl font-bold tracking-tight'
-              >
-                {tier.name}
-              </h3>
-              <p
-                className='text-gray-700 dark:text-gray-300 mt-6 text-base leading-6 text-center'
-              >
-                {tier.description}
-              </p>
-              <p className="mt-6 flex items-baseline gap-x-2">
-                <span
-                  className='text-black dark:text-white text-4xl font-bold tracking-tight'
-                >
-                  {typeof tier.price === 'string'
-                    ? tier.price
-                    : tier.price[frequency.value]}
-                </span>
-                {typeof tier.price !== 'string' ? (
-                  <span className='text-sm font-semibold leading-6'>
-                    {frequency.priceSuffix}
-                  </span>
-                ) : null}
-              </p>
-              <a
-                href={tier.href}
-                aria-describedby={tier.id}
-                className='flex mt-10 shadow-sm' >
-                <button
-                  className='w-full inline-flex items-center justify-center font-medium ring-offset-background
-                    dark:md:hover:bg-fuchsia-800 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
-                    disabled:pointer-events-none disabled:opacity-50 text-black dark:text-white h-12 rounded-md px-6 sm:px-10 text-md
-                   dark:bg-gray-900 border border border-white/16 rounded-xl'
-                >
-                  {tier.cta}
-                </button>
-              </a>
-              <ul
-                className='mt-8 space-y-3 text-base leading-6 xl:mt-10 text-gray-700 dark:text-gray-400'
-              >
-                {tier.features.map((feature) => (
-                  <li key={feature} className="flex gap-x-2 text-left">
-                    <CheckIcon
-                      className='text-slate-500 h-6 w-5 flex-none'
-                      aria-hidden="true"
-                    />
-                    {feature}
-                  </li>
->>>>>>> Stashed changes
                 ))}
               </div>
             </div>
@@ -243,7 +201,7 @@ export default function Pricing() {
                   {tier.name}
                 </h3>
                 <p
-                  className='text-gray-700 dark:text-gray-300 mt-6 text-base leading-6 text-center' 
+                  className='text-gray-700 dark:text-gray-300 mt-6 text-base leading-6 text-center'
                 >
                   {tier.description}
                 </p>
@@ -267,8 +225,8 @@ export default function Pricing() {
                   aria-describedby={tier.id}
                   className='flex mt-10 shadow-sm' >
                   <button
-                    className='w-full inline-flex items-center justify-center font-medium ring-offset-background 
-                      dark:md:hover:bg-fuchsia-800 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 
+                    className='w-full inline-flex items-center justify-center font-medium ring-offset-background
+                      dark:md:hover:bg-fuchsia-800 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
                       disabled:pointer-events-none disabled:opacity-50 text-black dark:text-white h-12 rounded-md px-6 sm:px-10 text-md
                      dark:bg-gray-900 border border border-white/16 rounded-xl'
                   >
