@@ -93,23 +93,26 @@ const CheckIcon = ({ className }: { className?: string }) => {
  const cn = (...args: Array<string | boolean | undefined | null>) =>
   args.filter(Boolean).join(' ');
 
-export default function Pricing() {
-  const handleSubmit = async (amount: string) => {
+ export default function Pricing() {
+  const [frequency, setFrequency] = useState(frequencies[0]);
+  const handleSubmit = async (amount: number, subscriptionType: string) => {
+
+    try {
     const checkoutSession = await fetch("/api/checkout_session", {
       method: "POST",
       headers: {
-        origin: "http://localhost:3000",
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify({ amount })
+      body: JSON.stringify({ amount, subscriptionType }),
     });
 
-    console.log(checkoutSession);
-    const checkoutSessionJson = await checkoutSession.json();
-
-    if (checkoutSession.status === 500) {
-      console.error(checkoutSession.statusText);
+    if (!checkoutSession.ok) {
+      const errorText = await checkoutSession.text();
+      console.error("Error response from server: ", errorText);
       return;
     }
+
+    const checkoutSessionJson = await checkoutSession.json();
 
     const stripe = await getStripe();
     const { error } = await stripe.redirectToCheckout({
@@ -119,9 +122,10 @@ export default function Pricing() {
     if (error) {
       console.warn(error.message);
     }
+  } catch (error) {
+    console.error("Error in handleSubmit: ", error);
   };
-
-  const [frequency, setFrequency] = useState(frequencies[0]);
+}
 
   return (
     <main className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center">
@@ -129,126 +133,106 @@ export default function Pricing() {
       <StarsBackground />
       <ShootingStars />
       <div className="z-10 w-full max-w-7xl text-center p-3 md:p-12 mt-16">
-      <NavbarDemo />
-      <div className="w-full lg:w-auto mx-auto max-w-4xl lg:text-center mt-10">
-            <h1 className="text-black dark:text-white text-4xl font-semibold max-w-xs sm:max-w-none md:text-4xl !leading-tight">
+        <NavbarDemo />
+        <div className="w-full lg:w-auto mx-auto max-w-4xl lg:text-center mt-10">
+          <h1 className="text-black dark:text-white text-4xl font-semibold max-w-xs sm:max-w-none md:text-4xl !leading-tight">
             In celebration of our launch, we've decided to offer our services completely free for 7 days!🎉
-            </h1>
+          </h1>
         </div>
 
-        {frequencies.length > 1 ? (
-            <div className="mt-10 flex justify-center">
-              <div
-                role="radiogroup"
-                className="grid gap-x-1 rounded-full p-1 text-center text-sm font-semibold leading-5 bg-white dark:bg-slate-900 ring-2 ring-inset ring-gray-200/30 dark:ring-gray-500"
-                style={{
-                  gridTemplateColumns: `repeat(${frequencies.length}, minmax(0, 1fr))`,
-                }}
-              >
-                <p className="sr-only">Payment frequency</p>
-                {frequencies.map((option) => (
-                  <label
-                    className={cn(
-                      frequency.value === option.value
+        {/* Frequency Selection */}
+        {frequencies.length > 1 && (
+          <div className="mt-10 flex justify-center">
+            <div
+              role="radiogroup"
+              className="grid gap-x-1 rounded-full p-1 text-center text-sm font-semibold leading-5 bg-white dark:bg-slate-900 ring-2 ring-inset ring-gray-200/30 dark:ring-gray-500"
+              style={{
+                gridTemplateColumns: `repeat(${frequencies.length}, minmax(0, 1fr))`,
+              }}
+            >
+              <p className="sr-only">Payment frequency</p>
+              {frequencies.map((option) => (
+                <label
+                  className={cn(
+                    frequency.value === option.value
                       ? 'bg-slate-700/90 text-white dark:bg-fuchsia-600 dark:text-white/90'
                       : 'text-gray-400 hover:bg-fuchsia-300',
-                      'cursor-pointer rounded-full px-3 py-2 transition-all',
-                    )}
-                    key={option.value}
-                    htmlFor={option.value}
+                    'cursor-pointer rounded-full px-3 py-2 transition-all',
+                  )}
+                  key={option.value}
+                  htmlFor={option.value}
+                >
+                  {option.label}
+
+                  <button
+                    value={option.value}
+                    id={option.value}
+                    className="hidden"
+                    role="radio"
+                    aria-checked={frequency.value === option.value}
+                    onClick={() => setFrequency(option)}
                   >
                     {option.label}
-
-                    <button
-                      value={option.value}
-                      id={option.value}
-                      className="hidden"
-                      role="radio"
-                      aria-checked={frequency.value === option.value}
-                      onClick={() => {
-                        setFrequency(
-                          frequencies.find(
-                            (f) => f.value === option.value,
-                          ) as PricingTierFrequency,
-                        );
-                      }}
-                    >
-                      {option.label}
-                    </button>
-                  </label>
-                ))}
-
-              </div>
+                  </button>
+                </label>
+              ))}
             </div>
-          ) : (
-            <div className="mt-12" aria-hidden="true"></div>
-      )}
-
-          <div
-            className={cn(
-              'isolate mx-auto mt-6 mb-28 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none select-none',
-              tiers.length === 2 ? 'lg:grid-cols-2' : '',
-              tiers.length === 3 ? 'lg:grid-cols-3' : '',
-            )}
-          >
-            {tiers.map((tier) => (
-              <div
-                key={tier.id}
-                className='bg-white dark:bg-gray-900/40 ring-gray-800/70 dark:ring-gray-500 max-w-lg ring-1 rounded-3xl p-8 xl:p-10 hover:bg-slate-700'>
-                <h3
-                  id={tier.id}
-                  className='text-3xl font-bold tracking-tight'
-                >
-                  {tier.name}
-                </h3>
-                <p
-                  className='text-gray-700 dark:text-gray-300 mt-6 text-base leading-6 text-center'
-                >
-                  {tier.description}
-                </p>
-                <p className="mt-6 flex items-baseline gap-x-2">
-                  <span
-                    className='text-black dark:text-white text-4xl font-bold tracking-tight'
-                  >
-                    {typeof tier.price === 'string'
-                      ? tier.price
-                      : tier.price[frequency.value]}
-                  </span>
-
-                  {typeof tier.price !== 'string' ? (
-                    <span className='text-sm font-semibold leading-6'>
-                      {frequency.priceSuffix}
-                    </span>
-                  ) : null}
-                </p>
-                <button
-                  className='w-full inline-flex items-center justify-center font-medium ring-offset-background
-                    dark:md:hover:bg-fuchsia-800 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2
-                    disabled:pointer-events-none disabled:opacity-50 text-black dark:text-white h-12 rounded-md px-6 sm:px-10 text-md
-                    dark:bg-gray-900 border border border-white/16 rounded-xl'
-                  onClick={() => handleSubmit((tier.price as Record<string, string>)[frequency.value])}
-                >
-                  {tier.cta}
-                </button>
-            {/* ))} */}
-
-                <ul
-                  className='mt-8 space-y-3 text-base leading-6 xl:mt-10 text-gray-700 dark:text-gray-400'
-
-                >
-                  {tier.features.map((feature) => (
-                    <li key={feature} className="flex gap-x-2 text-left">
-                      <CheckIcon
-                        className='text-slate-500 h-6 w-5 flex-none'
-                        aria-hidden="true"
-                      />
-                      {feature}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
           </div>
+        )}
+
+        {/* Pricing Tiers */}
+        <div
+          className={cn(
+            'isolate mx-auto mt-6 mb-28 grid max-w-md grid-cols-1 gap-8 lg:mx-0 lg:max-w-none select-none',
+            tiers.length === 2 ? 'lg:grid-cols-2' : '',
+            tiers.length === 3 ? 'lg:grid-cols-3' : '',
+          )}
+        >
+          {tiers.map((tier) => (
+            <div
+              key={tier.id}
+              className='bg-white dark:bg-gray-900/40 ring-gray-800/70 dark:ring-gray-500 max-w-lg ring-1 rounded-3xl p-8 xl:p-10 hover:bg-slate-700'>
+              <h3 id={tier.id} className='text-3xl font-bold tracking-tight'>
+                {tier.name}
+              </h3>
+              <p className='text-gray-700 dark:text-gray-300 mt-6 text-base leading-6 text-center'>
+                {tier.description}
+              </p>
+              <p className="mt-6 flex items-baseline gap-x-2">
+                <span className='text-black dark:text-white text-4xl font-bold tracking-tight'>
+                  {typeof tier.price === 'string'
+                    ? tier.price
+                    : tier.price[frequency.value]}
+                </span>
+                {typeof tier.price !== 'string' ? (
+                  <span className='text-sm font-semibold leading-6'>
+                    {frequency.priceSuffix}
+                  </span>
+                ) : null}
+              </p>
+              <button
+                className='w-full inline-flex items-center justify-center font-medium ring-offset-background dark:md:hover:bg-fuchsia-800 transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 text-black dark:text-white h-12 rounded-md px-6 sm:px-10 text-md dark:bg-gray-900 border border border-white/16 rounded-xl'
+                onClick={() =>
+                  handleSubmit(
+                    parseFloat((tier.price as Record<string, string>)[frequency.value]),
+                    frequency.label.toLowerCase(),
+                  )
+                }
+              >
+                {tier.cta}
+              </button>
+
+              <ul className='mt-8 space-y-3 text-base leading-6 xl:mt-10 text-gray-700 dark:text-gray-400'>
+                {tier.features.map((feature) => (
+                  <li key={feature} className="flex gap-x-2 text-left">
+                    <CheckIcon className='text-slate-500 h-6 w-5 flex-none' aria-hidden="true" />
+                    {feature}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
+        </div>
       </div>
       <Footer />
     </main>

@@ -4,41 +4,30 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 const formatAmountForStripe = (amount) => {
-  return Math.round(amount * 100);
+  return Math.round(amount * 100); // Stripe expects amounts in cents
 };
-
-export async function GET(req) {
-  const searchParams = req.nextUrl.searchParams
-  const session_id = searchParams.get('session_id')
-
-  try {
-    const checkoutSession = await stripe.checkout.sessions.retrieve(session_id)
-    return NextResponse.json(checkoutSession)
-  } catch(error) {
-    console.error('error retrieving checkout session:', error)
-    return NextResponse.json({error: {message: error.message}}, {status: 500})
-  }
-}
 
 export async function POST(req) {
   const { amount, subscriptionType } = await req.json();
 
   let subscriptionName;
-  let interval = "month"
-  let unitAmount;
+  let interval = subscriptionType === 'annually' ? 'year' : 'month';
+  let unitAmount = formatAmountForStripe(amount);
 
   switch (amount) {
     case 0:
       subscriptionName = "Free Subscription";
       break;
     case 3.99:
-      subscriptionName = subscriptionType == annual ? "Basic Annual Subscription" : "Basic Subscription";
-      unitAmount = subscriptionType == annual ? 49.99 : 3.99;
+      subscriptionName = subscriptionType === 'annually' ? "Basic Annual Subscription" : "Basic Monthly Subscription";
+      unitAmount = subscriptionType === 'annually' ? formatAmountForStripe(49.99) : formatAmountForStripe(3.99);
       break;
     case 14.99:
-      subscriptionName = subscriptionType == annual ? "Custom Annual Subscription" : "Custom Subscription";
-      unitAmount = subscriptionType == annual ? 179.88 : 14.99;
+      subscriptionName = subscriptionType === 'annually' ? "Custom Annual Subscription" : "Custom Monthly Subscription";
+      unitAmount = subscriptionType === 'annually' ? formatAmountForStripe(179.88) : formatAmountForStripe(14.99);
       break;
+    default:
+      return NextResponse.json({ error: { message: 'Invalid amount' } }, { status: 400 });
   }
 
   const params = {
@@ -51,25 +40,24 @@ export async function POST(req) {
           product_data: {
             name: subscriptionName,
           },
-          unit_amount: formatAmountForStripe(amount),
+          unit_amount: unitAmount,
           recurring: {
-            interval: annual ? "annual" : "month",
+            interval: interval,
             interval_count: 1,
           },
         },
         quantity: 1,
       },
     ],
-    success_url: `${req.headers.get(
-      'origin',
-    )}/result?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${req.headers.get(
-      'origin',
-    )}/result?session_id={CHECKOUT_SESSION_ID}`,
+    success_url: `${req.headers.get('origin')}/result?session_id={CHECKOUT_SESSION_ID}`,
+    cancel_url: `${req.headers.get('origin')}/result?session_id={CHECKOUT_SESSION_ID}`,
   };
-  const checkoutSession = await stripe.checkout.sessions.create(params);
 
-  return NextResponse.json(checkoutSession, {
-    status: 200,
-  });
+  try {
+    const checkoutSession = await stripe.checkout.sessions.create(params);
+    return NextResponse.json(checkoutSession, { status: 200 });
+  } catch (error) {
+    console.error('Error creating checkout session:', error);
+    return NextResponse.json({ error: { message: error.message } }, { status: 500 });
+  }
 }
